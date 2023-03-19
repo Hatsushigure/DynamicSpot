@@ -3,11 +3,12 @@ cmake_minimum_required(VERSION 3.16)
 project(DynamicSpot VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Qt6 6.2 COMPONENTS Quick REQUIRED)
-find_package(Qt6 6.2 COMPONENTS REQUIRED Widgets)
-find_package(Qt6 6.2 COMPONENTS REQUIRED QuickWidgets)
+find_package(Qt6 COMPONENTS REQUIRED Widgets)
+find_package(Qt6 COMPONENTS REQUIRED QuickWidgets)
 
 qt_add_executable(appDynamicSpot
     main.cpp
@@ -19,12 +20,16 @@ qt_add_executable(appDynamicSpot
     MyMainWindow.cpp
     MyAutoColorHelper.h
     MyAutoColorHelper.cpp
+    res.qrc
 )
 
 qt_add_qml_module(appDynamicSpot
     URI DynamicSpot
     VERSION 1.0
-    QML_FILES MyMainWindow.qml TimeBanner.qml CountDown.qml
+    QML_FILES
+	MyMainWindow.qml
+	TimeBanner.qml
+	CountDown.qml
 )
 
 set_target_properties(appDynamicSpot PROPERTIES

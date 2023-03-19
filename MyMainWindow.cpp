@@ -11,7 +11,7 @@ MyMainWindow::MyMainWindow(QWidget *parent) :
 	resize(800, 600);
 	setAttribute(Qt::WA_TranslucentBackground);
 	setAttribute(Qt::WA_TransparentForMouseEvents);
-	setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
+	setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint | Qt::Tool);
 	initView();
 	initItem();
 	initTimer();

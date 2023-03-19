@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/DynamicSpot">
+        <file>images/icons/avatar/avatar - 32.png</file>
+        <file>images/icons/avatar/avatar - 48.png</file>
+        <file>images/icons/avatar/avatar - 64.png</file>
+        <file>images/icons/avatar/avatar - 96.png</file>
+        <file>images/icons/avatar/avatar - 128.png</file>
+        <file>images/icons/avatar/avatar - 144.png</file>
+        <file>images/icons/avatar/avatar - 256.png</file>
+    </qresource>
+</RCC>
