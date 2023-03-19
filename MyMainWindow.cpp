@@ -8,13 +8,13 @@
 MyMainWindow::MyMainWindow(QWidget *parent) :
 	QQuickWidget(parent)
 {
-	resize(800, 600);
 	setAttribute(Qt::WA_TranslucentBackground);
 	setAttribute(Qt::WA_TransparentForMouseEvents);
 	setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint | Qt::Tool);
 	initView();
 	initItem();
 	initTimer();
+	adjustGeometry();
 }
 
 void MyMainWindow::adjustGeometry()

@@ -8,7 +8,7 @@ Rectangle {
 	id: root
 	width: Math.max(container.width, container.height) + radius
 	radius: Math.max(container.height, container.width)
-	color: "#4d000000"
+	color: "#1a000000"
 	state: "showShort"
 	states: [
 		State {
@@ -61,7 +61,7 @@ Rectangle {
 
 			SequentialAnimation {
 				NumberAnimation {target: shortLabel; duration: 300; property: "opacity"}
-				NumberAnimation {target: root; duration: 300; property: "radius"}
+				NumberAnimation {target: root; duration: 200; property: "radius"; easing.type: Easing.OutExpo}
 				NumberAnimation {target: container; easing.overshoot: 1.5; easing.type: Easing.OutBack; duration: 600; properties: "width, height"}
 				NumberAnimation {target: fullLabel; duration: 300; property: "opacity"}
 			}
@@ -72,8 +72,8 @@ Rectangle {
 
 			SequentialAnimation {
 				NumberAnimation {target: fullLabel; duration: 300; property: "opacity"}
-				NumberAnimation {target: container; easing.overshoot: 1.5; easing.type: Easing.OutBack; duration: 500; properties: "width, height"}
-				NumberAnimation {target: root; duration: 300; property: "radius"}
+				NumberAnimation {target: container; easing.overshoot: 1.5; easing.type: Easing.OutExpo; duration: 500; properties: "width, height"}
+				NumberAnimation {target: root; duration: 200; property: "radius"; easing.type: Easing.OutExpo}
 				NumberAnimation {target: shortLabel; duration: 300; property: "opacity"}
 			}
 		}
@@ -106,11 +106,11 @@ Rectangle {
 
 	Timer {
 		id: stateChangeTimer
-		interval: (Math.random() % 10 + 10) * 1000
+		interval: (Math.random() % 5 + 5) * 1000 * 60
 		running: true
 		repeat: true
 		onTriggered: {
-			interval = (Math.random() % 10 + 10) * 1000
+			interval = (Math.random() % 5 + 5) * 1000 * 60
 			root.state = (root.state === "showShort" ? "showFull" : "showShort")
 		}
 	}

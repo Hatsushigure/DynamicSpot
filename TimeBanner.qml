@@ -9,8 +9,8 @@ Rectangle {
 	id: root
 	width: container.width + radius
 	radius: 12
-	color: "#4d000000"
-	state: "showSlogan"
+	color: "#1a000000"
+	state: "showTime"
 	states: [
 		State {
 			name: "showTime"
@@ -107,10 +107,22 @@ Rectangle {
 	}
 
 	Timer {
-		id: stateChangeTimer
-		interval: 2000
+		id: showSloganTimer
+		interval: 60 * 1000
+		onTriggered: {
+			root.state = "showTime"
+			showTimeTimer.interval = (Math.random() % 10 + 10) * 1000 * 60
+			showTimeTimer.start()
+		}
+	}
+
+	Timer {
+		id: showTimeTimer
+		interval: (Math.random() % 10 + 10) * 1000 * 60
 		running: true
-		repeat: true
-		onTriggered: root.state = (root.state === "showTime" ? "showSlogan" : "showTime")
+		onTriggered: {
+			root.state = "showSlogan"
+			showSloganTimer.start()
+		}
 	}
 }
