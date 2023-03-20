@@ -60,10 +60,10 @@ Rectangle {
 			to: "showFull"
 
 			SequentialAnimation {
-				NumberAnimation {target: shortLabel; duration: 300; property: "opacity"}
-				NumberAnimation {target: root; duration: 200; property: "radius"; easing.type: Easing.OutExpo}
-				NumberAnimation {target: container; easing.overshoot: 1.5; easing.type: Easing.OutBack; duration: 600; properties: "width, height"}
-				NumberAnimation {target: fullLabel; duration: 300; property: "opacity"}
+				NumberAnimation {target: shortLabel; duration: 250; property: "opacity"}
+				NumberAnimation {target: root; duration: 250; property: "radius"; easing.type: Easing.OutExpo}
+				NumberAnimation {target: container; easing.overshoot: 1.5; easing.type: Easing.OutBack; duration: 750; properties: "width, height"}
+				NumberAnimation {target: fullLabel; duration: 250; property: "opacity"}
 			}
 		},
 		Transition {
@@ -71,16 +71,16 @@ Rectangle {
 			to: "showShort"
 
 			SequentialAnimation {
-				NumberAnimation {target: fullLabel; duration: 300; property: "opacity"}
-				NumberAnimation {target: container; easing.overshoot: 1.5; easing.type: Easing.OutExpo; duration: 500; properties: "width, height"}
-				NumberAnimation {target: root; duration: 200; property: "radius"; easing.type: Easing.OutExpo}
-				NumberAnimation {target: shortLabel; duration: 300; property: "opacity"}
+				NumberAnimation {target: fullLabel; duration: 250; property: "opacity"}
+				NumberAnimation {target: container; easing.overshoot: 1.5; easing.type: Easing.OutExpo; duration: 750; properties: "width, height"}
+				NumberAnimation {target: root; duration: 250; property: "radius"; easing.type: Easing.OutExpo}
+				NumberAnimation {target: shortLabel; duration: 250; property: "opacity"}
 			}
 		}
 	]
 
 	Behavior on textColor {
-		PropertyAnimation {target: root; property: "textColor"; duration: 500}
+		PropertyAnimation {target: root; property: "textColor"; duration: 250}
 	}
 
 	Item {
