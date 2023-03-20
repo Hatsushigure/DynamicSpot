@@ -8,7 +8,7 @@ Rectangle {
 	id: root
 	width: Math.max(container.width, container.height) + radius
 	radius: Math.max(container.height, container.width)
-	color: "#1a000000"
+	color: "#4d000000"
 	state: "showShort"
 	states: [
 		State {
@@ -60,10 +60,10 @@ Rectangle {
 			to: "showFull"
 
 			SequentialAnimation {
-				NumberAnimation {target: shortLabel; duration: 300; property: "opacity"}
-				NumberAnimation {target: root; duration: 200; property: "radius"; easing.type: Easing.OutExpo}
-				NumberAnimation {target: container; easing.overshoot: 1.5; easing.type: Easing.OutBack; duration: 600; properties: "width, height"}
-				NumberAnimation {target: fullLabel; duration: 300; property: "opacity"}
+				NumberAnimation {target: shortLabel; duration: 250; property: "opacity"}
+				NumberAnimation {target: root; duration: 250; property: "radius"; easing.type: Easing.OutExpo}
+				NumberAnimation {target: container; easing.overshoot: 1.5; easing.type: Easing.OutBack; duration: 750; properties: "width, height"}
+				NumberAnimation {target: fullLabel; duration: 250; property: "opacity"}
 			}
 		},
 		Transition {
@@ -71,16 +71,16 @@ Rectangle {
 			to: "showShort"
 
 			SequentialAnimation {
-				NumberAnimation {target: fullLabel; duration: 300; property: "opacity"}
-				NumberAnimation {target: container; easing.overshoot: 1.5; easing.type: Easing.OutExpo; duration: 500; properties: "width, height"}
-				NumberAnimation {target: root; duration: 200; property: "radius"; easing.type: Easing.OutExpo}
-				NumberAnimation {target: shortLabel; duration: 300; property: "opacity"}
+				NumberAnimation {target: fullLabel; duration: 250; property: "opacity"}
+				NumberAnimation {target: container; easing.overshoot: 1.5; easing.type: Easing.OutExpo; duration: 750; properties: "width, height"}
+				NumberAnimation {target: root; duration: 250; property: "radius"; easing.type: Easing.OutExpo}
+				NumberAnimation {target: shortLabel; duration: 250; property: "opacity"}
 			}
 		}
 	]
 
 	Behavior on textColor {
-		PropertyAnimation {target: root; property: "textColor"; duration: 500}
+		PropertyAnimation {target: root; property: "textColor"; duration: 250}
 	}
 
 	Item {
@@ -93,14 +93,14 @@ Rectangle {
 			color: root.textColor
 			textFormat: Text.MarkdownText
 			text: "<span style=\"color: red; font-weight: bold\">" + daysLeft + "</span>"
-			font.pointSize: 24
+			font.pointSize: 32
 		}
 		Text {
 			id: fullLabel
 			color: root.textColor
 			textFormat: Text.MarkdownText
 			text: "距离高考仅剩 <span style=\"color: red; font-weight: bold\">" + daysLeft + "</span> 天"
-			font.pointSize: 24
+			font.pointSize: 32
 		}
 	}
 
