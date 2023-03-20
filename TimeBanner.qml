@@ -53,9 +53,9 @@ Rectangle {
 			to: "showSlogan"
 
 			SequentialAnimation {
-				PropertyAnimation {target: timeLabel; duration: 300; property: "opacity"}
-				PropertyAnimation {target: container; easing.overshoot: 1.5; easing.type: Easing.OutBack; duration: 600; properties: "width, height"}
-				PropertyAnimation {target: sloganLabel; duration: 300; property: "opacity"}
+				PropertyAnimation {target: timeLabel; duration: 250; property: "opacity"}
+				PropertyAnimation {target: container; easing.overshoot: 1.5; easing.type: Easing.OutBack; duration: 750; properties: "width, height"}
+				PropertyAnimation {target: sloganLabel; duration: 250; property: "opacity"}
 			}
 		},
 		Transition {
@@ -63,15 +63,15 @@ Rectangle {
 			to: "showTime"
 
 			SequentialAnimation {
-				PropertyAnimation {target: sloganLabel; duration: 300; property: "opacity"}
-				PropertyAnimation {target: container; easing.overshoot: 1.5; easing.type: Easing.OutBack; duration: 500; properties: "width, height"}
-				PropertyAnimation {target: timeLabel; duration: 300; property: "opacity"}
+				PropertyAnimation {target: sloganLabel; duration: 250; property: "opacity"}
+				PropertyAnimation {target: container; easing.overshoot: 1.5; easing.type: Easing.OutBack; duration: 750; properties: "width, height"}
+				PropertyAnimation {target: timeLabel; duration: 250; property: "opacity"}
 			}
 		}
 	]
 
 	Behavior on textColor {
-		PropertyAnimation {target: root; property: "textColor"; duration: 500}
+		PropertyAnimation {target: root; property: "textColor"; duration: 250}
 	}
 
 	Item {
