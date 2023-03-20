@@ -9,7 +9,7 @@ Rectangle {
 	id: root
 	width: container.width + radius
 	radius: 12
-	color: "#1a000000"
+	color: "#4d000000"
 	state: "showTime"
 	states: [
 		State {
