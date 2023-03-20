@@ -9,7 +9,7 @@ Rectangle {
 	id: root
 	width: container.width + radius
 	radius: 12
-	color: "#1a000000"
+	color: "#4d000000"
 	state: "showTime"
 	states: [
 		State {
@@ -53,9 +53,9 @@ Rectangle {
 			to: "showSlogan"
 
 			SequentialAnimation {
-				PropertyAnimation {target: timeLabel; duration: 300; property: "opacity"}
-				PropertyAnimation {target: container; easing.overshoot: 1.5; easing.type: Easing.OutBack; duration: 600; properties: "width, height"}
-				PropertyAnimation {target: sloganLabel; duration: 300; property: "opacity"}
+				PropertyAnimation {target: timeLabel; duration: 250; property: "opacity"}
+				PropertyAnimation {target: container; easing.overshoot: 1.5; easing.type: Easing.OutBack; duration: 750; properties: "width, height"}
+				PropertyAnimation {target: sloganLabel; duration: 250; property: "opacity"}
 			}
 		},
 		Transition {
@@ -63,15 +63,15 @@ Rectangle {
 			to: "showTime"
 
 			SequentialAnimation {
-				PropertyAnimation {target: sloganLabel; duration: 300; property: "opacity"}
-				PropertyAnimation {target: container; easing.overshoot: 1.5; easing.type: Easing.OutBack; duration: 500; properties: "width, height"}
-				PropertyAnimation {target: timeLabel; duration: 300; property: "opacity"}
+				PropertyAnimation {target: sloganLabel; duration: 250; property: "opacity"}
+				PropertyAnimation {target: container; easing.overshoot: 1.5; easing.type: Easing.OutBack; duration: 750; properties: "width, height"}
+				PropertyAnimation {target: timeLabel; duration: 250; property: "opacity"}
 			}
 		}
 	]
 
 	Behavior on textColor {
-		PropertyAnimation {target: root; property: "textColor"; duration: 500}
+		PropertyAnimation {target: root; property: "textColor"; duration: 250}
 	}
 
 	Item {
@@ -85,7 +85,7 @@ Rectangle {
 			textFormat: Text.MarkdownText
 			color: root.textColor
 			text: "00:00:00"
-			font.pointSize: 24
+			font.pointSize: 32
 		}
 
 		Text {
@@ -93,8 +93,8 @@ Rectangle {
 			anchors.centerIn: container
 			textFormat: Text.MarkdownText
 			color: root.textColor
-			text: "平凡者做好，优秀者做好，卓越者做到极致"
-			font.pointSize: 24
+			text: "平凡者做完，优秀者做好，卓越者做到极致"
+			font.pointSize: 32
 		}
 	}
 
