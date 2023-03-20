@@ -93,7 +93,7 @@ Rectangle {
 			anchors.centerIn: container
 			textFormat: Text.MarkdownText
 			color: root.textColor
-			text: "平凡者做好，优秀者做好，卓越者做到极致"
+			text: "平凡者做完，优秀者做好，卓越者做到极致"
 			font.pointSize: 24
 		}
 	}
