@@ -8,7 +8,7 @@ Rectangle {
 	id: root
 	width: Math.max(container.width, container.height) + radius
 	radius: Math.max(container.height, container.width)
-	color: "#1a000000"
+	color: "#4d000000"
 	state: "showShort"
 	states: [
 		State {
