@@ -71,7 +71,7 @@ Rectangle {
 	]
 
 	Behavior on textColor {
-		PropertyAnimation {target: root; property: "textColor"; duration: 250}
+		PropertyAnimation {target: root; property: "textColor"; duration: 500}
 	}
 
 	Item {
@@ -85,7 +85,7 @@ Rectangle {
 			textFormat: Text.MarkdownText
 			color: root.textColor
 			text: "00:00:00"
-			font.pointSize: 32
+			font.pointSize: 26
 		}
 
 		Text {
@@ -94,7 +94,7 @@ Rectangle {
 			textFormat: Text.MarkdownText
 			color: root.textColor
 			text: "平凡者做完，优秀者做好，卓越者做到极致"
-			font.pointSize: 32
+			font.pointSize: 26
 		}
 	}
 
