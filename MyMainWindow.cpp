@@ -29,8 +29,13 @@ void MyMainWindow::adjustcolor()
 	QRect geometry(m_container->mapToGlobal(QPointF(0, 0)).toPoint(), m_container->size().toSize());
 	QColor col = MyAutoColorHelper::getColorFromGeometry(geometry, this->screen());
 	QColor reCol = MyAutoColorHelper::reverseColor(col);
-	m_timeBanner->setProperty("textColor", reCol);
-	m_countDown->setProperty("textColor", reCol);
+	int r = reCol.red(), g = reCol.green(), b = reCol.blue();
+	QColor newColor((r + 32) % 255,
+					(g + 32) % 255,
+					(b + 32) % 255
+				);
+	m_timeBanner->setProperty("textColor", newColor);
+	m_countDown->setProperty("textColor", newColor);
 }
 
 void MyMainWindow::initView()
@@ -55,7 +60,7 @@ void MyMainWindow::initItem()
 void MyMainWindow::initTimer()
 {
 	m_timerAdjustColor = new QTimer(this);
-	m_timerAdjustColor->setInterval(16);
+	m_timerAdjustColor->setInterval(500);
 	connect(m_timerAdjustColor, &QTimer::timeout, this, &MyMainWindow::adjustcolor);
 	m_timerAdjustColor->start();
 }

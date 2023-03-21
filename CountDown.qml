@@ -80,7 +80,7 @@ Rectangle {
 	]
 
 	Behavior on textColor {
-		PropertyAnimation {target: root; property: "textColor"; duration: 250}
+		PropertyAnimation {target: root; property: "textColor"; duration: 500}
 	}
 
 	Item {
@@ -93,14 +93,14 @@ Rectangle {
 			color: root.textColor
 			textFormat: Text.MarkdownText
 			text: "<span style=\"color: red; font-weight: bold\">" + daysLeft + "</span>"
-			font.pointSize: 32
+			font.pointSize: 26
 		}
 		Text {
 			id: fullLabel
 			color: root.textColor
 			textFormat: Text.MarkdownText
 			text: "距离高考仅剩 <span style=\"color: red; font-weight: bold\">" + daysLeft + "</span> 天"
-			font.pointSize: 32
+			font.pointSize: 26
 		}
 	}
 
