@@ -80,7 +80,7 @@ Rectangle {
 	]
 
 	Behavior on textColor {
-		PropertyAnimation {target: root; property: "textColor"; duration: 250}
+		PropertyAnimation {target: root; property: "textColor"; duration: 500}
 	}
 
 	Item {

@@ -55,7 +55,7 @@ void MyMainWindow::initItem()
 void MyMainWindow::initTimer()
 {
 	m_timerAdjustColor = new QTimer(this);
-	m_timerAdjustColor->setInterval(16);
+	m_timerAdjustColor->setInterval(500);
 	connect(m_timerAdjustColor, &QTimer::timeout, this, &MyMainWindow::adjustcolor);
 	m_timerAdjustColor->start();
 }
