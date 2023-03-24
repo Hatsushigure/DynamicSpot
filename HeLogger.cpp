@@ -18,6 +18,8 @@ HeLogger::HeLogger()
 
 void HeLogger::log(LogType type, const QString& msg, const QString& className)
 {
+	if (!m_isInitialized)
+		return;
 	QString typeString;
 	switch (type)
 	{
