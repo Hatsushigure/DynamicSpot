@@ -32,8 +32,6 @@ void DynamicSpotApp::initLogger()
 	using DynamicSpot::logger;
 	logger = new HeLogger;
 	logger->info("log test", "DynamicSpotApp");
-	logger->warning("warning test");
-	qCritical() << "error test";
 }
 
 void DynamicSpotApp::initSplashScreeen()
