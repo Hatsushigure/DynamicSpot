@@ -4,6 +4,7 @@ class QSystemTrayIcon;
 class QMenu;
 class QIcon;
 class QSplashScreen;
+class HeLogger;
 
 namespace DynamicSpot
 {
@@ -12,6 +13,7 @@ extern MyMainWindow* mainWindow;
 extern QMenu* trayMenu;
 extern QSystemTrayIcon* trayIcon;
 extern QSplashScreen* splashScreen;
+extern HeLogger* logger;
 }
 
 namespace DynamicSpot::Icons

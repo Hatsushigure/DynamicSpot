@@ -8,6 +8,7 @@ MyMainWindow *mainWindow;
 QMenu* trayMenu;
 QSystemTrayIcon* trayIcon;
 QSplashScreen* splashScreen;
+HeLogger* logger;
 }
 
 namespace DynamicSpot::Icons
