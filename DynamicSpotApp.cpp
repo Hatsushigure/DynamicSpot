@@ -1,5 +1,6 @@
 #include "DynamicSpotApp.h"
 #include "DynamicSpot.h"
+#include "HeLogger.h"
 #include "MyMainWindow.h"
 #include <QSystemTrayIcon>
 #include <QMenu>
@@ -11,6 +12,7 @@ DynamicSpotApp::DynamicSpotApp(int argc, char *argv[]) :
 {
 	setOrganizationName("Hatsushigure");
 	setApplicationName("DynamicSpot");
+	initLogger();
 	initSplashScreeen();
 	initIcons();
 	initMainWindow();
@@ -23,6 +25,13 @@ DynamicSpotApp::~DynamicSpotApp()
 {
 	delete DynamicSpot::trayIcon;
 	delete DynamicSpot::trayMenu;
+}
+
+void DynamicSpotApp::initLogger()
+{
+	using DynamicSpot::logger;
+	logger = new HeLogger;
+	logger->info("log test", "DynamicSpotApp");
 }
 
 void DynamicSpotApp::initSplashScreeen()

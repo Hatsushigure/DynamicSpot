@@ -20,6 +20,8 @@ qt_add_executable(appDynamicSpot
     MyMainWindow.cpp
     MyAutoColorHelper.h
     MyAutoColorHelper.cpp
+    HeLogger.h
+    HeLogger.cpp
     res.qrc
 )
 
