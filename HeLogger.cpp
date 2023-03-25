@@ -6,12 +6,12 @@ QFile HeLogger::m_file = QFile();
 
 HeLogger::HeLogger()
 {
-	QDir dir("./logs");
-	if (!dir.exists())
+	QDir dir(".");
+	if (!dir.exists("./logs"))
 		dir.mkdir("./logs");
-	QString fileName = QString("./logs/1%").arg(QDateTime::currentDateTime().toString("yyyy-MM-dd_HH-mm-ss"));
+	QString fileName = QString("./logs/%1.log").arg(QDateTime::currentDateTime().toString("yyyy-MM-dd_HH-mm-ss"));
 	m_file.setFileName(fileName);
-	m_file.open(QFile::Append | QFile::Unbuffered | QFile::WriteOnly);
+	m_file.open(QFile::Append | QFile::Unbuffered);
 	qInstallMessageHandler(HeLogger::qtLog);
 	m_isInitialized = true;
 }
@@ -37,7 +37,7 @@ void HeLogger::log(LogType type, const QString& msg, const QString& className)
 		break;
 	}
 
-	QString strToWrite = QString("1% [1%/2%] 3%")
+	QString strToWrite = QString("%1 [%2/%3] %4")
 			.arg(QTime::currentTime().toString("HH:mm:ss.zzz"))
 			.arg(typeString)
 			.arg(className)
