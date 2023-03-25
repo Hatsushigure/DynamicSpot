@@ -23,7 +23,7 @@ DynamicSpotApp::DynamicSpotApp(int argc, char *argv[]) :
 
 DynamicSpotApp::~DynamicSpotApp()
 {
-	delete DynamicSpot::trayMenu;
+	delete DynamicSpot::trayIcon;
 	delete DynamicSpot::trayMenu;
 }
 
