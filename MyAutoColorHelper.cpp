@@ -67,3 +67,12 @@ QColor MyAutoColorHelper::reverseColor(const QColor& color)
 	int b = color.blue();
 	return QColor(255 - r, 255 - g, 255 - b);
 }
+
+QColor MyAutoColorHelper::getContrastColor(const QColor& col)
+{
+	QColor newCol = reverseColor(col);
+	newCol.setRed(newCol.red() < 128 ? 0 : 255);
+	newCol.setGreen(newCol.green() < 128 ? 0 : 255);
+	newCol.setBlue(newCol.blue() < 128 ? 0 : 255);
+	return newCol;
+}
