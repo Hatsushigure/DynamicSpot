@@ -28,9 +28,9 @@ void MyMainWindow::adjustcolor()
 {
 	QRect geometry(m_container->mapToGlobal(QPointF(0, 0)).toPoint(), m_container->size().toSize());
 	QColor col = MyAutoColorHelper::getColorFromGeometry(geometry, this->screen());
-	QColor reCol = MyAutoColorHelper::reverseColor(col);
-	m_timeBanner->setProperty("textColor", reCol);
-	m_countDown->setProperty("textColor", reCol);
+	QColor contrastColor = MyAutoColorHelper::getContrastColor(col);
+	m_timeBanner->setProperty("textColor", contrastColor);
+	m_countDown->setProperty("textColor", contrastColor);
 }
 
 void MyMainWindow::initView()
