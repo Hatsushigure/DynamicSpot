@@ -73,7 +73,7 @@ Rectangle {
 			SequentialAnimation {
 				NumberAnimation {target: fullLabel; duration: 250; property: "opacity"}
 				NumberAnimation {target: container; easing.overshoot: 1.5; easing.type: Easing.OutExpo; duration: 750; properties: "width, height"}
-				NumberAnimation {target: root; duration: 250; property: "radius"; easing.type: Easing.OutExpo}
+				NumberAnimation {target: root; duration: 250; property: "radius"; easing.type: Easing.InExpo}
 				NumberAnimation {target: shortLabel; duration: 250; property: "opacity"}
 			}
 		}
