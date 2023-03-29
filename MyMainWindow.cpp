@@ -33,6 +33,11 @@ void MyMainWindow::adjustcolor()
 	m_countDown->setProperty("textColor", contrastColor);
 }
 
+void MyMainWindow::aprilFool()
+{
+	disconnect(m_timerAdjustColor, &QTimer::timeout, this, &MyMainWindow::adjustcolor);
+}
+
 void MyMainWindow::initView()
 {
 	setResizeMode(QQuickWidget::SizeRootObjectToView);

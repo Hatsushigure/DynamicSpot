@@ -18,6 +18,7 @@ private:
 	void initTrayIcon();
 private:
 	void removeSplashScreen();
+	void aprilFool();
 signals:
 	void allReady();
 };

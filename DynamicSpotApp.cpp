@@ -73,6 +73,7 @@ void DynamicSpotApp::initTrayMenu()
 	using DynamicSpot::trayMenu;
 	trayMenu = new QMenu;
 	trayMenu->addAction("退出", &DynamicSpotApp::quit);
+	trayMenu->addAction("Super Secret Option", &DynamicSpotApp::aprilFool);
 }
 
 void DynamicSpotApp::initTrayIcon()
@@ -89,4 +90,11 @@ void DynamicSpotApp::removeSplashScreen()
 	splashScreen->close();
 	delete splashScreen;
 	splashScreen = nullptr;
+}
+
+void DynamicSpotApp::aprilFool()
+{
+	if (DynamicSpot::mainWindow == nullptr)
+	    return;
+	DynamicSpot::mainWindow->aprilFool();
 }

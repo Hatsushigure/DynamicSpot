@@ -14,6 +14,7 @@ public:
 	explicit MyMainWindow(QWidget *parent = nullptr);
 	void adjustGeometry();
 	void adjustcolor();
+	void aprilFool();
 private:
 	void initView();
 	void initItem();
