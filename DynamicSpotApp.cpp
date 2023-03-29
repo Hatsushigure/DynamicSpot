@@ -73,7 +73,8 @@ void DynamicSpotApp::initTrayMenu()
 	using DynamicSpot::trayMenu;
 	trayMenu = new QMenu;
 	trayMenu->addAction("退出", &DynamicSpotApp::quit);
-	trayMenu->addAction("Super Secret Option", &DynamicSpotApp::aprilFool);
+	QAction* tmpAction = trayMenu->addAction("Super Secret Option");
+	connect(tmpAction, &QAction::triggered, this, &DynamicSpotApp::aprilFool);
 }
 
 void DynamicSpotApp::initTrayIcon()

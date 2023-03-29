@@ -28,7 +28,8 @@ void MyMainWindow::adjustcolor()
 {
 	QRect geometry(m_container->mapToGlobal(QPointF(0, 0)).toPoint(), m_container->size().toSize());
 	QColor col = MyAutoColorHelper::getColorFromGeometry(geometry, this->screen());
-	QColor contrastColor = MyAutoColorHelper::getContrastColor(col);
+	//QColor contrastColor = MyAutoColorHelper::getContrastColor(col);
+	QColor contrastColor = MyAutoColorHelper::reverseColor(col);
 	m_timeBanner->setProperty("textColor", contrastColor);
 	m_countDown->setProperty("textColor", contrastColor);
 }
@@ -36,6 +37,15 @@ void MyMainWindow::adjustcolor()
 void MyMainWindow::aprilFool()
 {
 	disconnect(m_timerAdjustColor, &QTimer::timeout, this, &MyMainWindow::adjustcolor);
+	m_timeBanner->setProperty("textColor", QColor::fromHsv(0, 255, 255));
+	m_countDown->setProperty("textColor", QColor::fromHsv(0, 255, 255));
+
+	connect(m_timerAdjustColor, &QTimer::timeout, this, [&]() {
+		QColor col = m_timeBanner->property("textColor").value<QColor>();
+		col.setHsv((col.hsvHue() + 10) % 360, col.hsvSaturation(), col.value());
+		m_timeBanner->setProperty("textColor", col);
+		m_countDown->setProperty("textColor", col);
+	});
 }
 
 void MyMainWindow::initView()
