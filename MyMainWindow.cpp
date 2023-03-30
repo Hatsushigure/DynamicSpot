@@ -4,6 +4,7 @@
 #include "MyAutoColorHelper.h"
 #include <QQuickItem>
 #include <QTimer>
+#include <QDesktopServices>
 
 MyMainWindow::MyMainWindow(QWidget *parent) :
 	QQuickWidget(parent)
@@ -39,6 +40,7 @@ void MyMainWindow::aprilFool()
 	disconnect(m_timerAdjustColor, &QTimer::timeout, this, &MyMainWindow::adjustcolor);
 	m_timeBanner->setProperty("textColor", QColor::fromHsv(0, 255, 255));
 	m_countDown->setProperty("textColor", QColor::fromHsv(0, 255, 255));
+	QDesktopServices::openUrl(QUrl("https://www.bilibili.com/video/BV1GJ411x7h7"));
 
 	connect(m_timerAdjustColor, &QTimer::timeout, this, [&]() {
 		QColor col = m_timeBanner->property("textColor").value<QColor>();
