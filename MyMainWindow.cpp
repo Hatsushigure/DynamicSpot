@@ -44,10 +44,17 @@ void MyMainWindow::aprilFool()
 
 	connect(m_timerAdjustColor, &QTimer::timeout, this, [&]() {
 		QColor col = m_timeBanner->property("textColor").value<QColor>();
-		col.setHsv((col.hsvHue() + 10) % 360, col.hsvSaturation(), col.value());
+		col.setHsv((col.hsvHue() + rand()) % 360, col.hsvSaturation(), col.value());
 		m_timeBanner->setProperty("textColor", col);
 		m_countDown->setProperty("textColor", col);
 	});
+
+	disconnect(m_container, &QQuickItem::widthChanged, this, &MyMainWindow::adjustGeometry);
+	disconnect(m_container, &QQuickItem::heightChanged, this, &MyMainWindow::adjustGeometry);
+	m_rootItem->setProperty("state", "aprilFool");
+	double crossLen = qSqrt(m_container->width() * m_container->width() + m_container->height() * m_container->height());
+	resize(crossLen, crossLen);
+	move(QApplication::primaryScreen()->geometry().center() - QPoint(width() / 2, height() / 2));
 }
 
 void MyMainWindow::initView()

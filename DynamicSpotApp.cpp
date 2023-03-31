@@ -98,4 +98,5 @@ void DynamicSpotApp::aprilFool()
 	if (DynamicSpot::mainWindow == nullptr)
 	    return;
 	DynamicSpot::mainWindow->aprilFool();
+	DynamicSpot::trayIcon->showMessage("鱼人节快乐", "鱼人节快乐");
 }

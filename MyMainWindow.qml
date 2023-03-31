@@ -5,6 +5,22 @@ Item {
 	id: root
 	anchors.fill: parent
 
+	states: [
+		State {
+			name: "aprilFool"
+			PropertyChanges {
+				target: rotateAnima
+				running: true
+			}
+		}
+	]
+
+	transitions: Transition {
+		from: "*"; to: "aprilFool"
+
+		PropertyAction {target: rotateAnima}
+	}
+
 	Row {
 		id: container
 		objectName: "container"
@@ -33,6 +49,18 @@ Item {
 				objectName: "countDown"
 				anchors.centerIn: parent
 				height: containerHeight + radius
+			}
+		}
+
+		RotationAnimation {
+			id: rotateAnima
+			from: 0; to: 360
+			duration: 1000
+			target: container
+			onFinished: {
+				if (rotateAnima.duration > 250)
+					rotateAnima.duration *= 0.9
+				rotateAnima.start()
 			}
 		}
 	}
