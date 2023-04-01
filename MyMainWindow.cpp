@@ -1,6 +1,7 @@
 #include "MyMainWindow.h"
 #include "DynamicSpot.h"
 #include "DynamicSpotApp.h"
+#include "HeLogger.h"
 #include "MyAutoColorHelper.h"
 #include "HeLogger.h"
 #include <QQuickItem>
@@ -23,6 +24,7 @@ void MyMainWindow::initView()
 {
 	setResizeMode(QQuickWidget::SizeRootObjectToView);
 	setSource(uiSource);
+	HeLogger::info("加载了 ui 文件 " + uiSource, "MyMainWindow");
 	setClearColor(Qt::transparent);
 }
 
