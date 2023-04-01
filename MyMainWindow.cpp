@@ -3,8 +3,10 @@
 #include "DynamicSpotApp.h"
 #include "HeLogger.h"
 #include "MyAutoColorHelper.h"
+#include "HeLogger.h"
 #include <QQuickItem>
 #include <QTimer>
+#include <QColorDialog>
 
 MyMainWindow::MyMainWindow(QWidget *parent) :
 	QQuickWidget(parent)
@@ -16,22 +18,6 @@ MyMainWindow::MyMainWindow(QWidget *parent) :
 	initItem();
 	initTimer();
 	adjustGeometry();
-}
-
-void MyMainWindow::adjustGeometry()
-{
-	resize(m_container->width(), m_container->height());
-	QScreen* scr = DynamicSpot::theApp->primaryScreen();
-	move((scr->size().width() - width()) / 2, 0);
-}
-
-void MyMainWindow::adjustcolor()
-{
-	QRect geometry(m_container->mapToGlobal(QPointF(0, 0)).toPoint(), m_container->size().toSize());
-	QColor col = MyAutoColorHelper::getColorFromGeometry(geometry, this->screen());
-	QColor reCol = MyAutoColorHelper::reverseColor(col);
-	m_timeBanner->setProperty("textColor", reCol);
-	m_countDown->setProperty("textColor", reCol);
 }
 
 void MyMainWindow::initView()
@@ -60,4 +46,34 @@ void MyMainWindow::initTimer()
 	m_timerAdjustColor->setInterval(500);
 	connect(m_timerAdjustColor, &QTimer::timeout, this, &MyMainWindow::adjustcolor);
 	m_timerAdjustColor->start();
+}
+
+void MyMainWindow::adjustGeometry()
+{
+	resize(m_container->width(), m_container->height());
+	QScreen* scr = DynamicSpot::theApp->primaryScreen();
+	move((scr->size().width() - width()) / 2, 0);
+}
+
+void MyMainWindow::adjustcolor()
+{
+	QRect geometry(m_container->mapToGlobal(QPointF(0, 0)).toPoint(), m_container->size().toSize());
+	auto col = MyAutoColorHelper::getColorFromGeometry(geometry, this->screen());
+	HeLogger::info(QString("获取到颜色: hsv(%1, %2, %3)")
+				   .arg(col.hsvHueF())
+				   .arg(col.hsvSaturationF())
+				   .arg(col.valueF()),
+				   "MyMainWindow");
+	auto contrastColor = MyAutoColorHelper::getContrastColor(col);
+	m_rootItem->setProperty("textColor", contrastColor);
+}
+
+void MyMainWindow::startBackgroundTest()
+{
+	QColorDialog* dialog = new QColorDialog;
+	dialog->setOptions(QColorDialog::ShowAlphaChannel | QColorDialog::NoButtons);
+	dialog->setAttribute(Qt::WA_DeleteOnClose);
+	dialog->setAttribute(Qt::WA_QuitOnClose, false);
+	connect(dialog, &QColorDialog::currentColorChanged, this, &MyMainWindow::setClearColor);
+	dialog->show();
 }

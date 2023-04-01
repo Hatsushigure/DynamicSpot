@@ -8,7 +8,6 @@ Rectangle {
 	id: root
 	width: Math.max(container.width, container.height) + radius
 	radius: Math.max(container.height, container.width)
-	color: "#4d000000"
 	state: "showShort"
 	states: [
 		State {
@@ -73,15 +72,11 @@ Rectangle {
 			SequentialAnimation {
 				NumberAnimation {target: fullLabel; duration: 250; property: "opacity"}
 				NumberAnimation {target: container; easing.overshoot: 1.5; easing.type: Easing.OutExpo; duration: 750; properties: "width, height"}
-				NumberAnimation {target: root; duration: 250; property: "radius"; easing.type: Easing.OutExpo}
+				NumberAnimation {target: root; duration: 250; property: "radius"; easing.type: Easing.InExpo}
 				NumberAnimation {target: shortLabel; duration: 250; property: "opacity"}
 			}
 		}
 	]
-
-	Behavior on textColor {
-		PropertyAnimation {target: root; property: "textColor"; duration: 500}
-	}
 
 	Item {
 		id: container
