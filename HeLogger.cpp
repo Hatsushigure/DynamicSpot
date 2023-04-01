@@ -44,7 +44,7 @@ void HeLogger::log(LogType type, const QString& msg, const QString& className)
 			.arg(msg);
 	if (!strToWrite.endsWith('\n'))
 		strToWrite.append('\n');
-	m_file.write(strToWrite.toLatin1());
+	m_file.write(strToWrite.toUtf8());
 }
 
 void HeLogger::info(const QString& msg, const QString& className)
