@@ -62,17 +62,27 @@ QColor MyAutoColorHelper::getColorFromWidget(const QWidget* target)
 
 QColor MyAutoColorHelper::reverseColor(const QColor& color)
 {
-	int r =	color.red();
-	int g = color.green();
-	int b = color.blue();
-	return QColor(255 - r, 255 - g, 255 - b);
+	double r =	color.redF();
+	double g = color.greenF();
+	double b = color.blueF();
+	return QColor(1 - r, 1 - g, 1 - b);
 }
 
 QColor MyAutoColorHelper::getContrastColor(const QColor& col)
 {
+	if (col.hsvSaturationF() < 0.1)	//this means it is so close to gray that the hue may not be useful
+		return QColor::fromHsvF(0.5, 1, 1);
 	QColor newCol = reverseColor(col);
-	newCol.setRed(newCol.red() < 128 ? 0 : 255);
-	newCol.setGreen(newCol.green() < 128 ? 0 : 255);
-	newCol.setBlue(newCol.blue() < 128 ? 0 : 255);
+	double h = newCol.hsvHueF() < 0.5 ? newCol.hsvHueF() + 0.5 : newCol.hsvHueF() - 0.5;
+	newCol.setHsvF(h, 1, 1);
+	return newCol;
+}
+
+QColor MyAutoColorHelper::getContrastColor1(const QColor& col)
+{
+	QColor newCol(col);
+	newCol.setRed(newCol.redF() < 0.5 ? 1 : 0);
+	newCol.setGreen(newCol.greenF() < 0.5 ? 1 : 0);
+	newCol.setBlue(newCol.blueF() < 0.5 ? 1 : 0);
 	return newCol;
 }
