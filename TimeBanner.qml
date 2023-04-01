@@ -9,7 +9,6 @@ Rectangle {
 	id: root
 	width: container.width + radius
 	radius: 12
-	color: "#4d000000"
 	state: "showTime"
 	states: [
 		State {
@@ -69,10 +68,6 @@ Rectangle {
 			}
 		}
 	]
-
-	Behavior on textColor {
-		PropertyAnimation {target: root; property: "textColor"; duration: 500}
-	}
 
 	Item {
 		id: container

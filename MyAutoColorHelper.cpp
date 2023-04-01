@@ -35,15 +35,18 @@ QColor MyAutoColorHelper::getColorFromImage(const QImage& target)
 	for (int i = 0; i < m_sampleCount; i++)
 		colorList[i] = target.pixel(pntList[i]);
 
-	double r = 0, g = 0, b = 0;
-	for (auto& col : colorList)
+	long long r = 0, g = 0, b = 0;
+	for (const auto& col : colorList)
 	{
-		r += (qRed(col) / m_sampleCount);
-		g += (qGreen(col) / m_sampleCount);
-		b += (qBlue(col) / m_sampleCount);
+		r += qRed(col);
+		g += qGreen(col);
+		b += qBlue(col);
 	}
+	r /= m_sampleCount;
+	g /= m_sampleCount;
+	b /= m_sampleCount;
 
-	return QColor(r, g, b);
+	return QColor::fromRgb(r, g, b);
 }
 
 QColor MyAutoColorHelper::getColorFromGeometry(const QRect& globalGometry, QScreen* screen)
@@ -70,19 +73,16 @@ QColor MyAutoColorHelper::reverseColor(const QColor& color)
 
 QColor MyAutoColorHelper::getContrastColor(const QColor& col)
 {
-	if (col.hsvSaturationF() < 0.1)	//this means it is so close to gray that the hue may not be useful
+	if (col.valueF() < 0.3 || col.hsvSaturationF() < 0.3)
 		return QColor::fromHsvF(0.5, 1, 1);
-	QColor newCol = reverseColor(col);
-	double h = newCol.hsvHueF() < 0.5 ? newCol.hsvHueF() + 0.5 : newCol.hsvHueF() - 0.5;
-	newCol.setHsvF(h, 1, 1);
-	return newCol;
+	double h = col.hsvHueF() < 0.5 ? col.hsvHueF() + 0.5 : col.hsvHueF() - 0.5;
+	return QColor::fromHsvF(h, 1, 1);
 }
 
 QColor MyAutoColorHelper::getContrastColor1(const QColor& col)
 {
-	QColor newCol(col);
-	newCol.setRed(newCol.redF() < 0.5 ? 1 : 0);
-	newCol.setGreen(newCol.greenF() < 0.5 ? 1 : 0);
-	newCol.setBlue(newCol.blueF() < 0.5 ? 1 : 0);
-	return newCol;
+	double r = col.redF() < 0.5 ? 1 : 0;
+	double g = col.greenF() < 0.5 ? 1 : 0;
+	double b = col.blueF() < 0.5 ? 1 : 0;
+	return QColor::fromRgbF(r, g, b);
 }
