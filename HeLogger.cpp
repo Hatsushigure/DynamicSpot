@@ -12,6 +12,10 @@ HeLogger::HeLogger()
 	QString fileName = QString("./logs/%1.log").arg(QDateTime::currentDateTime().toString("yyyy-MM-dd_HH-mm-ss"));
 	m_file.setFileName(fileName);
 	m_file.open(QFile::Append | QFile::Unbuffered);
+	if (!m_file.isOpen())
+	{
+		qFatal("无法打开日志文件，请确认该目录是否具有读写权限或将本软件移动至其他目录");
+	}
 	qInstallMessageHandler(HeLogger::qtLog);
 	m_isInitialized = true;
 }
@@ -44,7 +48,7 @@ void HeLogger::log(LogType type, const QString& msg, const QString& className)
 			.arg(msg);
 	if (!strToWrite.endsWith('\n'))
 		strToWrite.append('\n');
-	m_file.write(strToWrite.toLatin1());
+	m_file.write(strToWrite.toUtf8());
 }
 
 void HeLogger::info(const QString& msg, const QString& className)
