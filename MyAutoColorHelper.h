@@ -23,5 +23,7 @@ public:
 	static QColor getColorFromWidget(const QWidget* target);
 	static QColor reverseColor(const QColor& color);
 	static QColor getContrastColor(const QColor& col);
+public:
+[[deprecated("It will flash all the time")]] static QColor getContrastColor1(const QColor& col);
 };
 
