@@ -2,6 +2,7 @@
 #include "DynamicSpot.h"
 #include "HeLogger.h"
 #include "MyMainWindow.h"
+#include "MyAutoColorHelper.h"
 #include <QSystemTrayIcon>
 #include <QMenu>
 #include <QSplashScreen>
@@ -64,6 +65,7 @@ void DynamicSpotApp::initIcons()
 void DynamicSpotApp::initMainWindow()
 {
 	using DynamicSpot::mainWindow;
+	MyAutoColorHelper::setSampleCount(64);
 	mainWindow = new MyMainWindow;
 	mainWindow->show();
 }
@@ -72,6 +74,8 @@ void DynamicSpotApp::initTrayMenu()
 {
 	using DynamicSpot::trayMenu;
 	trayMenu = new QMenu;
+	QMenu* menu1 = trayMenu->addMenu("调试");
+	menu1->addAction("调试自动颜色", DynamicSpot::mainWindow, &MyMainWindow::startBackgroundTest);
 	trayMenu->addAction("退出", &DynamicSpotApp::quit);
 }
 
