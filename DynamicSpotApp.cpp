@@ -81,7 +81,7 @@ void DynamicSpotApp::initMainWindow()
 	using DynamicSpot::mainWindow;
 	HeLogger::info("初始化主窗口...", "DynamicSpotApp");
 	MyAutoColorHelper::setSampleCount(64);
-  HeLogger::info("将采样点设置为 64 个", "DynamicSpotApp");
+	HeLogger::info("将采样点设置为 64 个", "DynamicSpotApp");
 	mainWindow = new MyMainWindow;
 	mainWindow->show();
 	if (!mainWindow->isVisible())
