@@ -12,10 +12,12 @@ private:
 	QTimer* m_timerAdjustColor;
 public:
 	explicit MyMainWindow(QWidget *parent = nullptr);
-	void adjustGeometry();
-	void adjustcolor();
 private:
 	void initView();
 	void initItem();
 	void initTimer();
+public slots:
+	void adjustGeometry();
+	void adjustcolor();
+	void startBackgroundTest();
 };
