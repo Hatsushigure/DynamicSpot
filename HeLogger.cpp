@@ -16,8 +16,9 @@ HeLogger::HeLogger()
 	{
 		qFatal("无法打开日志文件，请确认该目录是否具有读写权限或将本软件移动至其他目录");
 	}
-	qInstallMessageHandler(HeLogger::qtLog);
+		qInstallMessageHandler(HeLogger::qtLog);
 	m_isInitialized = true;
+	info("成功初始化了 HeLogger!", "HeLogger");
 }
 
 void HeLogger::log(LogType type, const QString& msg, const QString& className)
