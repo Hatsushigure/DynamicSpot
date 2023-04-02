@@ -23,6 +23,7 @@ HeLogger::HeLogger()
 
 void HeLogger::log(LogType type, const QString& msg, const QString& className)
 {
+	using Qt::StringLiterals::operator""_s;
 	if (!m_isInitialized)
 		return;
 	QString typeString;
@@ -42,11 +43,11 @@ void HeLogger::log(LogType type, const QString& msg, const QString& className)
 		break;
 	}
 
-	QString strToWrite = QString("%1 [%2/%3] %4")
-			.arg(QTime::currentTime().toString("HH:mm:ss.zzz"))
-			.arg(typeString)
-			.arg(className)
-			.arg(msg);
+	QString strToWrite = u"%1 [%2/%3] %4"_s
+			.arg(QTime::currentTime().toString("HH:mm:ss.zzz"),
+			typeString,
+			className,
+			msg);
 	if (!strToWrite.endsWith('\n'))
 		strToWrite.append('\n');
 	m_file.write(strToWrite.toUtf8());
