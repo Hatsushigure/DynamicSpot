@@ -82,11 +82,6 @@ void MyMainWindow::adjustcolor()
 	using Qt::StringLiterals::operator""_s;
 	QRect geometry(m_container->mapToGlobal(QPointF(0, 0)).toPoint(), m_container->size().toSize());
 	auto col = MyAutoColorHelper::getColorFromGeometry(geometry, this->screen());
-	HeLogger::info(u"获取到颜色: hsv(%1, %2, %3)"_s.arg(
-					   QString::number(col.hsvHueF()),
-					   QString::number(col.hsvSaturationF()),
-					   QString::number(col.valueF())),
-				   "MyMainWindow");
 	auto contrastColor = MyAutoColorHelper::getContrastColor(col);
 	m_rootItem->setProperty("textColor", contrastColor);
 }
