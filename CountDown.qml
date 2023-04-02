@@ -1,9 +1,10 @@
 import QtQuick
 
 Rectangle {
-	property alias containerHeight: container.height
 	property color textColor
-	property int daysLeft: getDaysLeft()
+	property alias containerHeight: container.height
+	property alias shortText: shortLabel.text
+	property alias fullText: fullLabel.text
 
 	id: root
 	width: Math.max(container.width, container.height) + radius
@@ -87,14 +88,14 @@ Rectangle {
 			id: shortLabel
 			color: root.textColor
 			textFormat: Text.MarkdownText
-			text: "<span style=\"color: red; font-weight: bold\">" + daysLeft + "</span>"
+			text: "<span style=\"color: red; font-weight: bold\">" + 99 + "</span>"
 			font.pointSize: 26
 		}
 		Text {
 			id: fullLabel
 			color: root.textColor
 			textFormat: Text.MarkdownText
-			text: "距离高考仅剩 <span style=\"color: red; font-weight: bold\">" + daysLeft + "</span> 天"
+			text: "距离高考仅剩 <span style=\"color: red; font-weight: bold\">" + 99 + "</span> 天"
 			font.pointSize: 26
 		}
 	}
@@ -108,14 +109,5 @@ Rectangle {
 			interval = (Math.random() % 5 + 5) * 1000 * 60
 			root.state = (root.state === "showShort" ? "showFull" : "showShort")
 		}
-	}
-
-	function getDaysLeft() {
-		var begin = new Date()
-		var end = new Date()
-		end.setFullYear(2023)
-		end.setMonth(5)
-		end.setDate(7)
-		return (end - begin) / (1000 * 60 * 60 * 24)
 	}
 }
