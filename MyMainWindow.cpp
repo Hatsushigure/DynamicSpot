@@ -72,7 +72,10 @@ void MyMainWindow::initTimer()
 
 void MyMainWindow::adjustGeometry()
 {
-	resize(m_container->width(), m_container->height());
+	if (m_container->width() > width() + 10)
+		resize(m_container->width() + 10, height());
+	if (m_container->height() > height() + 10)
+		resize(width(), m_container->height() + 10);
 	QScreen* scr = DynamicSpot::theApp->primaryScreen();
 	move((scr->size().width() - width()) / 2, 0);
 }
