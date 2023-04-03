@@ -12,8 +12,8 @@ namespace DynamicSpot::VersionInfo
 {
 const int major = 0;
 const int minor = 1;
-const int patch = 1;
-const QString versionString = "v0.1.1";
+const int patch = 2;
+const QString versionString = "v0.1.2";
 }
 
 namespace DynamicSpot
