@@ -6,7 +6,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD_REQUIRED 20)
 
-find_package(Qt6 6.2 COMPONENTS Quick REQUIRED)
+find_package(Qt6 COMPONENTS Quick REQUIRED)
 find_package(Qt6 COMPONENTS REQUIRED Widgets)
 find_package(Qt6 COMPONENTS REQUIRED QuickWidgets)
 
@@ -43,9 +43,9 @@ set_target_properties(appDynamicSpot PROPERTIES
 )
 
 target_link_libraries(appDynamicSpot
-    PRIVATE Qt6::Quick
-    PRIVATE Qt6::Widgets
-    PRIVATE Qt6::QuickWidgets
+    PRIVATE Qt::Quick
+    PRIVATE Qt::Widgets
+    PRIVATE Qt::QuickWidgets
 )
 
 install(TARGETS appDynamicSpot

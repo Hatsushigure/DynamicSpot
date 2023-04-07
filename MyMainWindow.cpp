@@ -7,9 +7,10 @@
 #include <QQuickItem>
 #include <QTimer>
 #include <QColorDialog>
+#include <QQuickView>
 
 MyMainWindow::MyMainWindow(QWidget *parent) :
-	QQuickWidget(parent)
+	QWidget(parent)
 {
 	setAttribute(Qt::WA_TranslucentBackground);
 	setAttribute(Qt::WA_TransparentForMouseEvents);
@@ -37,15 +38,20 @@ void MyMainWindow::setDaysLeft(int newDaysLeft)
 
 void MyMainWindow::initView()
 {
-	setResizeMode(QQuickWidget::SizeRootObjectToView);
-	setSource(uiSource);
+	QQuickView::setDefaultAlphaBuffer(true);
+	m_view = new QQuickView;
+	m_view->setColor(Qt::transparent);
+	m_view->setResizeMode(QQuickView::SizeRootObjectToView);
+	m_view->setSource(uiSource);
 	HeLogger::info("加载了 ui 文件 " + uiSource, "MyMainWindow");
-	setClearColor(Qt::transparent);
+	m_viewWidget = QWidget::createWindowContainer(m_view);
+	//m_viewWidget->setParent(this);
+	m_viewWidget->show();
 }
 
 void MyMainWindow::initItem()
 {
-	m_rootItem = rootObject();
+	m_rootItem = m_view->rootObject();
 
 	m_container = m_rootItem->findChild<QQuickItem*>("container");
 	connect(m_container, &QQuickItem::widthChanged, this, &MyMainWindow::adjustGeometry);
@@ -73,9 +79,15 @@ void MyMainWindow::initTimer()
 void MyMainWindow::adjustGeometry()
 {
 	if (m_container->width() > width() + 10)
+	{
 		resize(m_container->width() + 10, height());
+		m_viewWidget->resize(size());
+	}
 	if (m_container->height() > height() + 10)
+	{
 		resize(width(), m_container->height() + 10);
+		m_viewWidget->resize(size());
+	}
 	QScreen* scr = DynamicSpot::theApp->primaryScreen();
 	move((scr->size().width() - width()) / 2, 0);
 }
@@ -109,7 +121,7 @@ void MyMainWindow::startBackgroundTest()
 	dialog->setOptions(QColorDialog::ShowAlphaChannel | QColorDialog::NoButtons);
 	dialog->setAttribute(Qt::WA_DeleteOnClose);
 	dialog->setAttribute(Qt::WA_QuitOnClose, false);
-	connect(dialog, &QColorDialog::currentColorChanged, this, &MyMainWindow::setClearColor);
+	connect(dialog, &QColorDialog::currentColorChanged, m_view, &QQuickView::setColor);
 	dialog->show();
 	HeLogger::info("显示颜色对话框", "MyMainWindow");
 }

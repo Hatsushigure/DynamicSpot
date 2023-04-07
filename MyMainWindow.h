@@ -1,7 +1,9 @@
 #include <QQuickWidget>
 #include <QDate>
 
-class MyMainWindow : public QQuickWidget
+class QQuickView;
+
+class MyMainWindow : public QWidget
 {
 	Q_OBJECT
 	Q_PROPERTY(int daysLeft READ daysLeft WRITE setDaysLeft NOTIFY daysLeftChanged)
@@ -15,6 +17,8 @@ private:
 	QQuickItem* m_countDown;
 	QTimer* m_timerAdjustColor;
 	QTimer* m_timerUpdateDate;
+	QQuickView* m_view;
+	QWidget* m_viewWidget;
 	int m_daysLeft;
 public:
 	explicit MyMainWindow(QWidget *parent = nullptr);
