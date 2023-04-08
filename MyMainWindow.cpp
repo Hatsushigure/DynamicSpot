@@ -72,7 +72,10 @@ void MyMainWindow::initTimer()
 
 void MyMainWindow::adjustGeometry()
 {
-	resize(m_container->width(), m_container->height());
+	if (m_container->width() > width() + 10)
+		resize(m_container->width() + 10, height());
+	if (m_container->height() > height() + 10)
+		resize(width(), m_container->height() + 10);
 	QScreen* scr = DynamicSpot::theApp->primaryScreen();
 	move((scr->size().width() - width()) / 2, 0);
 }
@@ -82,11 +85,6 @@ void MyMainWindow::adjustcolor()
 	using Qt::StringLiterals::operator""_s;
 	QRect geometry(m_container->mapToGlobal(QPointF(0, 0)).toPoint(), m_container->size().toSize());
 	auto col = MyAutoColorHelper::getColorFromGeometry(geometry, this->screen());
-	HeLogger::info(u"获取到颜色: hsv(%1, %2, %3)"_s.arg(
-					   QString::number(col.hsvHueF()),
-					   QString::number(col.hsvSaturationF()),
-					   QString::number(col.valueF())),
-				   "MyMainWindow");
 	auto contrastColor = MyAutoColorHelper::getContrastColor(col);
 	m_rootItem->setProperty("textColor", contrastColor);
 }
@@ -114,4 +112,20 @@ void MyMainWindow::startBackgroundTest()
 	connect(dialog, &QColorDialog::currentColorChanged, this, &MyMainWindow::setClearColor);
 	dialog->show();
 	HeLogger::info("显示颜色对话框", "MyMainWindow");
+}
+
+void MyMainWindow::toggleTimeBannerState()
+{
+	if (m_timeBanner->state() == "showTime")
+		m_timeBanner->setState("showSlogan");
+	else
+		m_timeBanner->setState("showTime");
+}
+
+void MyMainWindow::toggleCountDownState()
+{
+	if (m_countDown->state() == "showShort")
+		m_countDown->setState("showFull");
+	else
+		m_countDown->setState("showShort");
 }
