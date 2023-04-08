@@ -113,3 +113,19 @@ void MyMainWindow::startBackgroundTest()
 	dialog->show();
 	HeLogger::info("显示颜色对话框", "MyMainWindow");
 }
+
+void MyMainWindow::toggleTimeBannerState()
+{
+	if (m_timeBanner->state() == "showTime")
+		m_timeBanner->setState("showSlogan");
+	else
+		m_timeBanner->setState("showTime");
+}
+
+void MyMainWindow::toggleCountDownState()
+{
+	if (m_countDown->state() == "showShort")
+		m_countDown->setState("showFull");
+	else
+		m_countDown->setState("showShort");
+}
