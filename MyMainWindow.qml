@@ -18,7 +18,8 @@ Item {
 	Grid {
 		id: container
 		objectName: "container"
-		anchors.centerIn: root
+		anchors.horizontalCenter: parent.horizontalCenter
+		anchors.top: parent.top
 		padding: 6
 		spacing: 8
 		rows: 1; columns: 2

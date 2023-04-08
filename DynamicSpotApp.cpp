@@ -96,6 +96,8 @@ void DynamicSpotApp::initTrayMenu()
 	trayMenu = new QMenu;
 	QMenu* menu1 = trayMenu->addMenu("调试");
 	menu1->addAction("调试自动颜色", DynamicSpot::mainWindow, &MyMainWindow::startBackgroundTest);
+	menu1->addAction("切换时间窗体状态", DynamicSpot::mainWindow, &MyMainWindow::toggleTimeBannerState);
+	menu1->addAction("切换倒计时窗体状态", DynamicSpot::mainWindow, &MyMainWindow::toggleCountDownState);
 	trayMenu->addAction("退出", &DynamicSpotApp::quit);
 }
 

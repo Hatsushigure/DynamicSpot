@@ -31,6 +31,8 @@ public slots:
 	void updatedaysLeft();
 	void updateCountDownText();
 	void startBackgroundTest();
+	void toggleTimeBannerState();
+	void toggleCountDownState();
 signals:
 	void daysLeftChanged();
 };
