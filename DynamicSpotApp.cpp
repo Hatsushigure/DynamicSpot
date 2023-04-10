@@ -1,8 +1,9 @@
 #include "DynamicSpotApp.h"
 #include "DynamicSpot.h"
 #include "HeLogger.h"
-#include "MyMainWindow.h"
+#include "MainWindowManager.h"
 #include "MyAutoColorHelper.h"
+#include "qquickview.h"
 #include <QSystemTrayIcon>
 #include <QMenu>
 #include <QSplashScreen>
@@ -78,14 +79,15 @@ void DynamicSpotApp::initIcons()
 
 void DynamicSpotApp::initMainWindow()
 {
-	using DynamicSpot::mainWindow;
+	using DynamicSpot::mainWindowManager;
 	HeLogger::info("初始化主窗口...", "DynamicSpotApp");
 	MyAutoColorHelper::setSampleCount(64);
-	HeLogger::info("将采样点设置为 64 个", "DynamicSpotApp");
-	QQuickWindow::setDefaultAlphaBuffer(true);
-	mainWindow = new MyMainWindow;
-	mainWindow->show();
-	if (!mainWindow->isVisible())
+	HeLogger::info("将自动颜色采样点设置为 64 个", "DynamicSpotApp");
+	mainWindowManager = new MainWindowManager;
+	mainWindowManager->showWindow();
+	mainWindowManager->window()->setWidth(1);
+	mainWindowManager->adjustGeometry();
+	if (!mainWindowManager->window()->isVisible())
 		HeLogger::error("无法显示主窗口", "DynamicSpotApp");
 	else
 		HeLogger::info("成功显示主窗口", "DynamicSpotApp");
@@ -96,7 +98,7 @@ void DynamicSpotApp::initTrayMenu()
 	using DynamicSpot::trayMenu;
 	trayMenu = new QMenu;
 	QMenu* menu1 = trayMenu->addMenu("调试");
-	menu1->addAction("调试自动颜色", DynamicSpot::mainWindow, &MyMainWindow::startBackgroundTest);
+	menu1->addAction("调试自动颜色", DynamicSpot::mainWindowManager, &MainWindowManager::startBackgroundTest);
 	trayMenu->addAction("退出", &DynamicSpotApp::quit);
 }
 
