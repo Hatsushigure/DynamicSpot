@@ -4,7 +4,7 @@
 namespace DynamicSpot
 {
 DynamicSpotApp* theApp;
-MyMainWindow *mainWindow;
+MainWindowManager *mainWindowManager;
 QMenu* trayMenu;
 QSystemTrayIcon* trayIcon;
 QSplashScreen* splashScreen;

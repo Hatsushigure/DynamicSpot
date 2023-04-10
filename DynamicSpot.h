@@ -1,7 +1,7 @@
 #include <QString>
 
 class DynamicSpotApp;
-class MyMainWindow;
+class MainWindowManager;
 class QSystemTrayIcon;
 class QMenu;
 class QIcon;
@@ -19,7 +19,7 @@ const QString versionString = "v0.1.2";
 namespace DynamicSpot
 {
 extern DynamicSpotApp* theApp;
-extern MyMainWindow* mainWindow;
+extern MainWindowManager* mainWindowManager;
 extern QMenu* trayMenu;
 extern QSystemTrayIcon* trayIcon;
 extern QSplashScreen* splashScreen;
