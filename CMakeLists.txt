@@ -8,9 +8,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED 20)
 
 find_package(Qt6 COMPONENTS Quick REQUIRED)
 find_package(Qt6 COMPONENTS REQUIRED Widgets)
-find_package(Qt6 COMPONENTS REQUIRED QuickWidgets)
 
-qt_add_executable(appDynamicSpot
+qt_add_executable(DynamicSpot
     main.cpp
     DynamicSpot.h
     DynamicSpot.cpp
@@ -22,10 +21,14 @@ qt_add_executable(appDynamicSpot
     MyAutoColorHelper.cpp
     HeLogger.h
     HeLogger.cpp
+    ScheduleHost.h
+    ScheduleHost.cpp
+    ScheduleItem.h
+    ScheduleItem.cpp
     res.qrc
 )
 
-qt_add_qml_module(appDynamicSpot
+qt_add_qml_module(DynamicSpot
     URI DynamicSpot
     VERSION 0.2
     QML_FILES
@@ -34,7 +37,7 @@ qt_add_qml_module(appDynamicSpot
 	CountDown.qml
 )
 
-set_target_properties(appDynamicSpot PROPERTIES
+set_target_properties(DynamicSpot PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
     MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
@@ -42,12 +45,11 @@ set_target_properties(appDynamicSpot PROPERTIES
     WIN32_EXECUTABLE TRUE
 )
 
-target_link_libraries(appDynamicSpot
+target_link_libraries(DynamicSpot
     PRIVATE Qt::Quick
     PRIVATE Qt::Widgets
-    PRIVATE Qt::QuickWidgets
 )
 
-install(TARGETS appDynamicSpot
+install(TARGETS DynamicSpot
     BUNDLE DESTINATION .
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
