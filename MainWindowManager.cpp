@@ -14,7 +14,6 @@ MainWindowManager::MainWindowManager(QObject *parent) :
 	initView();
 	initItem();
 	initTimer();
-	adjustGeometry();
 	connect(this, &MainWindowManager::daysLeftChanged, this, &MainWindowManager::updateCountDownText);
 }
 
@@ -41,7 +40,7 @@ void MainWindowManager::initView()
 	QQuickView::setDefaultAlphaBuffer(true);
 	HeLogger::info("为全局 QQuickView 开启了 Alpha 通道", "MainWindowManager");
 	m_view = new QQuickView;
-	m_view->setFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
+	m_view->setFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint | Qt::WindowTransparentForInput | Qt::Tool);
 	m_view->setColor(Qt::transparent);
 	m_view->setResizeMode(QQuickView::SizeRootObjectToView);
 	m_view->setSource(uiSource);
