@@ -27,7 +27,7 @@ qt_add_executable(appDynamicSpot
 
 qt_add_qml_module(appDynamicSpot
     URI DynamicSpot
-    VERSION 1.0
+    VERSION 0.2
     QML_FILES
 	MyMainWindow.qml
 	TimeBanner.qml
