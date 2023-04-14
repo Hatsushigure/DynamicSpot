@@ -111,7 +111,7 @@ void MainWindowManager::showWindow()
 	m_view->show();
 }
 
-void MainWindowManager::startBackgroundTest()
+void MainWindowManager::debug_backgroundColor()
 {
 	HeLogger::info("触发了调试自动颜色选项", "MainWindowManager");
 	QColorDialog* dialog = new QColorDialog;
@@ -121,4 +121,42 @@ void MainWindowManager::startBackgroundTest()
 	connect(dialog, &QColorDialog::currentColorChanged, m_view, &QQuickView::setColor);
 	dialog->show();
 	HeLogger::info("显示颜色对话框", "MainWindowManager");
+}
+
+void MainWindowManager::debug_setTimeBannerStateToShowTime()
+{
+	if (m_timeBanner == nullptr)
+		return;
+	m_timeBanner->setState("showTime");
+}
+
+void MainWindowManager::debug_setTimeBannerStateToShowSlogan()
+{
+	if (m_timeBanner == nullptr)
+		return;
+	m_timeBanner->setState("showSlogan");
+
+}
+
+void MainWindowManager::debug_setTimeBannerStateToShowSchedule()
+{
+	if (m_timeBanner == nullptr)
+		return;
+	m_timeBanner->setState("showSchedule");
+
+}
+
+void MainWindowManager::debug_setCountDownStateToShowShort()
+{
+	if (m_countDown == nullptr)
+		return;
+	m_countDown->setState("showShort");
+}
+
+void MainWindowManager::debug_setCountDownStateToShowFull()
+{
+	if (m_countDown == nullptr)
+		return;
+	m_countDown->setState("showFull");
+
 }

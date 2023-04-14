@@ -1,4 +1,5 @@
 import QtQuick
+import DynamicSpot
 
 Rectangle {
 	property alias containerHeight: container.height

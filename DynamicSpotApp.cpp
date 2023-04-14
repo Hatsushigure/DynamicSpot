@@ -3,11 +3,12 @@
 #include "HeLogger.h"
 #include "MainWindowManager.h"
 #include "MyAutoColorHelper.h"
-#include "qquickview.h"
+#include "ScheduleHost.h"
 #include <QSystemTrayIcon>
 #include <QMenu>
 #include <QSplashScreen>
 #include <QTimer>
+#include <QQuickView>
 
 DynamicSpotApp::DynamicSpotApp(int argc, char *argv[]) :
 	QApplication(argc, argv)
@@ -17,6 +18,7 @@ DynamicSpotApp::DynamicSpotApp(int argc, char *argv[]) :
 	initLogger();
 	initSplashScreeen();
 	initIcons();
+	initScheduleHost();
 	initMainWindow();
 	initTrayMenu();
 	initTrayIcon();
@@ -77,6 +79,13 @@ void DynamicSpotApp::initIcons()
 	HeLogger::info("初始化了图标 \"avatar\"", "DynamicSpotApp");
 }
 
+void DynamicSpotApp::initScheduleHost()
+{
+	using DynamicSpot::scheduleHost;
+	scheduleHost = new ScheduleHost(this);
+	scheduleHost->readFromFile("./ScheduleExample.json");
+}
+
 void DynamicSpotApp::initMainWindow()
 {
 	using DynamicSpot::mainWindowManager;
@@ -97,8 +106,16 @@ void DynamicSpotApp::initTrayMenu()
 {
 	using DynamicSpot::trayMenu;
 	trayMenu = new QMenu;
-	QMenu* menu1 = trayMenu->addMenu("调试");
-	menu1->addAction("调试自动颜色", DynamicSpot::mainWindowManager, &MainWindowManager::startBackgroundTest);
+	auto menu1 = trayMenu->addMenu("调试");
+	menu1->addAction("调试自动颜色", DynamicSpot::mainWindowManager, &MainWindowManager::debug_backgroundColor);
+	auto menu2 = menu1->addMenu("设置状态");
+	auto menu3 = menu2->addMenu("时间横幅");
+	menu3->addAction("显示时间", DynamicSpot::mainWindowManager, &MainWindowManager::debug_setTimeBannerStateToShowTime);
+	menu3->addAction("显示标语", DynamicSpot::mainWindowManager, &MainWindowManager::debug_setTimeBannerStateToShowSlogan);
+	menu3->addAction("显示时间表", DynamicSpot::mainWindowManager, &MainWindowManager::debug_setTimeBannerStateToShowSchedule);
+	auto menu4 = menu2->addMenu("倒计时");
+	menu4->addAction("缩略", DynamicSpot::mainWindowManager, &MainWindowManager::debug_setCountDownStateToShowShort);
+	menu4->addAction("完整", DynamicSpot::mainWindowManager, &MainWindowManager::debug_setCountDownStateToShowFull);
 	trayMenu->addAction("退出", &DynamicSpotApp::quit);
 }
 
@@ -115,7 +132,7 @@ void DynamicSpotApp::initTrayIcon()
 		exit(-1);
 	}
 	else
-		HeLogger::error("成功显示托盘图标", "DynamicSpotApp");
+		HeLogger::info("成功显示托盘图标", "DynamicSpotApp");
 }
 
 void DynamicSpotApp::removeSplashScreen()
