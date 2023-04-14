@@ -16,8 +16,8 @@ qt_add_executable(appDynamicSpot
     DynamicSpot.cpp
     DynamicSpotApp.h
     DynamicSpotApp.cpp
-    MyMainWindow.h
-    MyMainWindow.cpp
+    MainWindowManager.h
+    MainWindowManager.cpp
     MyAutoColorHelper.h
     MyAutoColorHelper.cpp
     HeLogger.h
