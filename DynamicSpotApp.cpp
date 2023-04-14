@@ -85,7 +85,7 @@ void DynamicSpotApp::initMainWindow()
 	HeLogger::info("将自动颜色采样点设置为 64 个", "DynamicSpotApp");
 	mainWindowManager = new MainWindowManager;
 	mainWindowManager->showWindow();
-	mainWindowManager->window()->setWidth(1);
+	mainWindowManager->window()->resize(1, 1);
 	mainWindowManager->adjustGeometry();
 	if (!mainWindowManager->window()->isVisible())
 		HeLogger::error("无法显示主窗口", "DynamicSpotApp");
