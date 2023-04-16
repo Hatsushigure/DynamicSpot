@@ -98,7 +98,8 @@ void DynamicSpotApp::initMainWindow()
 void DynamicSpotApp::initScheduleHost()
 {
 	using DynamicSpot::scheduleHost;
-	scheduleHost->readFromFile("./ScheduleExample.json");
+	HeLogger::info("初始化时间表管理器...", "DynamicSpotApp");
+	scheduleHost->readFromFile("./chedule.json");
 	connect (scheduleHost, &ScheduleHost::currentIndexChanged, this, []() {
 		if (scheduleHost->currentItem()->commandLine().isEmpty())
 			return;
