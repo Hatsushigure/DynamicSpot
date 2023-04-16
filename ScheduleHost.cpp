@@ -74,7 +74,7 @@ void ScheduleHost::readFromFile()
 			auto item = new ScheduleItem(QTime::fromString(itemObj.value("time").toString("00:00:00"), "HH:mm:ss"),
 							  itemObj.value("title").toString("No Title"),
 							  itemObj.value("subtitle").toString(""),
-							  itemObj.value("iconFileName").toString("qrc:///DynamicSpot/images/icons/info/info-256.svg"),
+							  itemObj.value("iconFileName").toString("qrc:///DynamicSpot/images/icons/info/info-256.png"),
 							  itemObj.value("durationSeconds").toInt(10),
 							  itemObj.value("commandLine").toString("")
 							  );

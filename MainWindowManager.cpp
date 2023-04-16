@@ -3,6 +3,7 @@
 #include "DynamicSpotApp.h"
 #include "HeLogger.h"
 #include "MyAutoColorHelper.h"
+#include "ScheduleHost.h"
 #include <QQuickItem>
 #include <QTimer>
 #include <QColorDialog>
@@ -57,6 +58,8 @@ void MainWindowManager::initItem()
 
 	m_timeBanner = m_container->findChild<QQuickItem*>("timeBanner");
 	m_countDown = m_container->findChild<QQuickItem*>("countDown");
+
+	DynamicSpot::scheduleHost = m_timeBanner->findChild<ScheduleHost*>("scheduleHost");
 }
 
 void MainWindowManager::initTimer()

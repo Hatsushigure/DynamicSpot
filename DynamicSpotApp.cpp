@@ -18,8 +18,8 @@ DynamicSpotApp::DynamicSpotApp(int argc, char *argv[]) :
 	initLogger();
 	initSplashScreeen();
 	initIcons();
-	initScheduleHost();
 	initMainWindow();
+	initScheduleHost();
 	initTrayMenu();
 	initTrayIcon();
 	m_timersplashScreen->start();
@@ -79,13 +79,6 @@ void DynamicSpotApp::initIcons()
 	HeLogger::info("初始化了图标 \"avatar\"", "DynamicSpotApp");
 }
 
-void DynamicSpotApp::initScheduleHost()
-{
-	using DynamicSpot::scheduleHost;
-	scheduleHost = new ScheduleHost(this);
-	scheduleHost->readFromFile("./ScheduleExample.json");
-}
-
 void DynamicSpotApp::initMainWindow()
 {
 	using DynamicSpot::mainWindowManager;
@@ -100,6 +93,17 @@ void DynamicSpotApp::initMainWindow()
 		HeLogger::error("无法显示主窗口", "DynamicSpotApp");
 	else
 		HeLogger::info("成功显示主窗口", "DynamicSpotApp");
+}
+
+void DynamicSpotApp::initScheduleHost()
+{
+	using DynamicSpot::scheduleHost;
+	scheduleHost->readFromFile("./ScheduleExample.json");
+	connect (scheduleHost, &ScheduleHost::currentIndexChanged, this, []() {
+		if (scheduleHost->currentItem()->commandLine().isEmpty())
+			return;
+		system(scheduleHost->currentItem()->commandLine().toLocal8Bit());
+	});
 }
 
 void DynamicSpotApp::initTrayMenu()

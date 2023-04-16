@@ -13,8 +13,8 @@ private:
 	void initLogger();
 	void initSplashScreeen();
 	void initIcons();
-	void initScheduleHost();
 	void initMainWindow();
+	void initScheduleHost();
 	void initTrayMenu();
 	void initTrayIcon();
 private:
