@@ -56,7 +56,7 @@ Rectangle {
 			SequentialAnimation {
 				ParallelAnimation {
 					NumberAnimation {duration: 750; easing.type: Easing.OutCubic;target: container; properties: "width, height"}
-					NumberAnimation {target: timeLabel; property: font.pointSize; duration: 750; easing.type: Easing.OutExpo}
+					NumberAnimation {target: timeLabel; property: "font.pointSize"; duration: 750; easing.type: Easing.OutExpo}
 				}
 				XAnimator {target: scheduleViewer; easing.overshoot: 1.5; easing.type: Easing.OutBack; duration: 500}
 			}
@@ -68,7 +68,7 @@ Rectangle {
 				YAnimator {target: scheduleViewer; to: -scheduleViewer.height; easing.overshoot: 1.1; duration: 500; easing.type: Easing.InBack}
 				ParallelAnimation {
 					NumberAnimation {target: container; duration: 750; easing.type: Easing.OutCubic; properties: "width, height"}
-					NumberAnimation {target: timeLabel; property: font.pointSize; duration: 750; easing.type: Easing.OutExpo}
+					NumberAnimation {target: timeLabel; property: "font.pointSize"; duration: 750; easing.type: Easing.OutExpo}
 				}
 				PropertyAction {target: scheduleViewer; properties: "y"; value: 0}
 			}
