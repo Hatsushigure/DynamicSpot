@@ -31,10 +31,12 @@ qt_add_executable(DynamicSpot
 qt_add_qml_module(DynamicSpot
     URI DynamicSpot
     VERSION 0.2
+    RESOURCES
     QML_FILES
 	MyMainWindow.qml
 	TimeBanner.qml
 	CountDown.qml
+	ScheduleViewer.qml
 )
 
 set_target_properties(DynamicSpot PROPERTIES

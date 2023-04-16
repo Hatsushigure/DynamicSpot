@@ -8,6 +8,7 @@
 class ScheduleHost : public QObject
 {
 	Q_OBJECT
+	QML_ELEMENT
 	Q_PROPERTY(int currentIndex READ currentIndex NOTIFY currentIndexChanged)
 	Q_PROPERTY(ScheduleItem* currentItem READ currentItem NOTIFY currentItemChanged)
 private:
