@@ -7,11 +7,11 @@
         <file>images/icons/avatar/avatar - 128.png</file>
         <file>images/icons/avatar/avatar - 144.png</file>
         <file>images/icons/avatar/avatar - 256.png</file>
-        <file>images/icons/info/info-256.svg</file>
-        <file>images/icons/info/info-256.png</file>
-        <file>images/icons/run/run-256.png</file>
-        <file>images/icons/bell/bell-256.png</file>
-        <file>images/icons/meal/meal-256.png</file>
-        <file>images/icons/sleep/sleep-256.png</file>
+        <file>images/icons/colored/bell-256.png</file>
+        <file>images/icons/colored/info-256.png</file>
+        <file>images/icons/colored/info-256.svg</file>
+        <file>images/icons/colored/meal-256.png</file>
+        <file>images/icons/colored/run-256.png</file>
+        <file>images/icons/colored/sleep-256.png</file>
     </qresource>
 </RCC>
