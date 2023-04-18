@@ -15,5 +15,7 @@
         <file>images/icons/colored/sleep-256.png</file>
         <file>images/icons/colored/reading-256.png</file>
         <file>images/icons/colored/teacher-256.png</file>
+        <file>images/icons/colored/exam.png</file>
+        <file>images/icons/colored/write-256.png</file>
     </qresource>
 </RCC>
