@@ -36,7 +36,12 @@ public slots:
 	void updatedaysLeft();
 	void updateCountDownText();
 	void showWindow();
-	void startBackgroundTest();
+	void debug_backgroundColor();
+	void debug_setTimeBannerStateToShowTime();
+	void debug_setTimeBannerStateToShowSlogan();
+	void debug_setTimeBannerStateToShowSchedule();
+	void debug_setCountDownStateToShowShort();
+	void debug_setCountDownStateToShowFull();
 signals:
 	void daysLeftChanged();
 };

@@ -7,5 +7,15 @@
         <file>images/icons/avatar/avatar - 128.png</file>
         <file>images/icons/avatar/avatar - 144.png</file>
         <file>images/icons/avatar/avatar - 256.png</file>
+        <file>images/icons/colored/bell-256.png</file>
+        <file>images/icons/colored/info-256.png</file>
+        <file>images/icons/colored/info-256.svg</file>
+        <file>images/icons/colored/meal-256.png</file>
+        <file>images/icons/colored/run-256.png</file>
+        <file>images/icons/colored/sleep-256.png</file>
+        <file>images/icons/colored/reading-256.png</file>
+        <file>images/icons/colored/teacher-256.png</file>
+        <file>images/icons/colored/exam.png</file>
+        <file>images/icons/colored/write-256.png</file>
     </qresource>
 </RCC>
