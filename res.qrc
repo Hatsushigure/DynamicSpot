@@ -13,5 +13,7 @@
         <file>images/icons/colored/meal-256.png</file>
         <file>images/icons/colored/run-256.png</file>
         <file>images/icons/colored/sleep-256.png</file>
+        <file>images/icons/colored/reading-256.png</file>
+        <file>images/icons/colored/teacher-256.png</file>
     </qresource>
 </RCC>
