@@ -16,7 +16,7 @@ private:
 	QTime m_time {};
 	QString m_title {"No Title"};
 	QString m_subtitle {""};
-	QString m_iconFileName {"qrc:/DynamicSpot/images/icons/info/info-256.png"};
+	QString m_iconFileName {"qrc:/DynamicSpot/images/icons/colored/info-256.png"};
 	int m_durationSeconds {10};
 	QString m_commandLine {""};
 
