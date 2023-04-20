@@ -16,6 +16,7 @@ MainWindowManager::MainWindowManager(QObject *parent) :
 	initItem();
 	initTimer();
 	connect(this, &MainWindowManager::daysLeftChanged, this, &MainWindowManager::updateCountDownText);
+	updatedaysLeft();
 }
 
 int MainWindowManager::daysLeft() const
