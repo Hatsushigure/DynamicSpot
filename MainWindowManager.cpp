@@ -2,11 +2,9 @@
 #include "DynamicSpot.h"
 #include "DynamicSpotApp.h"
 #include "HeLogger.h"
-#include "MyAutoColorHelper.h"
 #include "ScheduleHost.h"
 #include <QQuickItem>
 #include <QTimer>
-#include <QColorDialog>
 #include <QQuickView>
 
 MainWindowManager::MainWindowManager(QObject *parent) :
@@ -15,8 +13,7 @@ MainWindowManager::MainWindowManager(QObject *parent) :
 	initView();
 	initItem();
 	initTimer();
-	connect(this, &MainWindowManager::daysLeftChanged, this, &MainWindowManager::updateCountDownText);
-	updatedaysLeft();
+	updateDaysLeft();
 }
 
 int MainWindowManager::daysLeft() const
@@ -65,15 +62,10 @@ void MainWindowManager::initItem()
 
 void MainWindowManager::initTimer()
 {
-	m_timerAdjustColor = new QTimer(this);
-	m_timerAdjustColor->setInterval(500);
-	connect(m_timerAdjustColor, &QTimer::timeout, this, &MainWindowManager::adjustcolor);
-	m_timerAdjustColor->start();
-	HeLogger::info("启动了切换颜色计时器, 周期 500 毫秒", "MainWindowManager");
-
 	m_timerUpdateDate = new QTimer(this);
 	m_timerUpdateDate->setInterval(10000);
-	connect(m_timerUpdateDate, &QTimer::timeout, this, &MainWindowManager::updatedaysLeft);
+	connect(m_timerUpdateDate, &QTimer::timeout, this, &MainWindowManager::updateDaysLeft);
+	connect(this, &MainWindowManager::daysLeftChanged, this, &MainWindowManager::updateCountDownText);
 	m_timerUpdateDate->start();
 	HeLogger::info("启动了更新日期计时器, 周期 10000 毫秒", "MainWindowManager");
 }
@@ -88,16 +80,7 @@ void MainWindowManager::adjustGeometry()
 	m_view->setPosition((scr->size().width() - m_view->width()) / 2, 0);
 }
 
-void MainWindowManager::adjustcolor()
-{
-	using Qt::StringLiterals::operator""_s;
-	QRect geometry(m_container->mapToGlobal(QPointF(0, 0)).toPoint(), m_container->size().toSize());
-	auto col = MyAutoColorHelper::getColorFromGeometry(geometry, m_view->screen());
-	auto contrastColor = MyAutoColorHelper::getContrastColor(col);
-	m_rootItem->setProperty("textColor", contrastColor);
-}
-
-void MainWindowManager::updatedaysLeft()
+void MainWindowManager::updateDaysLeft()
 {
 	setDaysLeft(deadline.toJulianDay() - QDate::currentDate().toJulianDay());
 }
@@ -113,18 +96,6 @@ void MainWindowManager::updateCountDownText()
 void MainWindowManager::showWindow()
 {
 	m_view->show();
-}
-
-void MainWindowManager::debug_backgroundColor()
-{
-	HeLogger::info("触发了调试自动颜色选项", "MainWindowManager");
-	QColorDialog* dialog = new QColorDialog;
-	dialog->setOptions(QColorDialog::ShowAlphaChannel | QColorDialog::NoButtons);
-	dialog->setAttribute(Qt::WA_DeleteOnClose);
-	dialog->setAttribute(Qt::WA_QuitOnClose, false);
-	connect(dialog, &QColorDialog::currentColorChanged, m_view, &QQuickView::setColor);
-	dialog->show();
-	HeLogger::info("显示颜色对话框", "MainWindowManager");
 }
 
 void MainWindowManager::debug_setTimeBannerStateToShowTime()

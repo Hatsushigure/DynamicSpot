@@ -16,7 +16,6 @@ private:
 	QQuickItem* m_container;
 	QQuickItem* m_timeBanner;
 	QQuickItem* m_countDown;
-	QTimer* m_timerAdjustColor;
 	QTimer* m_timerUpdateDate;
 	QQuickView* m_view;
 	int m_daysLeft;
@@ -32,11 +31,9 @@ private:
 	void initTimer();
 public slots:
 	void adjustGeometry();
-	void adjustcolor();
-	void updatedaysLeft();
+	void updateDaysLeft();
 	void updateCountDownText();
 	void showWindow();
-	void debug_backgroundColor();
 	void debug_setTimeBannerStateToShowTime();
 	void debug_setTimeBannerStateToShowSlogan();
 	void debug_setTimeBannerStateToShowSchedule();
