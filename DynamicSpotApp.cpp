@@ -2,7 +2,6 @@
 #include "DynamicSpot.h"
 #include "HeLogger.h"
 #include "MainWindowManager.h"
-#include "MyAutoColorHelper.h"
 #include "ScheduleHost.h"
 #include <QSystemTrayIcon>
 #include <QMenu>
@@ -83,8 +82,6 @@ void DynamicSpotApp::initMainWindow()
 {
 	using DynamicSpot::mainWindowManager;
 	HeLogger::info("初始化主窗口...", "DynamicSpotApp");
-	MyAutoColorHelper::setSampleCount(64);
-	HeLogger::info("将自动颜色采样点设置为 64 个", "DynamicSpotApp");
 	mainWindowManager = new MainWindowManager;
 	mainWindowManager->showWindow();
 	mainWindowManager->window()->resize(1, 1);
@@ -112,7 +109,6 @@ void DynamicSpotApp::initTrayMenu()
 	using DynamicSpot::trayMenu;
 	trayMenu = new QMenu;
 	auto menu1 = trayMenu->addMenu("调试");
-	menu1->addAction("调试自动颜色", DynamicSpot::mainWindowManager, &MainWindowManager::debug_backgroundColor);
 	auto menu2 = menu1->addMenu("设置状态");
 	auto menu3 = menu2->addMenu("时间横幅");
 	menu3->addAction("显示时间", DynamicSpot::mainWindowManager, &MainWindowManager::debug_setTimeBannerStateToShowTime);

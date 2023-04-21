@@ -2,7 +2,7 @@ import QtQuick
 import "." as App
 
 Item {
-	property color textColor
+	property color textColor: "cyan"
 	property color backgroundColor: "#80000000"
 
 	id: root
