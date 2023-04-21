@@ -1,12 +1,14 @@
 #include "DynamicSpotApp.h"
 #include "DynamicSpot.h"
 #include "HeLogger.h"
-#include "MyMainWindow.h"
+#include "MainWindowManager.h"
 #include "MyAutoColorHelper.h"
+#include "ScheduleHost.h"
 #include <QSystemTrayIcon>
 #include <QMenu>
 #include <QSplashScreen>
 #include <QTimer>
+#include <QQuickView>
 
 DynamicSpotApp::DynamicSpotApp(int argc, char *argv[]) :
 	QApplication(argc, argv)
@@ -17,6 +19,7 @@ DynamicSpotApp::DynamicSpotApp(int argc, char *argv[]) :
 	initSplashScreeen();
 	initIcons();
 	initMainWindow();
+	initScheduleHost();
 	initTrayMenu();
 	initTrayIcon();
 	m_timersplashScreen->start();
@@ -78,26 +81,46 @@ void DynamicSpotApp::initIcons()
 
 void DynamicSpotApp::initMainWindow()
 {
-	using DynamicSpot::mainWindow;
+	using DynamicSpot::mainWindowManager;
 	HeLogger::info("初始化主窗口...", "DynamicSpotApp");
 	MyAutoColorHelper::setSampleCount(64);
-	HeLogger::info("将采样点设置为 64 个", "DynamicSpotApp");
-	mainWindow = new MyMainWindow;
-	mainWindow->show();
-	if (!mainWindow->isVisible())
+	HeLogger::info("将自动颜色采样点设置为 64 个", "DynamicSpotApp");
+	mainWindowManager = new MainWindowManager;
+	mainWindowManager->showWindow();
+	mainWindowManager->window()->resize(1, 1);
+	mainWindowManager->adjustGeometry();
+	if (!mainWindowManager->window()->isVisible())
 		HeLogger::error("无法显示主窗口", "DynamicSpotApp");
 	else
 		HeLogger::info("成功显示主窗口", "DynamicSpotApp");
+}
+
+void DynamicSpotApp::initScheduleHost()
+{
+	using DynamicSpot::scheduleHost;
+	HeLogger::info("初始化时间表管理器...", "DynamicSpotApp");
+	scheduleHost->readFromFile("./schedule.json");
+	connect (scheduleHost, &ScheduleHost::currentIndexChanged, this, []() {
+		if (scheduleHost->currentItem()->commandLine().isEmpty())
+			return;
+		system(scheduleHost->currentItem()->commandLine().toLocal8Bit());
+	});
 }
 
 void DynamicSpotApp::initTrayMenu()
 {
 	using DynamicSpot::trayMenu;
 	trayMenu = new QMenu;
-	QMenu* menu1 = trayMenu->addMenu("调试");
-	menu1->addAction("调试自动颜色", DynamicSpot::mainWindow, &MyMainWindow::startBackgroundTest);
-	menu1->addAction("切换时间窗体状态", DynamicSpot::mainWindow, &MyMainWindow::toggleTimeBannerState);
-	menu1->addAction("切换倒计时窗体状态", DynamicSpot::mainWindow, &MyMainWindow::toggleCountDownState);
+	auto menu1 = trayMenu->addMenu("调试");
+	menu1->addAction("调试自动颜色", DynamicSpot::mainWindowManager, &MainWindowManager::debug_backgroundColor);
+	auto menu2 = menu1->addMenu("设置状态");
+	auto menu3 = menu2->addMenu("时间横幅");
+	menu3->addAction("显示时间", DynamicSpot::mainWindowManager, &MainWindowManager::debug_setTimeBannerStateToShowTime);
+	menu3->addAction("显示标语", DynamicSpot::mainWindowManager, &MainWindowManager::debug_setTimeBannerStateToShowSlogan);
+	menu3->addAction("显示时间表", DynamicSpot::mainWindowManager, &MainWindowManager::debug_setTimeBannerStateToShowSchedule);
+	auto menu4 = menu2->addMenu("倒计时");
+	menu4->addAction("缩略", DynamicSpot::mainWindowManager, &MainWindowManager::debug_setCountDownStateToShowShort);
+	menu4->addAction("完整", DynamicSpot::mainWindowManager, &MainWindowManager::debug_setCountDownStateToShowFull);
 	trayMenu->addAction("退出", &DynamicSpotApp::quit);
 }
 
@@ -114,7 +137,7 @@ void DynamicSpotApp::initTrayIcon()
 		exit(-1);
 	}
 	else
-		HeLogger::error("成功显示托盘图标", "DynamicSpotApp");
+		HeLogger::info("成功显示托盘图标", "DynamicSpotApp");
 }
 
 void DynamicSpotApp::removeSplashScreen()

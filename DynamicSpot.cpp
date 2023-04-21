@@ -4,11 +4,12 @@
 namespace DynamicSpot
 {
 DynamicSpotApp* theApp;
-MyMainWindow *mainWindow;
+MainWindowManager *mainWindowManager;
 QMenu* trayMenu;
 QSystemTrayIcon* trayIcon;
 QSplashScreen* splashScreen;
 HeLogger* logger;
+ScheduleHost* scheduleHost;
 }
 
 namespace DynamicSpot::Icons

@@ -6,35 +6,40 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD_REQUIRED 20)
 
-find_package(Qt6 6.2 COMPONENTS Quick REQUIRED)
+find_package(Qt6 COMPONENTS Quick REQUIRED)
 find_package(Qt6 COMPONENTS REQUIRED Widgets)
-find_package(Qt6 COMPONENTS REQUIRED QuickWidgets)
 
-qt_add_executable(appDynamicSpot
+qt_add_executable(DynamicSpot
     main.cpp
     DynamicSpot.h
     DynamicSpot.cpp
     DynamicSpotApp.h
     DynamicSpotApp.cpp
-    MyMainWindow.h
-    MyMainWindow.cpp
+    MainWindowManager.h
+    MainWindowManager.cpp
     MyAutoColorHelper.h
     MyAutoColorHelper.cpp
     HeLogger.h
     HeLogger.cpp
+    ScheduleHost.h
+    ScheduleHost.cpp
+    ScheduleItem.h
+    ScheduleItem.cpp
     res.qrc
 )
 
-qt_add_qml_module(appDynamicSpot
+qt_add_qml_module(DynamicSpot
     URI DynamicSpot
-    VERSION 1.0
+    VERSION 0.2
+    RESOURCES
     QML_FILES
 	MyMainWindow.qml
 	TimeBanner.qml
 	CountDown.qml
+	ScheduleViewer.qml
 )
 
-set_target_properties(appDynamicSpot PROPERTIES
+set_target_properties(DynamicSpot PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
     MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
@@ -42,12 +47,11 @@ set_target_properties(appDynamicSpot PROPERTIES
     WIN32_EXECUTABLE TRUE
 )
 
-target_link_libraries(appDynamicSpot
-    PRIVATE Qt6::Quick
-    PRIVATE Qt6::Widgets
-    PRIVATE Qt6::QuickWidgets
+target_link_libraries(DynamicSpot
+    PRIVATE Qt::Quick
+    PRIVATE Qt::Widgets
 )
 
-install(TARGETS appDynamicSpot
+install(TARGETS DynamicSpot
     BUNDLE DESTINATION .
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})

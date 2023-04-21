@@ -14,6 +14,7 @@ private:
 	void initSplashScreeen();
 	void initIcons();
 	void initMainWindow();
+	void initScheduleHost();
 	void initTrayMenu();
 	void initTrayIcon();
 private:
