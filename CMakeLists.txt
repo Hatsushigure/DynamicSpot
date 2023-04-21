@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(DynamicSpot VERSION 0.1 LANGUAGES CXX)
+project(DynamicSpot VERSION 0.2.1 LANGUAGES CXX)
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
@@ -17,8 +17,6 @@ qt_add_executable(DynamicSpot
     DynamicSpotApp.cpp
     MainWindowManager.h
     MainWindowManager.cpp
-    MyAutoColorHelper.h
-    MyAutoColorHelper.cpp
     HeLogger.h
     HeLogger.cpp
     ScheduleHost.h
@@ -30,7 +28,7 @@ qt_add_executable(DynamicSpot
 
 qt_add_qml_module(DynamicSpot
     URI DynamicSpot
-    VERSION 0.2
+    VERSION 0.2.1
     RESOURCES
     QML_FILES
 	MyMainWindow.qml
