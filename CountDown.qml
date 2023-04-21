@@ -56,8 +56,7 @@ Rectangle {
 	]
 	transitions: [
 		Transition {
-			from: "showShort"
-			to: "showFull"
+			from: "showShort"; to: "showFull"
 
 			SequentialAnimation {
 				NumberAnimation {target: shortLabel; duration: 250; property: "opacity"}
@@ -67,8 +66,7 @@ Rectangle {
 			}
 		},
 		Transition {
-			from: "showFull"
-			to: "showShort"
+			from: "showFull"; to: "showShort"
 
 			SequentialAnimation {
 				NumberAnimation {target: fullLabel; duration: 250; property: "opacity"}
@@ -89,14 +87,14 @@ Rectangle {
 			color: root.textColor
 			textFormat: Text.MarkdownText
 			text: "<span style=\"color: red; font-weight: bold\">" + 99 + "</span>"
-			font.pointSize: 26
+			font.pointSize: 24
 		}
 		Text {
 			id: fullLabel
 			color: root.textColor
 			textFormat: Text.MarkdownText
 			text: "距离高考仅剩 <span style=\"color: red; font-weight: bold\">" + 99 + "</span> 天"
-			font.pointSize: 26
+			font.pointSize: 24
 		}
 	}
 
