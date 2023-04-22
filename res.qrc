@@ -17,5 +17,6 @@
         <file>images/icons/colored/teacher-256.png</file>
         <file>images/icons/colored/exam-256.png</file>
         <file>images/icons/colored/write-256.png</file>
+        <file>images/icons/qt-logo-400.png</file>
     </qresource>
 </RCC>

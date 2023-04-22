@@ -35,6 +35,7 @@ qt_add_qml_module(DynamicSpot
 	TimeBanner.qml
 	CountDown.qml
 	ScheduleViewer.qml
+	AboutPage.qml
 )
 
 set_target_properties(DynamicSpot PROPERTIES
