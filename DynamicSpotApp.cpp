@@ -117,6 +117,11 @@ void DynamicSpotApp::initTrayMenu()
 	auto menu4 = menu2->addMenu("倒计时");
 	menu4->addAction("缩略", DynamicSpot::mainWindowManager, &MainWindowManager::debug_setCountDownStateToShowShort);
 	menu4->addAction("完整", DynamicSpot::mainWindowManager, &MainWindowManager::debug_setCountDownStateToShowFull);
+	trayMenu->addAction("关于", []() {
+		auto w = new QQuickView(u"qrc:/DynamicSpot/AboutPage.qml"_qs);
+		w->setResizeMode(QQuickView::SizeRootObjectToView);
+		w->show();
+	});
 	trayMenu->addAction("退出", &DynamicSpotApp::quit);
 }
 
