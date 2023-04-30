@@ -10,6 +10,7 @@ QSystemTrayIcon* trayIcon;
 QSplashScreen* splashScreen;
 HeLogger* logger;
 ScheduleHost* scheduleHost;
+SettingsWindow* settingsWindow;
 }
 
 namespace DynamicSpot::Icons

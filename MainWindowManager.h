@@ -9,7 +9,7 @@ class MainWindowManager : public QObject
 	Q_OBJECT
 	Q_PROPERTY(int daysLeft READ daysLeft WRITE setDaysLeft NOTIFY daysLeftChanged)
 private:
-	const QString uiSource = "qrc:/DynamicSpot/MyMainWindow.qml";
+	const QString uiSource = "qrc:/DynamicSpot/qml/MyMainWindow.qml";
 	const QDate deadline = QDate(2023, 6,7);
 private:
 	QQuickItem* m_rootItem;
