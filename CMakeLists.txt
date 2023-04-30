@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(DynamicSpot VERSION 0.2.1 LANGUAGES CXX)
+project(DynamicSpot VERSION 0.2 LANGUAGES CXX)
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
@@ -23,19 +23,22 @@ qt_add_executable(DynamicSpot
     ScheduleHost.cpp
     ScheduleItem.h
     ScheduleItem.cpp
+    SettingsWindow.h
+    SettingsWindow.cpp
     res.qrc
 )
 
 qt_add_qml_module(DynamicSpot
     URI DynamicSpot
-    VERSION 0.2.1
+    VERSION 0.2
     RESOURCES
     QML_FILES
-	MyMainWindow.qml
-	TimeBanner.qml
-	CountDown.qml
-	ScheduleViewer.qml
-	AboutPage.qml
+	qml/MyMainWindow.qml
+	qml/TimeBanner.qml
+	qml/CountDown.qml
+	qml/ScheduleViewer.qml
+	qml/AboutPage.qml
+	qml/SettingsWindow.qml
 )
 
 set_target_properties(DynamicSpot PROPERTIES
