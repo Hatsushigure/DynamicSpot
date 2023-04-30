@@ -17,5 +17,12 @@
         <file>images/icons/colored/teacher-256.png</file>
         <file>images/icons/colored/exam-256.png</file>
         <file>images/icons/colored/write-256.png</file>
+        <file>images/icons/qt-logo-400.png</file>
+        <file>images/icons/dynamicspot-logo-256.svg</file>
+        <file>images/icons/dynamicspot-settings-256.svg</file>
+        <file>images/icons/icons8-logo-256.svg</file>
+        <file>images/icons/filled/settings-256.svg</file>
+        <file>images/icons/colored/settings-256.svg</file>
+        <file>images/icons/outline/settings-256.svg</file>
     </qresource>
 </RCC>

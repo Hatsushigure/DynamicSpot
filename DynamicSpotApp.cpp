@@ -8,6 +8,7 @@
 #include <QSplashScreen>
 #include <QTimer>
 #include <QQuickView>
+#include <SettingsWindow.h>
 
 DynamicSpotApp::DynamicSpotApp(int argc, char *argv[]) :
 	QApplication(argc, argv)
@@ -17,6 +18,9 @@ DynamicSpotApp::DynamicSpotApp(int argc, char *argv[]) :
 	initLogger();
 	initSplashScreeen();
 	initIcons();
+	HeLogger::info("初始化设置窗口...", staticMetaObject.className());
+	DynamicSpot::settingsWindow = new SettingsWindow;
+	HeLogger::info("设置窗口初始化成功", staticMetaObject.className());
 	initMainWindow();
 	initScheduleHost();
 	initTrayMenu();
@@ -117,6 +121,7 @@ void DynamicSpotApp::initTrayMenu()
 	auto menu4 = menu2->addMenu("倒计时");
 	menu4->addAction("缩略", DynamicSpot::mainWindowManager, &MainWindowManager::debug_setCountDownStateToShowShort);
 	menu4->addAction("完整", DynamicSpot::mainWindowManager, &MainWindowManager::debug_setCountDownStateToShowFull);
+	trayMenu->addAction("关于", DynamicSpot::settingsWindow, &SettingsWindow::show);
 	trayMenu->addAction("退出", &DynamicSpotApp::quit);
 }
 
