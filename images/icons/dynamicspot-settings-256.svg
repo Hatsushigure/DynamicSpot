@@ -1,0 +1,50 @@
+<svg width="256" height="256" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+  <filter id="svg_10_blur" x="-50%" y="-50%" width="200%" height="200%">
+   <feGaussianBlur in="SourceGraphic" stdDeviation="0.4"/>
+  </filter>
+  <radialGradient gradientTransform="rotate(-49.50000000000001,0.921875,0.92657470703125) translate(0,0.18531494140624996) scale(1,0.8)" r="0.95885" cy="0.92657" cx="0.92188" spreadMethod="pad" id="svg_4">
+   <stop stop-opacity="0.99609" stop-color="#c55be5" offset="0"/>
+   <stop stop-opacity="0.99219" stop-color="#a268c1" offset="0.30859"/>
+   <stop stop-opacity="0.99609" stop-color="#ca7f97" offset="0.69531"/>
+   <stop stop-opacity="0.99609" stop-color="#fc914d" offset="1"/>
+  </radialGradient>
+  <linearGradient spreadMethod="pad" y2="0" x2="1" y1="0" x1="0" id="svg_3">
+   <stop offset="0" stop-opacity="0.99609" stop-color="#2ae512"/>
+   <stop offset="0.28516" stop-opacity="0.98828" stop-color="#1390dd"/>
+   <stop offset="1" stop-opacity="0.99609" stop-color="#0dbf89"/>
+  </linearGradient>
+  <linearGradient gradientTransform="matrix(2.8139519691467285,0,0,2.8139519691467285,124.74417114257812,122.49305725097656)" gradientUnits="userSpaceOnUse" y2="15.881" y1="32.012" x2="15.881" x1="32.012" id="svg_11">
+   <stop stop-color="#ffffff" offset="0"/>
+   <stop stop-color="#f2f2f2" offset="0.242"/>
+   <stop stop-color="#cccccc" offset="1"/>
+  </linearGradient>
+  <linearGradient gradientTransform="matrix(2.8139519691467285,0,0,2.8139519691467285,124.74417114257812,122.49305725097656)" gradientUnits="userSpaceOnUse" y2="28.94" y1="17.45" x2="28.94" x1="17.45" id="svg_9">
+   <stop stop-color="#0d61a9" offset="0"/>
+   <stop stop-color="#0e5fa4" offset="0.363"/>
+   <stop stop-color="#135796" offset="0.78"/>
+   <stop stop-color="#16528c" offset="1"/>
+  </linearGradient>
+  <linearGradient gradientTransform="matrix(2.8139519691467285,0,0,2.8139519691467285,124.74417114257812,122.49305725097656)" gradientUnits="userSpaceOnUse" y2="38.099" y1="5.344" x2="38.082" x1="5.326" id="svg_8">
+   <stop stop-color="#889097" offset="0"/>
+   <stop stop-color="#848c94" offset="0.331"/>
+   <stop stop-color="#78828b" offset="0.669"/>
+   <stop stop-color="#64717c" offset="1"/>
+  </linearGradient>
+ </defs>
+ <g>
+  <title>Layer 1</title>
+  <rect stroke="null" width="200" height="200" fill="url(#svg_4)" id="svg_1" y="28" x="28" rx="16" stroke-width="0"/>
+  <g id="svg_10" stroke="null" filter="url(#svg_10_blur)">
+   <rect fill-opacity="0.15" rx="4" id="svg_7" height="37.35373" width="160.32071" y="48.64474" x="47.83965" stroke-width="0" fill="#000000" stroke="null"/>
+   <rect rx="8" fill-opacity="0.15" id="svg_5" height="46.14285" width="167.14286" y="44.25019" x="44.42856" stroke-width="0" fill="#000000" stroke="null"/>
+   <rect rx="6" id="svg_6" height="41.74829" width="163.73179" y="46.44746" x="46.1341" fill-opacity="0.15" stroke-width="0" fill="#000000" stroke="null"/>
+  </g>
+  <text font-weight="bold" fill="url(#svg_3)" stroke-width="0" x="59.65649" y="79.893" id="svg_2" font-size="32" font-family="Noto Sans" text-anchor="start" xml:space="preserve" stroke="null" font-style="normal">10:10:00</text>
+  <g stroke="null">
+   <circle stroke="null" fill="url(#svg_11)" r="32.36041" cy="190.02787" cx="192.27903"/>
+   <circle stroke="null" fill="url(#svg_9)" r="19.69764" cy="190.02787" cx="192.27903"/>
+   <path stroke="null" d="m246.86969,176.5209c-6.75348,0 -13.22557,-3.65814 -16.88371,-9.84883c-3.37674,-5.9093 -3.37674,-12.94418 -0.56279,-18.85347c-5.9093,-5.34651 -12.94418,-9.28604 -20.82324,-11.8186c-3.37674,5.6279 -9.56743,9.00464 -16.32092,9.00464s-12.94418,-3.37674 -16.32092,-8.72325c-7.87906,2.25116 -14.91394,6.47209 -20.82324,11.8186c2.81395,5.6279 3.09535,12.94418 -0.56279,18.85347c-3.65814,6.19069 -10.13023,9.84883 -16.88371,9.84883c-1.12558,4.22093 -1.68837,8.72325 -1.68837,13.22557c0,3.65814 0.2814,7.03488 1.12558,10.69302c7.03488,-0.2814 13.78836,3.37674 17.4465,9.84883c3.93953,6.75348 3.37674,14.63255 -0.56279,20.54185c5.9093,5.34651 12.94418,9.84883 20.54185,12.38139c3.09535,-6.75348 9.84883,-11.25581 17.72789,-11.25581s14.63255,4.50232 17.72789,11.25581c7.87906,-2.53256 14.91394,-6.75348 20.54185,-12.38139c-3.93953,-5.9093 -4.50232,-14.06976 -0.56279,-20.54185c3.65814,-6.47209 10.41162,-9.84883 17.4465,-9.84883c0.84419,-3.65814 1.12558,-7.03488 1.12558,-10.69302c0,-4.50232 -0.56279,-9.00464 -1.68837,-13.50697zm-54.59066,43.05346c-16.32092,0 -29.54649,-13.22557 -29.54649,-29.54649c0,-16.32092 13.22557,-29.54649 29.54649,-29.54649s29.54649,13.22557 29.54649,29.54649c0,16.32092 -13.22557,29.54649 -29.54649,29.54649z" fill="url(#svg_8)"/>
+  </g>
+ </g>
+</svg>
