@@ -1,0 +1,28 @@
+<svg width="256" height="256" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+  <filter height="200%" width="200%" y="-50%" x="-50%" id="svg_10_blur">
+   <feGaussianBlur stdDeviation="0.4" in="SourceGraphic"/>
+  </filter>
+  <radialGradient id="svg_4" spreadMethod="pad" cx="0.92188" cy="0.92657" r="0.95885" gradientTransform="rotate(-49.50000000000001,0.921875,0.92657470703125) translate(0,0.18531494140624996) scale(1,0.8)">
+   <stop offset="0" stop-color="#c55be5" stop-opacity="0.99609"/>
+   <stop offset="0.30859" stop-color="#a268c1" stop-opacity="0.99219"/>
+   <stop offset="0.69531" stop-color="#ca7f97" stop-opacity="0.99609"/>
+   <stop offset="1" stop-color="#fc914d" stop-opacity="0.99609"/>
+  </radialGradient>
+  <linearGradient id="svg_3" x1="0" y1="0" x2="1" y2="0" spreadMethod="pad">
+   <stop stop-color="#2ae512" stop-opacity="0.99609" offset="0"/>
+   <stop stop-color="#1390dd" stop-opacity="0.98828" offset="0.28516"/>
+   <stop stop-color="#0dbf89" stop-opacity="0.99609" offset="1"/>
+  </linearGradient>
+ </defs>
+ <g>
+  <title>Layer 1</title>
+  <rect stroke-width="0" rx="16" x="28" y="28" id="svg_1" fill="url(#svg_4)" height="200" width="200" stroke="null"/>
+  <g filter="url(#svg_10_blur)" stroke="null" id="svg_10">
+   <rect stroke="null" fill="#000000" stroke-width="0" x="47.83965" y="48.64474" width="160.32071" height="37.35373" id="svg_7" rx="4" fill-opacity="0.15"/>
+   <rect stroke="null" fill="#000000" stroke-width="0" x="44.42856" y="44.25019" width="167.14286" height="46.14285" id="svg_5" fill-opacity="0.15" rx="8"/>
+   <rect stroke="null" fill="#000000" stroke-width="0" fill-opacity="0.15" x="46.1341" y="46.44746" width="163.73179" height="41.74829" id="svg_6" rx="6"/>
+  </g>
+  <text font-style="normal" stroke="null" xml:space="preserve" text-anchor="start" font-family="Noto Sans" font-size="32" id="svg_2" y="79.893" x="59.65649" stroke-width="0" fill="url(#svg_3)" font-weight="bold">10:10:00</text>
+ </g>
+</svg>

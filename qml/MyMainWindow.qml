@@ -2,7 +2,7 @@ import QtQuick
 import "." as App
 
 Item {
-	property color textColor
+	property color textColor: "cyan"
 	property color backgroundColor: "#80000000"
 
 	id: root
@@ -28,7 +28,6 @@ Item {
 		App.TimeBanner {
 			id: timeBanner
 			objectName: "timeBanner"
-			height: containerHeight + radius
 			textColor: root.textColor
 			color: backgroundColor
 		}
@@ -36,7 +35,6 @@ Item {
 		App.CountDown {
 			id: countDown
 			objectName: "countDown"
-			height: containerHeight + radius
 			textColor: root.textColor
 			color: backgroundColor
 		}
