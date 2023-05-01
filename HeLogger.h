@@ -1,6 +1,6 @@
-/************************************************************
+/**************************************************************
  * HeLogger -- 氦 Logger(其实就是 Hatsushigure 的首尾字母啊)(划掉) *
- ************************************************************/
+ **************************************************************/
 #pragma once
 #include <QDebug>
 #include <QFile>
@@ -12,6 +12,7 @@ public:
 private:
 	static bool m_isInitialized;
 	static QFile m_file;
+	static QFile m_stderrFile;
 public:
 	HeLogger();
 public:
