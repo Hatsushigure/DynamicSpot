@@ -1,8 +1,9 @@
 #include "HeLogger.h"
 #include <QDir>
 
-bool HeLogger::m_isInitialized = false;
-QFile HeLogger::m_file = QFile();
+bool HeLogger::m_isInitialized {false};
+QFile HeLogger::m_file {};
+QFile HeLogger::m_stderrFile {};
 
 HeLogger::HeLogger()
 {
@@ -11,12 +12,13 @@ HeLogger::HeLogger()
 		dir.mkdir("./logs");
 	QString fileName = QString("./logs/%1.log").arg(QDateTime::currentDateTime().toString("yyyy-MM-dd_HH-mm-ss"));
 	m_file.setFileName(fileName);
-	m_file.open(QFile::Append | QFile::Unbuffered);
+	m_file.open(QFile::Append | QFile::Unbuffered | QFile::Text);
 	if (!m_file.isOpen())
 	{
 		qFatal("无法打开日志文件，请确认该目录是否具有读写权限或将本软件移动至其他目录");
 	}
-		qInstallMessageHandler(HeLogger::qtLog);
+	m_stderrFile.open(stderr, QFile::WriteOnly | QFile::Unbuffered | QFile::Text);
+	qInstallMessageHandler(HeLogger::qtLog);
 	m_isInitialized = true;
 	info("成功初始化了 HeLogger!", "HeLogger");
 }
@@ -44,13 +46,14 @@ void HeLogger::log(LogType type, const QString& msg, const QString& className)
 	}
 
 	QString strToWrite = u"%1 [%2/%3] %4"_s
-			.arg(QTime::currentTime().toString("HH:mm:ss.zzz"),
-			typeString,
-			className,
-			msg);
+						 .arg(QTime::currentTime().toString("HH:mm:ss.zzz"),
+							  typeString,
+							  className,
+							  msg);
 	if (!strToWrite.endsWith('\n'))
 		strToWrite.append('\n');
 	m_file.write(strToWrite.toUtf8());
+	m_stderrFile.write(strToWrite.toLocal8Bit());
 }
 
 void HeLogger::info(const QString& msg, const QString& className)
