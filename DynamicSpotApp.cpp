@@ -8,7 +8,8 @@
 #include <QSplashScreen>
 #include <QTimer>
 #include <QQuickView>
-#include <SettingsWindow.h>
+#include "SettingsWindow.h"
+#include <QFileDialog>
 
 DynamicSpotApp::DynamicSpotApp(int argc, char *argv[]) :
 	QApplication(argc, argv)
@@ -122,6 +123,7 @@ void DynamicSpotApp::initTrayMenu()
 	menu4->addAction("缩略", DynamicSpot::mainWindowManager, &MainWindowManager::debug_setCountDownStateToShowShort);
 	menu4->addAction("完整", DynamicSpot::mainWindowManager, &MainWindowManager::debug_setCountDownStateToShowFull);
 	trayMenu->addAction("关于", DynamicSpot::settingsWindow, &SettingsWindow::show);
+	trayMenu->addAction("选择时间表",this,  &DynamicSpotApp::selectScheduleFile);
 	trayMenu->addAction("退出", &DynamicSpotApp::quit);
 }
 
@@ -147,4 +149,21 @@ void DynamicSpotApp::removeSplashScreen()
 	splashScreen->close();
 	delete splashScreen;
 	splashScreen = nullptr;
+}
+
+void DynamicSpotApp::selectScheduleFile()
+{
+	using DynamicSpot::scheduleHost;
+	if (scheduleHost == nullptr)
+		return;
+	auto fileName = QFileDialog::getOpenFileName(
+				nullptr,
+				"选择时间表文件",
+				".",
+				"Json 文件(*.json);;所有文件(*)"
+				);
+	if (QFile(scheduleHost->fileName()).exists())
+		QFile::remove(scheduleHost->fileName());
+	QFile::copy(fileName, scheduleHost->fileName());
+	scheduleHost->readFromFile();
 }
