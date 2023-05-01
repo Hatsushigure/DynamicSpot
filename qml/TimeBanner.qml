@@ -123,6 +123,7 @@ Rectangle {
 		objectName: "scheduleHost"
 		onCurrentItemChanged: {
 			showSloganTimer.stop()
+			showTimeTimer.stop()
 			showSloganTimer.interval = currentItem.durationSeconds * 1000
 			showSloganTimer.start()
 			scheduleViewer.titleText = currentItem.title
