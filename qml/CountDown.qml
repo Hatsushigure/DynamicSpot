@@ -2,35 +2,17 @@ import QtQuick
 
 Rectangle {
 	property color textColor
-	property alias containerHeight: container.height
 	property alias shortText: shortLabel.text
 	property alias fullText: fullLabel.text
+	color: "#80000000"
 
 	id: root
-	width: Math.max(container.width, container.height) + radius
+	implicitWidth: Math.max(container.width, container.height) + radius; implicitHeight: implicitWidth
 	radius: Math.max(container.height, container.width)
 	state: "showShort"
 	states: [
 		State {
 			name: "showShort"
-
-			PropertyChanges {
-				target: fullLabel
-				opacity: 0
-			}
-			PropertyChanges {
-				target: shortLabel;
-				opacity: 1
-			}
-			PropertyChanges {
-				target: container
-				width: shortLabel.implicitWidth
-				height: shortLabel.implicitHeight
-			}
-			PropertyChanges {
-				target: root
-				radius: Math.max(container.height, container.width)
-			}
 		},
 		State {
 			name: "showFull"
@@ -51,6 +33,7 @@ Rectangle {
 			PropertyChanges {
 				target: root
 				radius: 12
+				implicitWidth: container.width + radius; implicitHeight: container.height + radius
 			}
 		}
 	]
@@ -91,6 +74,7 @@ Rectangle {
 		}
 		Text {
 			id: fullLabel
+			opacity: 0
 			color: root.textColor
 			textFormat: Text.MarkdownText
 			text: "距离高考仅剩 <span style=\"color: red; font-weight: bold\">" + 99 + "</span> 天"
