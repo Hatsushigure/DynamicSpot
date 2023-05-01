@@ -34,6 +34,8 @@ ScheduleItem* ScheduleHost::currentItem() const
 
 void ScheduleHost::readFromFile()
 {
+	clearItems();
+
 	if (m_fileName.isEmpty())
 	{
 		HeLogger::warning("未指定文件名, 跳过读取", "ScheduleHost");
@@ -69,7 +71,10 @@ void ScheduleHost::readFromFile()
 		for (const auto& var : items)
 		{
 			if (!var.isObject())
-				break;
+			{
+				HeLogger::error("Json 格式不正确, 跳过解析", "ScheduleHost");
+				return;
+			}
 			auto itemObj = var.toObject();
 			auto item = new ScheduleItem(QTime::fromString(itemObj.value("time").toString("00:00:00"), "HH:mm:ss"),
 							  itemObj.value("title").toString("No Title"),
@@ -127,4 +132,15 @@ void ScheduleHost::updateCurrentIndex(QTimer* timer, const int index)
 	emit currentIndexChanged();
 	emit currentItemChanged();
 	HeLogger::info(u"时间表项 %1 已触发"_s.arg(currentItem()->title()), "ScheduleHost");
+}
+
+void ScheduleHost::clearItems()
+{
+	for (auto it = m_timerSet.begin(); it != m_timerSet.end(); it++)
+		delete (*it);
+	m_timerSet.clear();
+	for (auto item : m_itemLst)
+		delete item;
+	m_itemLst.clear();
+	m_currentIndex = 0;
 }
