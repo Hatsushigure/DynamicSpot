@@ -4,37 +4,26 @@ Rectangle {
 	property color textColor
 	property alias shortText: shortLabel.text
 	property alias fullText: fullLabel.text
-	color: "#80000000"
 
 	id: root
-	implicitWidth: Math.max(container.width, container.height) + radius; implicitHeight: implicitWidth
+	width: implicitWidth; height: implicitHeight
+	implicitWidth: container.width + radius; implicitHeight: container.height + radius
+	color: "#80000000"
 	radius: Math.max(container.height, container.width)
 	state: "showShort"
 	states: [
 		State {
 			name: "showShort"
+
+			PropertyChanges {target: container; width: shortLabel.implicitWidth; height: shortLabel.implicitHeight}
 		},
 		State {
 			name: "showFull"
 
-			PropertyChanges {
-				target: fullLabel
-				opacity: 1
-			}
-			PropertyChanges {
-				target: shortLabel
-				opacity: 0
-			}
-			PropertyChanges {
-				target: container
-				width: fullLabel.implicitWidth
-				height: fullLabel.implicitHeight
-			}
-			PropertyChanges {
-				target: root
-				radius: 12
-				implicitWidth: container.width + radius; implicitHeight: container.height + radius
-			}
+			PropertyChanges {target: fullLabel; opacity: 1}
+			PropertyChanges {target: shortLabel; opacity: 0}
+			PropertyChanges {target: container; width: fullLabel.implicitWidth; height: fullLabel.implicitHeight}
+			PropertyChanges {target: root; radius: 12}
 		}
 	]
 	transitions: [
@@ -63,10 +52,10 @@ Rectangle {
 	Item {
 		id: container
 		anchors.centerIn: parent
-		width: shortLabel.implicitWidth; height: shortLabel.implicitHeight
 
 		Text {
 			id: shortLabel
+			anchors.centerIn: container
 			color: root.textColor
 			textFormat: Text.MarkdownText
 			text: "<span style=\"color: red; font-weight: bold\">" + 99 + "</span>"
@@ -75,6 +64,7 @@ Rectangle {
 		Text {
 			id: fullLabel
 			opacity: 0
+			anchors.centerIn: container
 			color: root.textColor
 			textFormat: Text.MarkdownText
 			text: "距离高考仅剩 <span style=\"color: red; font-weight: bold\">" + 99 + "</span> 天"
