@@ -28,6 +28,8 @@ public:
 	void readFromFile(const QString& fileName);
 private:
 	void updateCurrentIndex(QTimer* timer, const int index);
+public slots:
+	void clearItems();
 signals:
 	void currentIndexChanged();
 	void currentItemChanged();

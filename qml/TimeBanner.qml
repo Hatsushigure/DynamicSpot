@@ -3,41 +3,46 @@ import DynamicSpot
 import "." as App
 
 Rectangle {
-	property alias containerHeight: container.height
 	property alias timeText: timeLabel.text
 	property alias sloganText: sloganLabel.text
 	property color textColor
 
 	id: root
-	width: container.width + radius
+	implicitWidth: container.width + radius; implicitHeight: container.height + radius
 	radius: 12
+	border.width: 0
+	color: "#80000000"
 	state: "showTime"
 	states: [
+
 		State {
 			name: "showTime"
 		},
+
 		State {
 			name: "showSlogan"
 
 			PropertyChanges {target: sloganLabel; opacity: 1}
-			PropertyChanges {target: timeLabel; opacity: 0}
-			PropertyChanges {target: container; width: sloganLabel.implicitWidth; height: sloganLabel.implicitHeight}
+			PropertyChanges {target: timeLabel; font.pointSize: 16}
+			PropertyChanges {target: container; width: sloganLabel.implicitWidth; height: sloganLabel.implicitHeight + timeLabel.implicitHeight}
 		},
+
 		State {
 			name: "showSchedule"
 
 			PropertyChanges {target: timeLabel; font.pointSize: 16}
 			PropertyChanges {target: scheduleViewer; x: 0}
 			PropertyChanges {target: container; width: scheduleViewer.implicitWidth; height: scheduleViewer.implicitHeight + timeLabel.implicitHeight}
-		}
-	]
+		}	]
 	transitions: [
 		Transition {
 			from: "showTime"; to: "showSlogan"
 
 			SequentialAnimation {
-				PropertyAnimation {target: timeLabel; duration: 250; property: "opacity"}
-				PropertyAnimation {target: container; easing.overshoot: 1.5; easing.type: Easing.OutBack; duration: 750; properties: "width, height"}
+				ParallelAnimation {
+					NumberAnimation { target: timeLabel; property: "font.pointSize"; duration: 750; easing.type: Easing.OutExpo}
+					PropertyAnimation {target: container; easing.overshoot: 1.5; easing.type: Easing.OutBack; duration: 750; properties: "width, height"}
+				}
 				PropertyAnimation {target: sloganLabel; duration: 250; property: "opacity"}
 			}
 		},
@@ -46,8 +51,10 @@ Rectangle {
 
 			SequentialAnimation {
 				PropertyAnimation {target: sloganLabel; duration: 250; property: "opacity"}
-				PropertyAnimation {target: container; easing.overshoot: 1.5; easing.type: Easing.OutBack; duration: 750; properties: "width, height"}
-				PropertyAnimation {target: timeLabel; duration: 250; property: "opacity"}
+				ParallelAnimation {
+					PropertyAnimation {target: container; easing.overshoot: 1.5; easing.type: Easing.OutBack; duration: 750; properties: "width, height"}
+					NumberAnimation { target: timeLabel; property: "font.pointSize"; duration: 750; easing.type: Easing.OutExpo}
+				}
 			}
 		},
 		Transition {
@@ -95,11 +102,12 @@ Rectangle {
 
 		Text {
 			id: sloganLabel
-			anchors.centerIn: container
 			opacity: 0
 			textFormat: Text.MarkdownText
 			color: root.textColor
 			text: "平凡者做完，优秀者做好，卓越者做到极致"
+			anchors.top: parent.top
+			anchors.horizontalCenter: parent.horizontalCenter
 			font.pointSize: 24
 		}
 
@@ -115,6 +123,7 @@ Rectangle {
 		objectName: "scheduleHost"
 		onCurrentItemChanged: {
 			showSloganTimer.stop()
+			showTimeTimer.stop()
 			showSloganTimer.interval = currentItem.durationSeconds * 1000
 			showSloganTimer.start()
 			scheduleViewer.titleText = currentItem.title

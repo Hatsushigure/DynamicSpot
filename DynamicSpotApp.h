@@ -19,6 +19,8 @@ private:
 	void initTrayIcon();
 private:
 	void removeSplashScreen();
+public slots:
+	void selectScheduleFile();
 signals:
 	void allReady();
 };

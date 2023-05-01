@@ -2,13 +2,14 @@
 #include "DynamicSpot.h"
 #include "HeLogger.h"
 #include "MainWindowManager.h"
-#include "MyAutoColorHelper.h"
 #include "ScheduleHost.h"
 #include <QSystemTrayIcon>
 #include <QMenu>
 #include <QSplashScreen>
 #include <QTimer>
 #include <QQuickView>
+#include "SettingsWindow.h"
+#include <QFileDialog>
 
 DynamicSpotApp::DynamicSpotApp(int argc, char *argv[]) :
 	QApplication(argc, argv)
@@ -18,6 +19,9 @@ DynamicSpotApp::DynamicSpotApp(int argc, char *argv[]) :
 	initLogger();
 	initSplashScreeen();
 	initIcons();
+	HeLogger::info("初始化设置窗口...", staticMetaObject.className());
+	DynamicSpot::settingsWindow = new SettingsWindow;
+	HeLogger::info("设置窗口初始化成功", staticMetaObject.className());
 	initMainWindow();
 	initScheduleHost();
 	initTrayMenu();
@@ -83,8 +87,6 @@ void DynamicSpotApp::initMainWindow()
 {
 	using DynamicSpot::mainWindowManager;
 	HeLogger::info("初始化主窗口...", "DynamicSpotApp");
-	MyAutoColorHelper::setSampleCount(64);
-	HeLogger::info("将自动颜色采样点设置为 64 个", "DynamicSpotApp");
 	mainWindowManager = new MainWindowManager;
 	mainWindowManager->showWindow();
 	mainWindowManager->window()->resize(1, 1);
@@ -112,7 +114,6 @@ void DynamicSpotApp::initTrayMenu()
 	using DynamicSpot::trayMenu;
 	trayMenu = new QMenu;
 	auto menu1 = trayMenu->addMenu("调试");
-	menu1->addAction("调试自动颜色", DynamicSpot::mainWindowManager, &MainWindowManager::debug_backgroundColor);
 	auto menu2 = menu1->addMenu("设置状态");
 	auto menu3 = menu2->addMenu("时间横幅");
 	menu3->addAction("显示时间", DynamicSpot::mainWindowManager, &MainWindowManager::debug_setTimeBannerStateToShowTime);
@@ -121,6 +122,8 @@ void DynamicSpotApp::initTrayMenu()
 	auto menu4 = menu2->addMenu("倒计时");
 	menu4->addAction("缩略", DynamicSpot::mainWindowManager, &MainWindowManager::debug_setCountDownStateToShowShort);
 	menu4->addAction("完整", DynamicSpot::mainWindowManager, &MainWindowManager::debug_setCountDownStateToShowFull);
+	trayMenu->addAction("关于", DynamicSpot::settingsWindow, &SettingsWindow::show);
+	trayMenu->addAction("选择时间表",this,  &DynamicSpotApp::selectScheduleFile);
 	trayMenu->addAction("退出", &DynamicSpotApp::quit);
 }
 
@@ -146,4 +149,21 @@ void DynamicSpotApp::removeSplashScreen()
 	splashScreen->close();
 	delete splashScreen;
 	splashScreen = nullptr;
+}
+
+void DynamicSpotApp::selectScheduleFile()
+{
+	using DynamicSpot::scheduleHost;
+	if (scheduleHost == nullptr)
+		return;
+	auto fileName = QFileDialog::getOpenFileName(
+				nullptr,
+				"选择时间表文件",
+				".",
+				"Json 文件(*.json);;所有文件(*)"
+				);
+	if (QFile(scheduleHost->fileName()).exists())
+		QFile::remove(scheduleHost->fileName());
+	QFile::copy(fileName, scheduleHost->fileName());
+	scheduleHost->readFromFile();
 }
