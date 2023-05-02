@@ -25,7 +25,6 @@ extern MainWindowManager* mainWindowManager;
 extern QMenu* trayMenu;
 extern QSystemTrayIcon* trayIcon;
 extern QSplashScreen* splashScreen;
-extern HeLogger* logger;
 extern ScheduleHost* scheduleHost;
 extern SettingsWindow* settingsWindow;
 }
