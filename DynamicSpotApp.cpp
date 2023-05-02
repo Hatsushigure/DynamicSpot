@@ -10,6 +10,7 @@
 #include <QQuickView>
 #include "SettingsWindow.h"
 #include <QFileDialog>
+#include "ScheduleTestWidget.h"
 
 DynamicSpotApp::DynamicSpotApp(int argc, char *argv[]) :
 	QApplication(argc, argv)
@@ -122,6 +123,13 @@ void DynamicSpotApp::initTrayMenu()
 	auto menu4 = menu2->addMenu("倒计时");
 	menu4->addAction("缩略", DynamicSpot::mainWindowManager, &MainWindowManager::debug_setCountDownStateToShowShort);
 	menu4->addAction("完整", DynamicSpot::mainWindowManager, &MainWindowManager::debug_setCountDownStateToShowFull);
+	menu1->addAction("时间表测试", []() {
+		HeLogger::warning("准备测试时间表, 即将清空当前时间表队列", staticMetaObject.className());
+		DynamicSpot::scheduleHost->clearItems();
+		auto w = new ScheduleTestWidget;
+		w->setAttribute(Qt::WA_DeleteOnClose);
+		w->show();
+	});
 	trayMenu->addAction("关于", DynamicSpot::settingsWindow, &SettingsWindow::show);
 	trayMenu->addAction("选择时间表",this,  &DynamicSpotApp::selectScheduleFile);
 	trayMenu->addAction("退出", &DynamicSpotApp::quit);

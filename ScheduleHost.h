@@ -11,6 +11,7 @@ class ScheduleHost : public QObject
 	QML_ELEMENT
 	Q_PROPERTY(int currentIndex READ currentIndex NOTIFY currentIndexChanged)
 	Q_PROPERTY(ScheduleItem* currentItem READ currentItem NOTIFY currentItemChanged)
+	friend class ScheduleTestWidget;
 private:
 	QList<ScheduleItem*> m_itemLst {};
 	QSet<QTimer*> m_timerSet {};
