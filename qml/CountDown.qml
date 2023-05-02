@@ -8,6 +8,7 @@ Rectangle {
 	id: root
 	width: implicitWidth; height: implicitHeight
 	implicitWidth: container.width + radius; implicitHeight: container.height + radius
+	border.width: 0
 	color: "#80000000"
 	radius: Math.max(container.height, container.width)
 	state: "showShort"
