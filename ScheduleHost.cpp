@@ -38,14 +38,14 @@ void ScheduleHost::readFromFile()
 
 	if (m_fileName.isEmpty())
 	{
-		HeLogger::warning("未指定文件名, 跳过读取", "ScheduleHost");
+		HeLogger::logger()->warning("未指定文件名, 跳过读取", "ScheduleHost");
 		return;
 	}
 	QFile tmpFile(m_fileName);
 	tmpFile.open(QFile::ReadOnly);
 	if (!tmpFile.isOpen())
 	{
-		HeLogger::error("无法打开文件, 请检查文件是否存在以及是否有相应权限", "ScheduleHost");
+		HeLogger::logger()->error("无法打开文件, 请检查文件是否存在以及是否有相应权限", "ScheduleHost");
 		return;
 	}
 
@@ -54,7 +54,7 @@ void ScheduleHost::readFromFile()
 	tmpFile.close();
 	if (err.error != QJsonParseError::NoError)
 	{
-		HeLogger::error(u"解读 Json 时出现错误: %1"_s.arg(err.errorString()), "ScheduleHost");
+		HeLogger::logger()->error(u"解读 Json 时出现错误: %1"_s.arg(err.errorString()), "ScheduleHost");
 		return;
 	}
 	while (true)
@@ -72,7 +72,7 @@ void ScheduleHost::readFromFile()
 		{
 			if (!var.isObject())
 			{
-				HeLogger::error("Json 格式不正确, 跳过解析", "ScheduleHost");
+				HeLogger::logger()->error("Json 格式不正确, 跳过解析", "ScheduleHost");
 				return;
 			}
 			auto itemObj = var.toObject();
@@ -83,7 +83,7 @@ void ScheduleHost::readFromFile()
 							  itemObj.value("durationSeconds").toInt(10),
 							  itemObj.value("commandLine").toString("")
 							  );
-			HeLogger::info(u"读取到时间表项: 时间: %1\n\t\t\t\t\t\t\t\t标题: %2"_s.arg(
+			HeLogger::logger()->info(u"读取到时间表项: 时间: %1\n\t\t\t\t\t\t\t\t标题: %2"_s.arg(
 							   item->time().toString("HH:mm:ss"),
 							   item->title()
 							   ),
@@ -96,7 +96,7 @@ void ScheduleHost::readFromFile()
 			return a->time().msecsSinceStartOfDay() < b->time().msecsSinceStartOfDay();
 		});
 
-		HeLogger::info("正在启动时间表计时器...", "ScheduleHost");
+		HeLogger::logger()->info("正在启动时间表计时器...", "ScheduleHost");
 		for (int i = 0; i < m_itemLst.count(); i++)
 		{
 			auto duration = m_itemLst.at(i)->time().msecsSinceStartOfDay() - QTime::currentTime().msecsSinceStartOfDay();
@@ -114,7 +114,7 @@ void ScheduleHost::readFromFile()
 		}
 		return;
 	}
-	HeLogger::error("Json 格式不正确, 跳过解析", "ScheduleHost");
+	HeLogger::logger()->error("Json 格式不正确, 跳过解析", "ScheduleHost");
 	return;
 }
 
@@ -131,7 +131,7 @@ void ScheduleHost::updateCurrentIndex(QTimer* timer, const int index)
 	m_currentIndex = index;
 	emit currentIndexChanged();
 	emit currentItemChanged();
-	HeLogger::info(u"时间表项 %1 已触发"_s.arg(currentItem()->title()), "ScheduleHost");
+	HeLogger::logger()->info(u"时间表项 %1 已触发"_s.arg(currentItem()->title()), "ScheduleHost");
 }
 
 void ScheduleHost::clearItems()

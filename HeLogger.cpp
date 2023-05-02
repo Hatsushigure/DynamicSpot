@@ -1,9 +1,7 @@
 #include "HeLogger.h"
 #include <QDir>
 
-bool HeLogger::m_isInitialized {false};
-QFile HeLogger::m_file {};
-QFile HeLogger::m_stderrFile {};
+HeLogger* HeLogger::m_logger {nullptr};
 
 HeLogger::HeLogger()
 {
@@ -19,14 +17,20 @@ HeLogger::HeLogger()
 	}
 	m_stderrFile.open(stderr, QFile::WriteOnly | QFile::Unbuffered | QFile::Text);
 	qInstallMessageHandler(HeLogger::qtLog);
-	m_isInitialized = true;
 	info("成功初始化了 HeLogger!", "HeLogger");
+}
+
+HeLogger* HeLogger::logger()
+{
+	if (m_logger == nullptr)
+		m_logger = new HeLogger;
+	return m_logger;
 }
 
 void HeLogger::log(LogType type, const QString& msg, const QString& className)
 {
 	using Qt::StringLiterals::operator""_s;
-	if (!m_isInitialized)
+	if (m_logger == nullptr)
 		return;
 	QString typeString;
 	switch (type)
@@ -82,16 +86,16 @@ void HeLogger::qtLog(QtMsgType type, const QMessageLogContext&, const QString& m
 	{
 	case QtDebugMsg:
 	case QtInfoMsg:
-		info(msg);
+		logger()->info(msg);
 		break;
 	case QtWarningMsg:
-		warning(msg);
+		logger()->warning(msg);
 		break;
 	case QtCriticalMsg:
-		error(msg);
+		logger()->error(msg);
 		break;
 	case QtFatalMsg:
-		fatal(msg);
+		logger()->fatal(msg);
 		break;
 	}
 }

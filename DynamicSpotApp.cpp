@@ -17,12 +17,12 @@ DynamicSpotApp::DynamicSpotApp(int argc, char *argv[]) :
 {
 	setOrganizationName("Hatsushigure");
 	setApplicationName("DynamicSpot");
-	initLogger();
+	HeLogger::logger()->info("成功初始化了 HeLogger. 程序版本: " + DynamicSpot::VersionInfo::versionString, "DynamicSpotApp");
 	initSplashScreeen();
 	initIcons();
-	HeLogger::info("初始化设置窗口...", staticMetaObject.className());
+	HeLogger::logger()->info("初始化设置窗口...", staticMetaObject.className());
 	DynamicSpot::settingsWindow = new SettingsWindow;
-	HeLogger::info("设置窗口初始化成功", staticMetaObject.className());
+	HeLogger::logger()->info("设置窗口初始化成功", staticMetaObject.className());
 	initMainWindow();
 	initScheduleHost();
 	initTrayMenu();
@@ -36,26 +36,19 @@ DynamicSpotApp::~DynamicSpotApp()
 	delete DynamicSpot::trayMenu;
 }
 
-void DynamicSpotApp::initLogger()
-{
-	using DynamicSpot::logger;
-	logger = new HeLogger;
-	logger->info("成功初始化了 HeLogger. 程序版本: " + DynamicSpot::VersionInfo::versionString, "DynamicSpotApp");
-}
-
 void DynamicSpotApp::initSplashScreeen()
 {
 	using DynamicSpot::splashScreen;
-	HeLogger::info("初始化启动窗口...", "DynamicSpotApp");
+	HeLogger::logger()->info("初始化启动窗口...", "DynamicSpotApp");
 	QPixmap pix(":/DynamicSpot/images/icons/avatar/avatar - 256.png");
 	pix = pix.scaled(QSize(100, 100), Qt::KeepAspectRatio, Qt::SmoothTransformation);
 	splashScreen = new QSplashScreen(pix, Qt::WindowStaysOnTopHint);
 	connect(this, &DynamicSpotApp::allReady, this, &DynamicSpotApp::removeSplashScreen);
 	splashScreen->show();
 	if (!splashScreen->isVisible())
-		HeLogger::warning("未成功显示启动窗口", "DynamicSpotApp");
+		HeLogger::logger()->warning("未成功显示启动窗口", "DynamicSpotApp");
 	else
-		HeLogger::info("成功显示了启动窗口", "DynamicSpotApp");
+		HeLogger::logger()->info("成功显示了启动窗口", "DynamicSpotApp");
 
 	m_timersplashScreen = new QTimer;
 	m_timersplashScreen->setInterval(1000);
@@ -66,42 +59,42 @@ void DynamicSpotApp::initSplashScreeen()
 void DynamicSpotApp::initIcons()
 {
 	using namespace DynamicSpot::Icons;
-	HeLogger::info("初始化图标 \"avatar\"...", "DynamicSpotApp");
+	HeLogger::logger()->info("初始化图标 \"avatar\"...", "DynamicSpotApp");
 	avatar.addFile(":/DynamicSpot/images/icons/avatar/avatar - 32.png");
-	HeLogger::info("加载了文件 :/DynamicSpot/images/icons/avatar/avatar - 32.png", "DynamicSpotApp");
+	HeLogger::logger()->info("加载了文件 :/DynamicSpot/images/icons/avatar/avatar - 32.png", "DynamicSpotApp");
 	avatar.addFile(":/DynamicSpot/images/icons/avatar/avatar - 48.png");
-	HeLogger::info("加载了文件 :/DynamicSpot/images/icons/avatar/avatar - 48.png", "DynamicSpotApp");
+	HeLogger::logger()->info("加载了文件 :/DynamicSpot/images/icons/avatar/avatar - 48.png", "DynamicSpotApp");
 	avatar.addFile(":/DynamicSpot/images/icons/avatar/avatar - 64.png");
-	HeLogger::info("加载了文件 :/DynamicSpot/images/icons/avatar/avatar - 64.png", "DynamicSpotApp");
+	HeLogger::logger()->info("加载了文件 :/DynamicSpot/images/icons/avatar/avatar - 64.png", "DynamicSpotApp");
 	avatar.addFile(":/DynamicSpot/images/icons/avatar/avatar - 96.png");
-	HeLogger::info("加载了文件 :/DynamicSpot/images/icons/avatar/avatar - 96.png", "DynamicSpotApp");
+	HeLogger::logger()->info("加载了文件 :/DynamicSpot/images/icons/avatar/avatar - 96.png", "DynamicSpotApp");
 	avatar.addFile(":/DynamicSpot/images/icons/avatar/avatar - 128.png");
-	HeLogger::info("加载了文件 :/DynamicSpot/images/icons/avatar/avatar - 128.png", "DynamicSpotApp");
+	HeLogger::logger()->info("加载了文件 :/DynamicSpot/images/icons/avatar/avatar - 128.png", "DynamicSpotApp");
 	avatar.addFile(":/DynamicSpot/images/icons/avatar/avatar - 144.png");
-	HeLogger::info("加载了文件 :/DynamicSpot/images/icons/avatar/avatar - 144.png", "DynamicSpotApp");
+	HeLogger::logger()->info("加载了文件 :/DynamicSpot/images/icons/avatar/avatar - 144.png", "DynamicSpotApp");
 	avatar.addFile(":/DynamicSpot/images/icons/avatar/avatar - 256.png");
-	HeLogger::info("加载了文件 :/DynamicSpot/images/icons/avatar/avatar - 256.png", "DynamicSpotApp");
-	HeLogger::info("初始化了图标 \"avatar\"", "DynamicSpotApp");
+	HeLogger::logger()->info("加载了文件 :/DynamicSpot/images/icons/avatar/avatar - 256.png", "DynamicSpotApp");
+	HeLogger::logger()->info("初始化了图标 \"avatar\"", "DynamicSpotApp");
 }
 
 void DynamicSpotApp::initMainWindow()
 {
 	using DynamicSpot::mainWindowManager;
-	HeLogger::info("初始化主窗口...", "DynamicSpotApp");
+	HeLogger::logger()->info("初始化主窗口...", "DynamicSpotApp");
 	mainWindowManager = new MainWindowManager;
 	mainWindowManager->showWindow();
 	mainWindowManager->window()->resize(1, 1);
 	mainWindowManager->adjustGeometry();
 	if (!mainWindowManager->window()->isVisible())
-		HeLogger::error("无法显示主窗口", "DynamicSpotApp");
+		HeLogger::logger()->error("无法显示主窗口", "DynamicSpotApp");
 	else
-		HeLogger::info("成功显示主窗口", "DynamicSpotApp");
+		HeLogger::logger()->info("成功显示主窗口", "DynamicSpotApp");
 }
 
 void DynamicSpotApp::initScheduleHost()
 {
 	using DynamicSpot::scheduleHost;
-	HeLogger::info("初始化时间表管理器...", "DynamicSpotApp");
+	HeLogger::logger()->info("初始化时间表管理器...", "DynamicSpotApp");
 	scheduleHost->readFromFile("./schedule.json");
 	connect (scheduleHost, &ScheduleHost::currentIndexChanged, this, []() {
 		if (scheduleHost->currentItem()->commandLine().isEmpty())
@@ -124,7 +117,7 @@ void DynamicSpotApp::initTrayMenu()
 	menu4->addAction("缩略", DynamicSpot::mainWindowManager, &MainWindowManager::debug_setCountDownStateToShowShort);
 	menu4->addAction("完整", DynamicSpot::mainWindowManager, &MainWindowManager::debug_setCountDownStateToShowFull);
 	menu1->addAction("时间表测试", []() {
-		HeLogger::warning("准备测试时间表, 即将清空当前时间表队列", staticMetaObject.className());
+		HeLogger::logger()->warning("准备测试时间表, 即将清空当前时间表队列", staticMetaObject.className());
 		DynamicSpot::scheduleHost->clearItems();
 		auto w = new ScheduleTestWidget;
 		w->setAttribute(Qt::WA_DeleteOnClose);
@@ -138,17 +131,17 @@ void DynamicSpotApp::initTrayMenu()
 void DynamicSpotApp::initTrayIcon()
 {
 	using DynamicSpot::trayIcon;
-	HeLogger::info("初始化托盘图标...", "DynamicSpotApp");
+	HeLogger::logger()->info("初始化托盘图标...", "DynamicSpotApp");
 	trayIcon = new QSystemTrayIcon(DynamicSpot::Icons::avatar);
 	trayIcon->setContextMenu(DynamicSpot::trayMenu);
 	trayIcon->show();
 	if (!trayIcon->isVisible())
 	{
-		HeLogger::fatal("无法显示托盘图标, 程序即将退出", "DynamicSpotApp");
+		HeLogger::logger()->fatal("无法显示托盘图标, 程序即将退出", "DynamicSpotApp");
 		exit(-1);
 	}
 	else
-		HeLogger::info("成功显示托盘图标", "DynamicSpotApp");
+		HeLogger::logger()->info("成功显示托盘图标", "DynamicSpotApp");
 }
 
 void DynamicSpotApp::removeSplashScreen()
