@@ -14,11 +14,7 @@ Rectangle {
 	color: "#80000000"
 	state: "showTime"
 	states: [
-
-		State {
-			name: "showTime"
-		},
-
+		State {name: "showTime"},
 		State {
 			name: "showSlogan"
 
@@ -26,14 +22,14 @@ Rectangle {
 			PropertyChanges {target: timeLabel; font.pointSize: 16}
 			PropertyChanges {target: container; width: sloganLabel.implicitWidth; height: sloganLabel.implicitHeight + timeLabel.implicitHeight}
 		},
-
 		State {
 			name: "showSchedule"
 
+			PropertyChanges {target: scheduleViewer; visible: true}
 			PropertyChanges {target: timeLabel; font.pointSize: 16}
-			PropertyChanges {target: scheduleViewer; x: 0}
 			PropertyChanges {target: container; width: scheduleViewer.implicitWidth; height: scheduleViewer.implicitHeight + timeLabel.implicitHeight}
-		}	]
+		}
+	]
 	transitions: [
 		Transition {
 			from: "showTime"; to: "showSlogan"
@@ -61,26 +57,28 @@ Rectangle {
 			from: "showTime"; to: "showSchedule"
 
 			SequentialAnimation {
+				PropertyAction {target: scheduleViewer; property: "x"; value: -scheduleViewer.width}
+				PropertyAction {target: scheduleViewer; property: "visible"}
 				ParallelAnimation {
-					NumberAnimation {duration: 750; easing.type: Easing.OutCubic;target: container; properties: "width, height"}
+					NumberAnimation {duration: 750; easing.type: Easing.OutCubic; target: container; properties: "width, height"}
 					NumberAnimation {target: timeLabel; property: "font.pointSize"; duration: 750; easing.type: Easing.OutExpo}
 				}
-				XAnimator {target: scheduleViewer; easing.overshoot: 1.5; easing.type: Easing.OutBack; duration: 500}
+				NumberAnimation {target: scheduleViewer; to: 0; easing.overshoot: 1.5; easing.type: Easing.OutBack; property: "x"; duration: 500}
 			}
 		},
 		Transition {
 			from: "showSchedule"; to: "showTime"
 
 			SequentialAnimation {
-				YAnimator {target: scheduleViewer; to: -scheduleViewer.height; easing.overshoot: 1.1; duration: 500; easing.type: Easing.InBack}
+				NumberAnimation {target: scheduleViewer; property: "y"; to: -scheduleViewer.height; easing.overshoot: 1.1; duration: 500; easing.type: Easing.InBack}
 				ParallelAnimation {
 					NumberAnimation {target: container; duration: 750; easing.type: Easing.OutCubic; properties: "width, height"}
 					NumberAnimation {target: timeLabel; property: "font.pointSize"; duration: 750; easing.type: Easing.OutExpo}
 				}
+				PropertyAction {target: scheduleViewer; property: "visible"}
 				PropertyAction {target: scheduleViewer; properties: "y"; value: 0}
 			}
 		}
-
 	]
 
 	Item {
@@ -102,19 +100,23 @@ Rectangle {
 
 		Text {
 			id: sloganLabel
+			anchors.top: parent.top
+			anchors.horizontalCenter: parent.horizontalCenter
 			opacity: 0
 			textFormat: Text.MarkdownText
 			color: root.textColor
 			text: "平凡者做完，优秀者做好，卓越者做到极致"
-			anchors.top: parent.top
-			anchors.horizontalCenter: parent.horizontalCenter
 			font.pointSize: 24
 		}
 
 		App.ScheduleViewer {
 			id: scheduleViewer
-			x: -width; y: 0
+			visible: false
+			x: 0; y:0
 			textColor: root.textColor
+			iconFileName: "qrc:/DynamicSpot/images/icons/colored/settings-256.svg"
+			titleText: "Test item"
+			subtitleText: "gggff--gfd$fgghyhbhuhvvfyujjghy"
 		}
 	}
 
@@ -122,43 +124,53 @@ Rectangle {
 		id: scheduleHost
 		objectName: "scheduleHost"
 		onCurrentItemChanged: {
-			showSloganTimer.stop()
-			showTimeTimer.stop()
-			showSloganTimer.interval = currentItem.durationSeconds * 1000
-			showSloganTimer.start()
+			timerShowSlogan.stop()
+			timerShowTime.stop()
+			timerShowSlogan.interval = currentItem.durationSeconds * 1000
+			timerShowSlogan.start()
 			scheduleViewer.titleText = currentItem.title
 			scheduleViewer.subtitleText = currentItem.subtitle
 			scheduleViewer.iconFileName = currentItem.iconFileName
+			timerShowSchedule.start()
+		}
+	}
+
+	Timer {
+		id: timerShowSlogan
+		interval: 60 * 1000
+		onTriggered: {
+			root.state = "showTime"
+			timerShowTime.interval = (Math.random() % 10 + 10) * 1000 * 60
+			timerShowTime.start()
+		}
+	}
+
+	Timer {
+		id: timerShowSchedule
+		interval: 0
+		onTriggered: {
 			state = "showTime"
 			state = "showSchedule"
 		}
 	}
 
 	Timer {
-		id: changeTimeTimer
-		interval: 500
-		running: true
-		repeat: true
-		onTriggered: root.timeText = Qt.formatTime(new Date(), "HH:mm:ss")
-	}
-
-	Timer {
-		id: showSloganTimer
-		interval: 60 * 1000
-		onTriggered: {
-			root.state = "showTime"
-			showTimeTimer.interval = (Math.random() % 10 + 10) * 1000 * 60
-			showTimeTimer.start()
-		}
-	}
-
-	Timer {
-		id: showTimeTimer
+		id: timerShowTime
 		interval: (Math.random() % 10 + 10) * 1000 * 60
 		running: true
 		onTriggered: {
 			root.state = "showSlogan"
-			showSloganTimer.start()
+			timerShowSlogan.interval = 60 * 1000
+			timerShowSlogan.start()
 		}
+	}
+
+	Timer {
+		id: changeTimeTimer
+		triggeredOnStart: true
+		interval: 500
+		running: true
+		repeat: true
+		onTriggered: root.timeText = Qt.formatTime(new Date(), "HH:mm:ss")
 	}
 }

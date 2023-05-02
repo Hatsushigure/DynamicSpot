@@ -16,6 +16,7 @@ Item {
 		anchors.verticalCenter: root.verticalCenter
 		width: 96; height: width
 		asynchronous: true
+		mipmap: true
 	}
 
 	Grid {

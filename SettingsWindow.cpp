@@ -19,7 +19,7 @@ void SettingsWindow::initWindow()
 		m_engine = new QQmlEngine(this);
 	if (m_settingsWindow != nullptr)
 		return;
-	HeLogger::info(u"正在加载 ui 文件 \"%1\" ..."_s.arg(uiSource), staticMetaObject.className());
+	HeLogger::info(u"正在加载 ui 文件 \"%1\"..."_s.arg(uiSource), staticMetaObject.className());
 	auto component = new QQmlComponent(m_engine, uiSource, QQmlComponent::PreferSynchronous, this);
 	HeLogger::info("文件已加载", staticMetaObject.className());
 	m_settingsWindow = static_cast<QQuickWindow*>(component->create());
@@ -38,4 +38,3 @@ void SettingsWindow::show()
 	m_settingsWindow->show();
 	m_settingsWindow->raise();
 }
-
