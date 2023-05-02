@@ -10,7 +10,6 @@ public:
 	DynamicSpotApp(int argc, char *argv[]);
 	~DynamicSpotApp();
 private:
-	void initLogger();
 	void initSplashScreeen();
 	void initIcons();
 	void initMainWindow();
