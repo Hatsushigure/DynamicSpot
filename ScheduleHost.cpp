@@ -29,6 +29,8 @@ int ScheduleHost::currentIndex() const
 
 ScheduleItem* ScheduleHost::currentItem() const
 {
+	if (m_currentIndex < 0)
+		return nullptr;
 	return m_itemLst.at(m_currentIndex);
 }
 
@@ -142,5 +144,5 @@ void ScheduleHost::clearItems()
 	for (auto item : m_itemLst)
 		delete item;
 	m_itemLst.clear();
-	m_currentIndex = 0;
+	m_currentIndex = -1;
 }

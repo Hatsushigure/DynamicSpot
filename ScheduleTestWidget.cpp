@@ -68,6 +68,7 @@ void ScheduleTestWidget::emitScheduleItem()
 										   m_spinDurationSeconds->value(),
 										   ""
 										   ));
+	scheduleHost->m_currentIndex = 0;
 	emit scheduleHost->currentItemChanged();
 }
 

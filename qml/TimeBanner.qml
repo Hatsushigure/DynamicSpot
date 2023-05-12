@@ -114,9 +114,9 @@ Rectangle {
 			visible: false
 			x: 0; y:0
 			textColor: root.textColor
-			iconFileName: "qrc:/DynamicSpot/images/icons/colored/settings-256.svg"
-			titleText: "Test item"
-			subtitleText: "gggff--gfd$fgghyhbhuhvvfyujjghy"
+			iconFileName: scheduleHost.currentItem.iconFileName
+			titleText: scheduleHost.currentItem.title
+			subtitleText: scheduleHost.currentItem.subtitle
 		}
 	}
 
@@ -128,9 +128,6 @@ Rectangle {
 			timerShowTime.stop()
 			timerShowSlogan.interval = currentItem.durationSeconds * 1000
 			timerShowSlogan.start()
-			scheduleViewer.titleText = currentItem.title
-			scheduleViewer.subtitleText = currentItem.subtitle
-			scheduleViewer.iconFileName = currentItem.iconFileName
 			timerShowSchedule.start()
 		}
 	}
@@ -147,7 +144,7 @@ Rectangle {
 
 	Timer {
 		id: timerShowSchedule
-		interval: 0
+		interval: 1
 		onTriggered: {
 			state = "showTime"
 			state = "showSchedule"
