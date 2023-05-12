@@ -16,7 +16,7 @@ private:
 	QList<ScheduleItem*> m_itemLst {};
 	QSet<QTimer*> m_timerSet {};
 	QString m_fileName {""};
-	int m_currentIndex {0};
+	int m_currentIndex {-1};
 public:
 	explicit ScheduleHost(QObject *parent = nullptr);
 public:
