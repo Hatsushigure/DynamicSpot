@@ -11,7 +11,6 @@ public:
 	~DynamicSpotApp();
 private:
 	void initSplashScreeen();
-	void initIcons();
 	void initMainWindow();
 	void initScheduleHost();
 	void initTrayMenu();
