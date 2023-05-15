@@ -4,7 +4,6 @@ class DynamicSpotApp;
 class MainWindowManager;
 class QSystemTrayIcon;
 class QMenu;
-class QIcon;
 class QSplashScreen;
 class HeLogger;
 class ScheduleHost;
@@ -14,8 +13,8 @@ namespace DynamicSpot::VersionInfo
 {
 const int major = 0;
 const int minor = 2;
-const int patch = 1;
-const QString versionString = "v0.2.1";
+const int patch = 2;
+const QString versionString = "v0.2.2";
 }
 
 namespace DynamicSpot
@@ -25,12 +24,6 @@ extern MainWindowManager* mainWindowManager;
 extern QMenu* trayMenu;
 extern QSystemTrayIcon* trayIcon;
 extern QSplashScreen* splashScreen;
-extern HeLogger* logger;
 extern ScheduleHost* scheduleHost;
 extern SettingsWindow* settingsWindow;
-}
-
-namespace DynamicSpot::Icons
-{
-extern QIcon avatar;
 }

@@ -37,13 +37,13 @@ QQuickView* MainWindowManager::window()
 void MainWindowManager::initView()
 {
 	QQuickView::setDefaultAlphaBuffer(true);
-	HeLogger::info("为全局 QQuickView 开启了 Alpha 通道", "MainWindowManager");
+	HeLogger::logger()->info("为全局 QQuickView 开启了 Alpha 通道", "MainWindowManager");
 	m_view = new QQuickView;
 	m_view->setFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint | Qt::WindowTransparentForInput | Qt::Tool);
 	m_view->setColor(Qt::transparent);
 	m_view->setResizeMode(QQuickView::SizeRootObjectToView);
 	m_view->setSource(uiSource);
-	HeLogger::info("加载了 ui 文件 " + uiSource, "MainWindowManager");
+	HeLogger::logger()->info("加载了 ui 文件 " + uiSource, "MainWindowManager");
 }
 
 void MainWindowManager::initItem()
@@ -67,7 +67,7 @@ void MainWindowManager::initTimer()
 	connect(m_timerUpdateDate, &QTimer::timeout, this, &MainWindowManager::updateDaysLeft);
 	connect(this, &MainWindowManager::daysLeftChanged, this, &MainWindowManager::updateCountDownText);
 	m_timerUpdateDate->start();
-	HeLogger::info("启动了更新日期计时器, 周期 10000 毫秒", "MainWindowManager");
+	HeLogger::logger()->info("启动了更新日期计时器, 周期 10000 毫秒", "MainWindowManager");
 }
 
 void MainWindowManager::adjustGeometry()
@@ -88,7 +88,7 @@ void MainWindowManager::updateDaysLeft()
 void MainWindowManager::updateCountDownText()
 {
 	using Qt::StringLiterals::operator""_s;
-	HeLogger::info("检测到日期变化, 正在更新倒计时天数", "MainWindowManager");
+	HeLogger::logger()->info("检测到日期变化, 正在更新倒计时天数", "MainWindowManager");
 	m_countDown->setProperty("shortText", u"<span style=\"color: red; font-weight: bold\">%1</span>"_s.arg(QString::number(daysLeft())));
 	m_countDown->setProperty("fullText", u"距离高考仅剩 <span style=\"color: red; font-weight: bold\">%1</span> 天"_s.arg(QString::number(daysLeft())));
 }
