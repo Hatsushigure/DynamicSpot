@@ -10,17 +10,20 @@ class HeLogger
 public:
 	enum class LogType {Info, Warning, Error, Fatal};
 private:
-	static bool m_isInitialized;
-	static QFile m_file;
-	static QFile m_stderrFile;
-public:
+	static HeLogger* m_logger;
+	QFile m_file;
+	QFile m_stderrFile;
+private:
 	HeLogger();
 public:
-	static void log(LogType type, const QString& msg, const QString& className = "Unknown");
-	static void info(const QString& msg, const QString& className = "Unknown");
-	static void warning(const QString& msg, const QString& className = "Unknown");
-	static void error(const QString& msg, const QString& className = "Unknown");
-	static void fatal(const QString& msg, const QString& className = "Unknown");
+	static HeLogger* logger();
+public:
+	void log(LogType type, const QString& msg, const QString& className = "Unknown");
+	void info(const QString& msg, const QString& className = "Unknown");
+	void warning(const QString& msg, const QString& className = "Unknown");
+	void error(const QString& msg, const QString& className = "Unknown");
+	void fatal(const QString& msg, const QString& className = "Unknown");
+public:
 	static void qtLog(QtMsgType type, const QMessageLogContext&, const QString& msg);
 };
 
