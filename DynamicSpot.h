@@ -4,7 +4,6 @@ class DynamicSpotApp;
 class MainWindowManager;
 class QSystemTrayIcon;
 class QMenu;
-class QIcon;
 class QSplashScreen;
 class HeLogger;
 class ScheduleHost;
@@ -27,9 +26,4 @@ extern QSystemTrayIcon* trayIcon;
 extern QSplashScreen* splashScreen;
 extern ScheduleHost* scheduleHost;
 extern SettingsWindow* settingsWindow;
-}
-
-namespace DynamicSpot::Icons
-{
-extern QIcon avatar;
 }

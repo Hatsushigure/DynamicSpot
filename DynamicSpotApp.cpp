@@ -19,7 +19,6 @@ DynamicSpotApp::DynamicSpotApp(int argc, char *argv[]) :
 	setApplicationName("DynamicSpot");
 	HeLogger::logger()->info("成功初始化了 HeLogger. 程序版本: " + DynamicSpot::VersionInfo::versionString, "DynamicSpotApp");
 	initSplashScreeen();
-	initIcons();
 	HeLogger::logger()->info("初始化设置窗口...", staticMetaObject.className());
 	DynamicSpot::settingsWindow = new SettingsWindow;
 	HeLogger::logger()->info("设置窗口初始化成功", staticMetaObject.className());
@@ -40,8 +39,8 @@ void DynamicSpotApp::initSplashScreeen()
 {
 	using DynamicSpot::splashScreen;
 	HeLogger::logger()->info("初始化启动窗口...", "DynamicSpotApp");
-	QPixmap pix(":/DynamicSpot/images/icons/avatar/avatar - 256.png");
-	pix = pix.scaled(QSize(100, 100), Qt::KeepAspectRatio, Qt::SmoothTransformation);
+	QPixmap pix(":/DynamicSpot/images/icons/dynamicspot-logo-256.svg");
+	pix = pix.scaled(QSize(128, 128), Qt::KeepAspectRatio, Qt::SmoothTransformation);
 	splashScreen = new QSplashScreen(pix, Qt::WindowStaysOnTopHint);
 	connect(this, &DynamicSpotApp::allReady, this, &DynamicSpotApp::removeSplashScreen);
 	splashScreen->show();
@@ -54,27 +53,6 @@ void DynamicSpotApp::initSplashScreeen()
 	m_timersplashScreen->setInterval(1000);
 	m_timersplashScreen->setSingleShot(true);
 	connect(m_timersplashScreen, &QTimer::timeout, this, &DynamicSpotApp::removeSplashScreen);
-}
-
-void DynamicSpotApp::initIcons()
-{
-	using namespace DynamicSpot::Icons;
-	HeLogger::logger()->info("初始化图标 \"avatar\"...", "DynamicSpotApp");
-	avatar.addFile(":/DynamicSpot/images/icons/avatar/avatar - 32.png");
-	HeLogger::logger()->info("加载了文件 :/DynamicSpot/images/icons/avatar/avatar - 32.png", "DynamicSpotApp");
-	avatar.addFile(":/DynamicSpot/images/icons/avatar/avatar - 48.png");
-	HeLogger::logger()->info("加载了文件 :/DynamicSpot/images/icons/avatar/avatar - 48.png", "DynamicSpotApp");
-	avatar.addFile(":/DynamicSpot/images/icons/avatar/avatar - 64.png");
-	HeLogger::logger()->info("加载了文件 :/DynamicSpot/images/icons/avatar/avatar - 64.png", "DynamicSpotApp");
-	avatar.addFile(":/DynamicSpot/images/icons/avatar/avatar - 96.png");
-	HeLogger::logger()->info("加载了文件 :/DynamicSpot/images/icons/avatar/avatar - 96.png", "DynamicSpotApp");
-	avatar.addFile(":/DynamicSpot/images/icons/avatar/avatar - 128.png");
-	HeLogger::logger()->info("加载了文件 :/DynamicSpot/images/icons/avatar/avatar - 128.png", "DynamicSpotApp");
-	avatar.addFile(":/DynamicSpot/images/icons/avatar/avatar - 144.png");
-	HeLogger::logger()->info("加载了文件 :/DynamicSpot/images/icons/avatar/avatar - 144.png", "DynamicSpotApp");
-	avatar.addFile(":/DynamicSpot/images/icons/avatar/avatar - 256.png");
-	HeLogger::logger()->info("加载了文件 :/DynamicSpot/images/icons/avatar/avatar - 256.png", "DynamicSpotApp");
-	HeLogger::logger()->info("初始化了图标 \"avatar\"", "DynamicSpotApp");
 }
 
 void DynamicSpotApp::initMainWindow()
@@ -132,7 +110,7 @@ void DynamicSpotApp::initTrayIcon()
 {
 	using DynamicSpot::trayIcon;
 	HeLogger::logger()->info("初始化托盘图标...", "DynamicSpotApp");
-	trayIcon = new QSystemTrayIcon(DynamicSpot::Icons::avatar);
+	trayIcon = new QSystemTrayIcon(QIcon(":/DynamicSpot/images/icons/dynamicspot-logo-256.svg"));
 	trayIcon->setContextMenu(DynamicSpot::trayMenu);
 	trayIcon->show();
 	if (!trayIcon->isVisible())
