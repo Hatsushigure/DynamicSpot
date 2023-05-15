@@ -11,8 +11,3 @@ QSplashScreen* splashScreen;
 ScheduleHost* scheduleHost;
 SettingsWindow* settingsWindow;
 }
-
-namespace DynamicSpot::Icons
-{
-QIcon avatar;
-}
