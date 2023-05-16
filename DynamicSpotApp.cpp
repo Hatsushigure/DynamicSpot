@@ -74,10 +74,12 @@ void DynamicSpotApp::initScheduleHost()
 	using DynamicSpot::scheduleHost;
 	HeLogger::logger()->info("初始化时间表管理器...", "DynamicSpotApp");
 	scheduleHost->readFromFile("./schedule.json");
-	connect (scheduleHost, &ScheduleHost::currentIndexChanged, this, []() {
+	connect (scheduleHost, &ScheduleHost::currentIndexChanged, this, [this]() {
 		if (scheduleHost->currentItem()->commandLine().isEmpty())
 			return;
-		system(scheduleHost->currentItem()->commandLine().toLocal8Bit());
+		auto proc = new QProcess;
+		connect(proc, &QProcess::stateChanged, this, [proc]() {if (proc->state() == QProcess::NotRunning) delete proc;});
+		proc->startCommand(scheduleHost->currentItem()->commandLine());
 	});
 }
 

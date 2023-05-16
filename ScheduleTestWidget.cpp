@@ -40,16 +40,22 @@ void ScheduleTestWidget::initUi()
 	m_lineEditSubtitle = new QLineEdit(this);
 	m_layout->addWidget(m_lineEditSubtitle, 2, 1);
 
+	m_lblCommandline = new QLabel("命令行", this);
+	m_layout->addWidget(m_lblCommandline, 3, 0);
+
+	m_lineEditCommandline = new QLineEdit(this);
+	m_layout->addWidget(m_lineEditCommandline, 3, 1);
+
 	m_lblDurationSeconds = new QLabel("持续时长", this);
-	m_layout->addWidget(m_lblDurationSeconds, 3, 0);
+	m_layout->addWidget(m_lblDurationSeconds, 4, 0);
 
 	m_spinDurationSeconds = new QSpinBox(this);
 	m_spinDurationSeconds->setMinimum(1);
 	m_spinDurationSeconds->setMaximum(20);
-	m_layout->addWidget(m_spinDurationSeconds, 3, 1);
+	m_layout->addWidget(m_spinDurationSeconds, 4, 1);
 
 	m_btnEmit = new QPushButton("发送", this);
-	m_layout->addWidget(m_btnEmit, 4, 0, 1, 2, Qt::AlignHCenter);
+	m_layout->addWidget(m_btnEmit, 5, 0, 1, 2, Qt::AlignHCenter);
 }
 
 void ScheduleTestWidget::initConnection()
@@ -66,9 +72,10 @@ void ScheduleTestWidget::emitScheduleItem()
 										   m_lineEditSubtitle->text(),
 										   m_lineEditIconFileName->text(),
 										   m_spinDurationSeconds->value(),
-										   ""
+										   m_lineEditCommandline->text()
 										   ));
 	scheduleHost->m_currentIndex = 0;
 	emit scheduleHost->currentItemChanged();
+	emit scheduleHost->currentIndexChanged();
 }
 
