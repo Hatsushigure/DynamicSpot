@@ -17,6 +17,8 @@ private:
 	QLabel* m_lblTitle {nullptr};
 	QLineEdit* m_lineEditSubtitle {nullptr};
 	QLabel* m_lblSubtitle {nullptr};
+	QLineEdit* m_lineEditCommandline {nullptr};
+	QLabel* m_lblCommandline {nullptr};
 	QSpinBox* m_spinDurationSeconds {nullptr};
 	QLabel* m_lblDurationSeconds {nullptr};
 	QPushButton* m_btnEmit {nullptr};
