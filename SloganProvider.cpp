@@ -24,7 +24,9 @@ QString SloganProvider::getSlogan() const
 		return "";
 	}
 	auto index = QRandomGenerator::global()->bounded(m_sloganList.size());
-	return m_sloganList.at(index);
+	auto str = m_sloganList.at(index);
+	logger->info(u"选择了标语: %1"_s.arg(str), staticMetaObject.className());
+	return str;
 }
 
 void SloganProvider::readFile()
@@ -45,9 +47,10 @@ void SloganProvider::readFile()
 	while (!m_sloganFile->atEnd())
 	{
 		auto str = m_sloganFile->readLine();
-		logger->info(u"读取到标语: %1"_s.arg(str));
+		logger->info(u"读取到标语: %1"_s.arg(str), staticMetaObject.className());
 		m_sloganList.append(str);
 	}
+	m_sloganFile->close();
 }
 
 void SloganProvider::init()
