@@ -27,6 +27,8 @@ qt_add_executable(DynamicSpot
     SettingsWindow.cpp
     ScheduleTestWidget.h
     ScheduleTestWidget.cpp
+    SloganProvider.h
+    SloganProvider.cpp
     res.qrc
 )
 
