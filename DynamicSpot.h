@@ -12,9 +12,9 @@ class SettingsWindow;
 namespace DynamicSpot::VersionInfo
 {
 const int major = 0;
-const int minor = 2;
-const int patch = 2;
-const QString versionString = "v0.2.2";
+const int minor = 3;
+const int patch = 0;
+const QString versionString = "v0.3.0";
 }
 
 namespace DynamicSpot
