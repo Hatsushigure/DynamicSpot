@@ -143,6 +143,11 @@ void DynamicSpotApp::selectScheduleFile()
 				".",
 				"Json 文件(*.json);;所有文件(*)"
 				);
+	if (fileName == scheduleHost->fileName())
+	{
+		scheduleHost->readFromFile();
+		return;
+	}
 	if (QFile(scheduleHost->fileName()).exists())
 		QFile::remove(scheduleHost->fileName());
 	QFile::copy(fileName, scheduleHost->fileName());
