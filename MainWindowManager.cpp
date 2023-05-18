@@ -109,7 +109,8 @@ void MainWindowManager::debug_setTimeBannerStateToShowSlogan()
 {
 	if (m_timeBanner == nullptr)
 		return;
-	m_timeBanner->setState("showSlogan");
+	QMetaObject::invokeMethod(m_timeBanner, "showSlogan");
+	//m_timeBanner->setState("showSlogan");
 
 }
 
