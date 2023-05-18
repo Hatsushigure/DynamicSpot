@@ -132,6 +132,10 @@ Rectangle {
 		}
 	}
 
+	SloganProvider {
+		id: sloganProvider
+	}
+
 	Timer {
 		id: timerShowSlogan
 		interval: 60 * 1000
@@ -155,11 +159,7 @@ Rectangle {
 		id: timerShowTime
 		interval: (Math.random() % 10 + 10) * 1000 * 60
 		running: true
-		onTriggered: {
-			root.state = "showSlogan"
-			timerShowSlogan.interval = 60 * 1000
-			timerShowSlogan.start()
-		}
+		onTriggered: showSlogan()
 	}
 
 	Timer {
@@ -169,5 +169,14 @@ Rectangle {
 		running: true
 		repeat: true
 		onTriggered: root.timeText = Qt.formatTime(new Date(), "HH:mm:ss")
+	}
+
+	function showSlogan() {
+		let str = sloganProvider.getSlogan()
+		if (str !== "")
+			sloganText = str
+		root.state = "showSlogan"
+		timerShowSlogan.interval = 60 * 1000
+		timerShowSlogan.start()
 	}
 }
