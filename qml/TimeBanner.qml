@@ -114,19 +114,18 @@ Rectangle {
 			visible: false
 			x: 0; y:0
 			textColor: root.textColor
-			iconFileName: scheduleHost.currentItem.iconFileName
-			titleText: scheduleHost.currentItem.title
-			subtitleText: scheduleHost.currentItem.subtitle
+			iconFileName: base.scheduleHost.currentItem.iconFileName
+			titleText: base.scheduleHost.currentItem.title
+			subtitleText: base.scheduleHost.currentItem.subtitle
 		}
 	}
 
-	ScheduleHost {
-		id: scheduleHost
-		objectName: "scheduleHost"
-		onCurrentItemChanged: {
+	TimeBannerBase {
+		id: base
+		scheduleHost.onCurrentItemChanged: {
 			timerShowSlogan.stop()
 			timerShowTime.stop()
-			timerShowSlogan.interval = currentItem.durationSeconds * 1000
+			timerShowSlogan.interval = scheduleHost.currentItem.durationSeconds * 1000
 			timerShowSlogan.start()
 			timerShowSchedule.start()
 		}

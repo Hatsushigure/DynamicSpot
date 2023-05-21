@@ -8,6 +8,5 @@ MainWindowManager *mainWindowManager;
 QMenu* trayMenu;
 QSystemTrayIcon* trayIcon;
 QSplashScreen* splashScreen;
-ScheduleHost* scheduleHost;
 SettingsWindow* settingsWindow;
 }

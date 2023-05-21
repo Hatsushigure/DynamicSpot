@@ -6,7 +6,6 @@ class QSystemTrayIcon;
 class QMenu;
 class QSplashScreen;
 class HeLogger;
-class ScheduleHost;
 class SettingsWindow;
 
 namespace DynamicSpot::VersionInfo
@@ -24,6 +23,5 @@ extern MainWindowManager* mainWindowManager;
 extern QMenu* trayMenu;
 extern QSystemTrayIcon* trayIcon;
 extern QSplashScreen* splashScreen;
-extern ScheduleHost* scheduleHost;
 extern SettingsWindow* settingsWindow;
 }
