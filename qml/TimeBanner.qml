@@ -131,10 +131,6 @@ Rectangle {
 		}
 	}
 
-	SloganProvider {
-		id: sloganProvider
-	}
-
 	Timer {
 		id: timerShowSlogan
 		interval: 60 * 1000
@@ -171,7 +167,7 @@ Rectangle {
 	}
 
 	function showSlogan() {
-		let str = sloganProvider.getSlogan()
+		let str = base.sloganProvider.getSlogan()
 		if (str !== "")
 			sloganText = str
 		root.state = "showSlogan"
