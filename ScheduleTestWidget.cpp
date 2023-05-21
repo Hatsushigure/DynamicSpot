@@ -65,7 +65,7 @@ void ScheduleTestWidget::initConnection()
 
 void ScheduleTestWidget::emitScheduleItem()
 {
-	using DynamicSpot::scheduleHost;
+	auto scheduleHost = ScheduleHost::instance();
 	scheduleHost->m_itemLst.push_front(new ScheduleItem(
 										   QTime(),
 										   m_lineEditTitle->text(),
