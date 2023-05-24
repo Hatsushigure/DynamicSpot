@@ -3,7 +3,6 @@ import DynamicSpot
 import "." as App
 
 Rectangle {
-	property alias timeText: timeLabel.text
 	property alias sloganText: sloganLabel.text
 	property color textColor
 
@@ -94,7 +93,7 @@ Rectangle {
 			opacity: 1
 			textFormat: Text.MarkdownText
 			color: root.textColor
-			text: "00:00:00"
+			text: base.timeText
 			font.pointSize: 24
 		}
 
@@ -155,15 +154,6 @@ Rectangle {
 		interval: (Math.random() % 10 + 10) * 1000 * 60
 		running: true
 		onTriggered: showSlogan()
-	}
-
-	Timer {
-		id: changeTimeTimer
-		triggeredOnStart: true
-		interval: 500
-		running: true
-		repeat: true
-		onTriggered: root.timeText = Qt.formatTime(new Date(), "HH:mm:ss")
 	}
 
 	function showSlogan() {
