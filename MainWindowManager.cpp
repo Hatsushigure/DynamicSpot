@@ -61,11 +61,12 @@ void MainWindowManager::initItem()
 void MainWindowManager::initTimer()
 {
 	m_timerUpdateDate = new QTimer(this);
-	m_timerUpdateDate->setInterval(10000);
+	m_timerUpdateDate->setInterval(1000);
 	connect(m_timerUpdateDate, &QTimer::timeout, this, &MainWindowManager::updateDaysLeft);
-	connect(this, &MainWindowManager::daysLeftChanged, this, &MainWindowManager::updateCountDownText);
+	connect(m_timerUpdateDate, &QTimer::timeout, this, &MainWindowManager::updateCountDownText);
+	//connect(this, &MainWindowManager::daysLeftChanged, this, &MainWindowManager::updateCountDownText);
 	m_timerUpdateDate->start();
-	HeLogger::logger()->info("启动了更新日期计时器, 周期 10000 毫秒", "MainWindowManager");
+	HeLogger::logger()->info("启动了更新日期计时器, 周期 1000 毫秒", "MainWindowManager");
 }
 
 void MainWindowManager::adjustGeometry()
@@ -86,9 +87,12 @@ void MainWindowManager::updateDaysLeft()
 void MainWindowManager::updateCountDownText()
 {
 	using Qt::StringLiterals::operator""_s;
-	HeLogger::logger()->info("检测到日期变化, 正在更新倒计时天数", "MainWindowManager");
+	//HeLogger::logger()->info("检测到日期变化, 正在更新倒计时天数", "MainWindowManager");
 	m_countDown->setProperty("shortText", u"<span style=\"color: red; font-weight: bold\">%1</span>"_s.arg(QString::number(daysLeft())));
-	m_countDown->setProperty("fullText", u"距离高考仅剩 <span style=\"color: red; font-weight: bold\">%1</span> 天"_s.arg(QString::number(daysLeft())));
+	QDateTime deadl(QDate(2023, 6, 7), QTime(9, 0, 0));
+	QDateTime cur = QDateTime::currentDateTime();
+	auto dis = deadl - cur;
+	m_countDown->setProperty("fullText", u"距离高考仅剩 <span style=\"color: red; font-weight: bold\">%1</span> 秒"_s.arg(QString::number(dis.count() / 1000)));
 }
 
 void MainWindowManager::showWindow()

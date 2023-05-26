@@ -68,7 +68,7 @@ Rectangle {
 			anchors.centerIn: container
 			color: root.textColor
 			textFormat: Text.MarkdownText
-			text: "距离高考仅剩 <span style=\"color: red; font-weight: bold\">" + 99 + "</span> 天"
+			text: "距离高考仅剩 <span style=\"color: red; font-weight: bold\">" + 0 + "</span> 秒"
 			font.pointSize: 24
 		}
 	}
