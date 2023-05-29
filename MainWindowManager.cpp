@@ -80,18 +80,3 @@ void MainWindowManager::debug_setTimeBannerStateToShowSchedule()
 	m_timeBanner->setState("showSchedule");
 
 }
-
-void MainWindowManager::debug_setCountDownStateToShowShort()
-{
-	if (m_countDown == nullptr)
-		return;
-	m_countDown->setState("showShort");
-}
-
-void MainWindowManager::debug_setCountDownStateToShowFull()
-{
-	if (m_countDown == nullptr)
-		return;
-	m_countDown->setState("showFull");
-
-}

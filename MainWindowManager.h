@@ -29,6 +29,4 @@ public slots:
 	void debug_setTimeBannerStateToShowTime();
 	void debug_setTimeBannerStateToShowSlogan();
 	void debug_setTimeBannerStateToShowSchedule();
-	void debug_setCountDownStateToShowShort();
-	void debug_setCountDownStateToShowFull();
 };

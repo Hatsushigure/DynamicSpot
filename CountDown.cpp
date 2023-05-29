@@ -36,6 +36,7 @@ CountDown::CountDown(QObject *parent)
 	m_timerHeartBeat->start();
 	m_timerChangeState->start();
 
+	DynamicSpot::countDown = this;
 	logger->info("倒计时窗体初始化完成", staticMetaObject.className());
 }
 
