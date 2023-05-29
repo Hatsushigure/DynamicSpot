@@ -2,7 +2,6 @@
 #include "DynamicSpot.h"
 #include "DynamicSpotApp.h"
 #include "HeLogger.h"
-#include "ScheduleHost.h"
 #include <QQuickItem>
 #include <QTimer>
 #include <QQuickView>
@@ -12,21 +11,6 @@ MainWindowManager::MainWindowManager(QObject *parent) :
 {
 	initView();
 	initItem();
-	initTimer();
-	updateDaysLeft();
-}
-
-int MainWindowManager::daysLeft() const
-{
-	return m_daysLeft;
-}
-
-void MainWindowManager::setDaysLeft(int newDaysLeft)
-{
-	if (m_daysLeft == newDaysLeft)
-		return;
-	m_daysLeft = newDaysLeft;
-	emit daysLeftChanged();
 }
 
 QQuickView* MainWindowManager::window()
@@ -58,16 +42,6 @@ void MainWindowManager::initItem()
 	m_countDown = m_container->findChild<QQuickItem*>("countDown");
 }
 
-void MainWindowManager::initTimer()
-{
-	m_timerUpdateDate = new QTimer(this);
-	m_timerUpdateDate->setInterval(10000);
-	connect(m_timerUpdateDate, &QTimer::timeout, this, &MainWindowManager::updateDaysLeft);
-	connect(this, &MainWindowManager::daysLeftChanged, this, &MainWindowManager::updateCountDownText);
-	m_timerUpdateDate->start();
-	HeLogger::logger()->info("启动了更新日期计时器, 周期 10000 毫秒", "MainWindowManager");
-}
-
 void MainWindowManager::adjustGeometry()
 {
 	if (m_container->width() > m_view->width() + 10)
@@ -76,19 +50,6 @@ void MainWindowManager::adjustGeometry()
 		m_view->setHeight(m_container->height() + 10);
 	QScreen* scr = DynamicSpot::theApp->primaryScreen();
 	m_view->setPosition((scr->size().width() - m_view->width()) / 2, 0);
-}
-
-void MainWindowManager::updateDaysLeft()
-{
-	setDaysLeft(deadline.toJulianDay() - QDate::currentDate().toJulianDay());
-}
-
-void MainWindowManager::updateCountDownText()
-{
-	using Qt::StringLiterals::operator""_s;
-	HeLogger::logger()->info("检测到日期变化, 正在更新倒计时天数", "MainWindowManager");
-	m_countDown->setProperty("shortText", u"<span style=\"color: red; font-weight: bold\">%1</span>"_s.arg(QString::number(daysLeft())));
-	m_countDown->setProperty("fullText", u"距离高考仅剩 <span style=\"color: red; font-weight: bold\">%1</span> 天"_s.arg(QString::number(daysLeft())));
 }
 
 void MainWindowManager::showWindow()

@@ -19,6 +19,7 @@ DynamicSpotApp::DynamicSpotApp(int argc, char *argv[]) :
 	setApplicationName("DynamicSpot");
 	HeLogger::logger()->info("成功初始化了 HeLogger. 程序版本: " + DynamicSpot::VersionInfo::versionString, "DynamicSpotApp");
 	initSplashScreeen();
+	initSettings();
 	HeLogger::logger()->info("初始化设置窗口...", staticMetaObject.className());
 	DynamicSpot::settingsWindow = new SettingsWindow;
 	HeLogger::logger()->info("设置窗口初始化成功", staticMetaObject.className());
@@ -53,6 +54,17 @@ void DynamicSpotApp::initSplashScreeen()
 	m_timersplashScreen->setInterval(1000);
 	m_timersplashScreen->setSingleShot(true);
 	connect(m_timersplashScreen, &QTimer::timeout, this, &DynamicSpotApp::removeSplashScreen);
+}
+
+void DynamicSpotApp::initSettings()
+{
+	using DynamicSpot::settings;
+	settings = new QSettings(
+				   "./settings.ini",
+				   QSettings::IniFormat,
+				   this
+				   );
+	settings->setValue("version", 0);
 }
 
 void DynamicSpotApp::initMainWindow()
@@ -104,7 +116,7 @@ void DynamicSpotApp::initTrayMenu()
 		w->show();
 	});
 	trayMenu->addAction("关于", DynamicSpot::settingsWindow, &SettingsWindow::show);
-	trayMenu->addAction("选择时间表",this,  &DynamicSpotApp::selectScheduleFile);
+	trayMenu->addAction("选择时间表", this,  &DynamicSpotApp::selectScheduleFile);
 	trayMenu->addAction("退出", &DynamicSpotApp::quit);
 }
 
@@ -138,11 +150,11 @@ void DynamicSpotApp::selectScheduleFile()
 	if (scheduleHost == nullptr)
 		return;
 	auto fileName = QFileDialog::getOpenFileName(
-				nullptr,
-				"选择时间表文件",
-				".",
-				"Json 文件(*.json);;所有文件(*)"
-				);
+						nullptr,
+						"选择时间表文件",
+						".",
+						"Json 文件(*.json);;所有文件(*)"
+						);
 	if (fileName == scheduleHost->fileName())
 	{
 		scheduleHost->readFromFile();
