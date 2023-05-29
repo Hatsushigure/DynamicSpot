@@ -11,6 +11,7 @@
 #include "SettingsWindow.h"
 #include <QFileDialog>
 #include "ScheduleTestWidget.h"
+#include "CountDown.h"
 
 DynamicSpotApp::DynamicSpotApp(int argc, char *argv[]) :
 	QApplication(argc, argv)
@@ -106,8 +107,17 @@ void DynamicSpotApp::initTrayMenu()
 	menu3->addAction("显示标语", DynamicSpot::mainWindowManager, &MainWindowManager::debug_setTimeBannerStateToShowSlogan);
 	menu3->addAction("显示时间表", DynamicSpot::mainWindowManager, &MainWindowManager::debug_setTimeBannerStateToShowSchedule);
 	auto menu4 = menu2->addMenu("倒计时");
-	menu4->addAction("缩略", DynamicSpot::mainWindowManager, &MainWindowManager::debug_setCountDownStateToShowShort);
-	menu4->addAction("完整", DynamicSpot::mainWindowManager, &MainWindowManager::debug_setCountDownStateToShowFull);
+	menu4->addAction("缩略", []() {
+		if (DynamicSpot::countDown == nullptr)
+			return;
+		DynamicSpot::countDown->setStateString(CountDown::States::ShowShort);
+	});
+	menu4->addAction("完整", []() {
+		if (DynamicSpot::countDown == nullptr)
+			return;
+		DynamicSpot::countDown->setStateString(CountDown::States::ShowFull);
+
+	});
 	menu1->addAction("时间表测试", []() {
 		HeLogger::logger()->warning("准备测试时间表, 即将清空当前时间表队列", staticMetaObject.className());
 		ScheduleHost::instance()->clearItems();

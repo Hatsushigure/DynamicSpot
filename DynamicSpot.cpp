@@ -9,4 +9,5 @@ QSystemTrayIcon* trayIcon;
 QSplashScreen* splashScreen;
 SettingsWindow* settingsWindow;
 QSettings* settings;
+CountDown* countDown;
 }

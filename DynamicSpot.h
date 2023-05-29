@@ -8,6 +8,7 @@ class QSplashScreen;
 class HeLogger;
 class SettingsWindow;
 class QSettings;
+class CountDown;
 
 namespace DynamicSpot::VersionInfo
 {
@@ -26,4 +27,5 @@ extern QSystemTrayIcon* trayIcon;
 extern QSplashScreen* splashScreen;
 extern SettingsWindow* settingsWindow;
 extern QSettings* settings;
+extern CountDown* countDown;
 }
