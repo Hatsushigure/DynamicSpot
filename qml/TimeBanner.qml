@@ -6,12 +6,23 @@ Rectangle {
 	property alias sloganText: sloganLabel.text
 	property color textColor
 
+	TimeBannerBase {
+		id: base
+		scheduleHost.onCurrentItemChanged: {
+			timerShowSlogan.stop()
+			timerShowTime.stop()
+			timerShowSlogan.interval = scheduleHost.currentItem.durationSeconds * 1000
+			timerShowSlogan.start()
+			timerShowSchedule.start()
+		}
+	}
+
 	id: root
 	implicitWidth: container.width + radius; implicitHeight: container.height + radius
 	radius: 12
 	border.width: 0
 	color: "#80000000"
-	state: "showTime"
+	state: base.stateString
 	states: [
 		State {name: "showTime"},
 		State {
@@ -116,17 +127,6 @@ Rectangle {
 			iconFileName: base.scheduleHost.currentItem.iconFileName
 			titleText: base.scheduleHost.currentItem.title
 			subtitleText: base.scheduleHost.currentItem.subtitle
-		}
-	}
-
-	TimeBannerBase {
-		id: base
-		scheduleHost.onCurrentItemChanged: {
-			timerShowSlogan.stop()
-			timerShowTime.stop()
-			timerShowSlogan.interval = scheduleHost.currentItem.durationSeconds * 1000
-			timerShowSlogan.start()
-			timerShowSchedule.start()
 		}
 	}
 
