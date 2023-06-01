@@ -129,17 +129,6 @@ Rectangle {
 			subtitleText: base.scheduleHost.currentItem.subtitle
 		}
 	}
-
-	Timer {
-		id: timerShowSlogan
-		interval: 60 * 1000
-		onTriggered: {
-			root.state = "showTime"
-			timerShowTime.interval = (Math.random() % 10 + 10) * 1000 * 60
-			timerShowTime.start()
-		}
-	}
-
 	Timer {
 		id: timerShowSchedule
 		interval: 1
@@ -147,21 +136,5 @@ Rectangle {
 			state = "showTime"
 			state = "showSchedule"
 		}
-	}
-
-	Timer {
-		id: timerShowTime
-		interval: (Math.random() % 10 + 10) * 1000 * 60
-		running: true
-		onTriggered: showSlogan()
-	}
-
-	function showSlogan() {
-		let str = base.sloganProvider.getSlogan()
-		if (str !== "")
-			sloganText = str
-		root.state = "showSlogan"
-		timerShowSlogan.interval = 60 * 1000
-		timerShowSlogan.start()
 	}
 }
