@@ -3,6 +3,7 @@
 
 class QQuickView;
 class QQuickItem;
+class TimeBanner;
 
 class MainWindowManager : public QObject
 {
@@ -12,7 +13,7 @@ private:
 private:
 	QQuickItem* m_rootItem;
 	QQuickItem* m_container;
-	QQuickItem* m_timeBanner;
+	TimeBanner* m_timeBanner;
 	QQuickItem* m_countDown;
 	QQuickView* m_view;
 	int m_daysLeft;

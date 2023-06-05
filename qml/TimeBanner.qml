@@ -6,27 +6,18 @@ Rectangle {
 	property alias sloganText: sloganLabel.text
 	property color textColor
 
-	TimeBannerBase {
-		id: base
-		scheduleHost.onCurrentItemChanged: {
-			timerShowSlogan.stop()
-			timerShowTime.stop()
-			timerShowSlogan.interval = scheduleHost.currentItem.durationSeconds * 1000
-			timerShowSlogan.start()
-			timerShowSchedule.start()
-		}
-	}
+	TimeBannerBase {id: base; objectName: "base"}
 
 	id: root
 	implicitWidth: container.width + radius; implicitHeight: container.height + radius
 	radius: 12
 	border.width: 0
 	color: "#80000000"
-	state: base.stateString
 	states: [
-		State {name: "showTime"},
+		State {name: "showTime"; when: base.state == TimeBannerBase.ShowTime},
 		State {
 			name: "showSlogan"
+			when: base.state == TimeBannerBase.ShowSlogan
 
 			PropertyChanges {target: sloganLabel; opacity: 1}
 			PropertyChanges {target: timeLabel; font.pointSize: 16}
@@ -34,6 +25,7 @@ Rectangle {
 		},
 		State {
 			name: "showSchedule"
+			when: base.state == TimeBannerBase.ShowSchedule
 
 			PropertyChanges {target: scheduleViewer; visible: true}
 			PropertyChanges {target: timeLabel; font.pointSize: 16}

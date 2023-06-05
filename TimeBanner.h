@@ -14,9 +14,10 @@ class TimeBanner : public QObject
 	Q_PROPERTY(SloganProvider* sloganProvider READ sloganProvider CONSTANT)
 	Q_PROPERTY(QString timeText READ timeText WRITE setTimeText NOTIFY timeTextChanged)
 	Q_PROPERTY(QString sloganText READ sloganText WRITE setSloganText NOTIFY sloganTextChanged)
-	Q_PROPERTY(QString stateString READ stateString NOTIFY stateStringChanged CONSTANT);
+	Q_PROPERTY(States state READ state NOTIFY stateChanged CONSTANT);
 public:
 	enum class States {ShowSlogan, ShowSchedule, ShowTime};
+	Q_ENUM(States)
 private:
 	static constexpr int heartBeeatInterval {500};
 	static constexpr int sloganDuration {60 * 1000};
@@ -26,8 +27,8 @@ private:
 	QTimer* m_timerHeartBeat {nullptr};
 	QTimer* m_timerSloganDuration {nullptr};
 	QTimer* m_timerTimeDuration {nullptr};
+	QTimer* m_timerScheduleDuration {nullptr};
 	States m_state {States::ShowTime};
-	QString m_stateString {"showTime"};
 	QString m_sloganText {""};
 public:
 	explicit TimeBanner(QObject *parent = nullptr);
@@ -36,8 +37,8 @@ public:
 	auto sloganProvider() const {return m_sloganProvider;}
 	void setTimeText(const QString& newTimeText);
 	auto timeText() const {return m_timeText;}
-	auto stateString() const {return m_stateString;}
-	void setStateString(const States newState);
+	auto state() const {return m_state;}
+	void setState(const States newState);
 	auto sloganText() const {return m_sloganText;}
 	void setSloganText(const QString& newSloganText);
 private slots:
@@ -48,6 +49,6 @@ public slots:
 	void showSchedule();
 signals:
 	void timeTextChanged();
-	void stateStringChanged();
+	void stateChanged();
 	void sloganTextChanged();
 };
