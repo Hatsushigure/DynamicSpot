@@ -24,11 +24,19 @@ TimeBanner::TimeBanner(QObject *parent)
 	m_timerTimeDuration = new QTimer(this);
 	m_timerTimeDuration->setInterval(QRandomGenerator::global()->bounded(10, 21) * 1000 * 60);
 	connect(m_timerTimeDuration, &QTimer::timeout, this, &TimeBanner::showSlogan);
+
+	m_timerScheduleDuration = new QTimer(this);
+	m_timerScheduleDuration->setSingleShot(true);
+	connect(m_timerScheduleDuration, &QTimer::timeout, this, &TimeBanner::showTime);
 	logger->info("计时器初始化完成", staticMetaObject.className());
 
 	logger->info("正在初始化标语选择器...", staticMetaObject.className());
 	m_sloganProvider = new SloganProvider(this);
 	logger->info("标语选择器初始化完成", staticMetaObject.className());
+
+	logger->info("正在初始化 Schedule Host...", staticMetaObject.className());
+	connect(scheduleHost(), &ScheduleHost::currentIndexChanged, this, &TimeBanner::showSchedule);
+	logger->info("Schedule Host 初始化完成", staticMetaObject.className());
 
 	logger->info("正在启动计时器...", staticMetaObject.className());
 	m_timerHeartBeat->start();
@@ -45,24 +53,12 @@ void TimeBanner::setTimeText(const QString& newTimeText)
 	emit timeTextChanged();
 }
 
-void TimeBanner::setStateString(const States newState)
+void TimeBanner::setState(const States newState)
 {
 	if (newState == m_state)
 		return;
 	m_state = newState;
-	switch (newState)
-	{
-	case States::ShowSlogan:
-		m_stateString = "showSlogan";
-		break;
-	case States::ShowSchedule:
-		m_stateString = "showSchedule";
-		break;
-	case States::ShowTime:
-		m_stateString = "showTime";
-		break;
-	}
-	emit stateStringChanged();
+	emit stateChanged();
 }
 
 void TimeBanner::setSloganText(const QString& newSloganText)
@@ -85,14 +81,22 @@ void TimeBanner::showSlogan()
 	auto str = m_sloganProvider->getSlogan();
 	if (str != "")
 		setSloganText(str);
-	setStateString(States::ShowSlogan);
+	setState(States::ShowSlogan);
 	m_timerSloganDuration->start();
 }
 
 void TimeBanner::showTime()
 {
 	m_timerSloganDuration->stop();
-	setStateString(States::ShowTime);
+	setState(States::ShowTime);
 	m_timerTimeDuration->setInterval(QRandomGenerator::global()->bounded(10, 21) * 1000 * 60);
 	m_timerTimeDuration->start();
+}
+
+void TimeBanner::showSchedule()
+{
+	m_timerTimeDuration->stop();
+	m_timerSloganDuration->stop();
+	setState(States::ShowSchedule);
+	m_timerScheduleDuration->start(scheduleHost()->currentItem()->durationSeconds() * 1000);
 }

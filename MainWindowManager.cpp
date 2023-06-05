@@ -2,6 +2,7 @@
 #include "DynamicSpot.h"
 #include "DynamicSpotApp.h"
 #include "HeLogger.h"
+#include "TimeBanner.h"
 #include <QQuickItem>
 #include <QTimer>
 #include <QQuickView>
@@ -38,7 +39,7 @@ void MainWindowManager::initItem()
 	connect(m_container, &QQuickItem::widthChanged, this, &MainWindowManager::adjustGeometry);
 	connect(m_container, &QQuickItem::heightChanged, this, &MainWindowManager::adjustGeometry);
 
-	m_timeBanner = m_container->findChild<QQuickItem*>("timeBanner");
+	m_timeBanner = m_container->findChild<QQuickItem*>("timeBanner")->findChild<TimeBanner*>("base");
 	m_countDown = m_container->findChild<QQuickItem*>("countDown");
 }
 
@@ -61,15 +62,14 @@ void MainWindowManager::debug_setTimeBannerStateToShowTime()
 {
 	if (m_timeBanner == nullptr)
 		return;
-	m_timeBanner->setState("showTime");
+	m_timeBanner->showTime();
 }
 
 void MainWindowManager::debug_setTimeBannerStateToShowSlogan()
 {
 	if (m_timeBanner == nullptr)
 		return;
-	QMetaObject::invokeMethod(m_timeBanner, "showSlogan");
-	//m_timeBanner->setState("showSlogan");
+	m_timeBanner->showSlogan();
 
 }
 
@@ -77,6 +77,6 @@ void MainWindowManager::debug_setTimeBannerStateToShowSchedule()
 {
 	if (m_timeBanner == nullptr)
 		return;
-	m_timeBanner->setState("showSchedule");
+	m_timeBanner->showSchedule();
 
 }
