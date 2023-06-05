@@ -7,10 +7,7 @@
 
 using Qt::Literals::operator""_s;
 
-ScheduleHost::ScheduleHost(QObject *parent)
-	: QObject{parent}
-{
-}
+ScheduleHost* ScheduleHost::s_instance {nullptr};
 
 QString ScheduleHost::fileName() const
 {
@@ -134,6 +131,13 @@ void ScheduleHost::updateCurrentIndex(QTimer* timer, const int index)
 	emit currentIndexChanged();
 	emit currentItemChanged();
 	HeLogger::logger()->info(u"时间表项 %1 已触发"_s.arg(currentItem()->title()), "ScheduleHost");
+}
+
+ScheduleHost* ScheduleHost::instance()
+{
+	if (s_instance == nullptr)
+		s_instance = new ScheduleHost;
+	return s_instance;
 }
 
 void ScheduleHost::clearItems()

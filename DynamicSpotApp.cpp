@@ -11,6 +11,7 @@
 #include "SettingsWindow.h"
 #include <QFileDialog>
 #include "ScheduleTestWidget.h"
+#include "CountDown.h"
 
 DynamicSpotApp::DynamicSpotApp(int argc, char *argv[]) :
 	QApplication(argc, argv)
@@ -19,6 +20,7 @@ DynamicSpotApp::DynamicSpotApp(int argc, char *argv[]) :
 	setApplicationName("DynamicSpot");
 	HeLogger::logger()->info("成功初始化了 HeLogger. 程序版本: " + DynamicSpot::VersionInfo::versionString, "DynamicSpotApp");
 	initSplashScreeen();
+	initSettings();
 	HeLogger::logger()->info("初始化设置窗口...", staticMetaObject.className());
 	DynamicSpot::settingsWindow = new SettingsWindow;
 	HeLogger::logger()->info("设置窗口初始化成功", staticMetaObject.className());
@@ -55,6 +57,17 @@ void DynamicSpotApp::initSplashScreeen()
 	connect(m_timersplashScreen, &QTimer::timeout, this, &DynamicSpotApp::removeSplashScreen);
 }
 
+void DynamicSpotApp::initSettings()
+{
+	using DynamicSpot::settings;
+	settings = new QSettings(
+				   "./settings.ini",
+				   QSettings::IniFormat,
+				   this
+				   );
+	settings->setValue("version", 0);
+}
+
 void DynamicSpotApp::initMainWindow()
 {
 	using DynamicSpot::mainWindowManager;
@@ -71,14 +84,14 @@ void DynamicSpotApp::initMainWindow()
 
 void DynamicSpotApp::initScheduleHost()
 {
-	using DynamicSpot::scheduleHost;
+	auto scheduleHost = ScheduleHost::instance();
 	HeLogger::logger()->info("初始化时间表管理器...", "DynamicSpotApp");
 	scheduleHost->readFromFile("./schedule.json");
-	connect (scheduleHost, &ScheduleHost::currentIndexChanged, this, [this]() {
+	connect (scheduleHost, &ScheduleHost::currentIndexChanged, [scheduleHost]() {
 		if (scheduleHost->currentItem()->commandLine().isEmpty())
 			return;
 		auto proc = new QProcess;
-		connect(proc, &QProcess::stateChanged, this, [proc]() {if (proc->state() == QProcess::NotRunning) delete proc;});
+		connect(proc, &QProcess::stateChanged, [proc]() {if (proc->state() == QProcess::NotRunning) delete proc;});
 		proc->startCommand(scheduleHost->currentItem()->commandLine());
 	});
 }
@@ -94,17 +107,26 @@ void DynamicSpotApp::initTrayMenu()
 	menu3->addAction("显示标语", DynamicSpot::mainWindowManager, &MainWindowManager::debug_setTimeBannerStateToShowSlogan);
 	menu3->addAction("显示时间表", DynamicSpot::mainWindowManager, &MainWindowManager::debug_setTimeBannerStateToShowSchedule);
 	auto menu4 = menu2->addMenu("倒计时");
-	menu4->addAction("缩略", DynamicSpot::mainWindowManager, &MainWindowManager::debug_setCountDownStateToShowShort);
-	menu4->addAction("完整", DynamicSpot::mainWindowManager, &MainWindowManager::debug_setCountDownStateToShowFull);
+	menu4->addAction("缩略", []() {
+		if (DynamicSpot::countDown == nullptr)
+			return;
+		DynamicSpot::countDown->setStateString(CountDown::States::ShowShort);
+	});
+	menu4->addAction("完整", []() {
+		if (DynamicSpot::countDown == nullptr)
+			return;
+		DynamicSpot::countDown->setStateString(CountDown::States::ShowFull);
+
+	});
 	menu1->addAction("时间表测试", []() {
 		HeLogger::logger()->warning("准备测试时间表, 即将清空当前时间表队列", staticMetaObject.className());
-		DynamicSpot::scheduleHost->clearItems();
+		ScheduleHost::instance()->clearItems();
 		auto w = new ScheduleTestWidget;
 		w->setAttribute(Qt::WA_DeleteOnClose);
 		w->show();
 	});
 	trayMenu->addAction("关于", DynamicSpot::settingsWindow, &SettingsWindow::show);
-	trayMenu->addAction("选择时间表",this,  &DynamicSpotApp::selectScheduleFile);
+	trayMenu->addAction("选择时间表", this,  &DynamicSpotApp::selectScheduleFile);
 	trayMenu->addAction("退出", &DynamicSpotApp::quit);
 }
 
@@ -134,15 +156,15 @@ void DynamicSpotApp::removeSplashScreen()
 
 void DynamicSpotApp::selectScheduleFile()
 {
-	using DynamicSpot::scheduleHost;
+	auto scheduleHost = ScheduleHost::instance();
 	if (scheduleHost == nullptr)
 		return;
 	auto fileName = QFileDialog::getOpenFileName(
-				nullptr,
-				"选择时间表文件",
-				".",
-				"Json 文件(*.json);;所有文件(*)"
-				);
+						nullptr,
+						"选择时间表文件",
+						".",
+						"Json 文件(*.json);;所有文件(*)"
+						);
 	if (fileName == scheduleHost->fileName())
 	{
 		scheduleHost->readFromFile();

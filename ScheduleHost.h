@@ -8,17 +8,19 @@
 class ScheduleHost : public QObject
 {
 	Q_OBJECT
-	QML_ELEMENT
+	QML_ANONYMOUS
 	Q_PROPERTY(int currentIndex READ currentIndex NOTIFY currentIndexChanged)
 	Q_PROPERTY(ScheduleItem* currentItem READ currentItem NOTIFY currentItemChanged)
 	friend class ScheduleTestWidget;
+private:
+	static ScheduleHost* s_instance;
 private:
 	QList<ScheduleItem*> m_itemLst {};
 	QSet<QTimer*> m_timerSet {};
 	QString m_fileName {""};
 	int m_currentIndex {-1};
-public:
-	explicit ScheduleHost(QObject *parent = nullptr);
+private:
+	ScheduleHost() = default;
 public:
 	QString fileName() const;
 	void setFileName(const QString& newFileName);
@@ -29,6 +31,8 @@ public:
 	void readFromFile(const QString& fileName);
 private:
 	void updateCurrentIndex(QTimer* timer, const int index);
+public:
+	static ScheduleHost* instance();
 public slots:
 	void clearItems();
 signals:

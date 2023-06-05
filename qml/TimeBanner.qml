@@ -3,20 +3,21 @@ import DynamicSpot
 import "." as App
 
 Rectangle {
-	property alias timeText: timeLabel.text
 	property alias sloganText: sloganLabel.text
 	property color textColor
+
+	TimeBannerBase {id: base; objectName: "base"}
 
 	id: root
 	implicitWidth: container.width + radius; implicitHeight: container.height + radius
 	radius: 12
 	border.width: 0
 	color: "#80000000"
-	state: "showTime"
 	states: [
-		State {name: "showTime"},
+		State {name: "showTime"; when: base.state == TimeBannerBase.ShowTime},
 		State {
 			name: "showSlogan"
+			when: base.state == TimeBannerBase.ShowSlogan
 
 			PropertyChanges {target: sloganLabel; opacity: 1}
 			PropertyChanges {target: timeLabel; font.pointSize: 16}
@@ -24,6 +25,7 @@ Rectangle {
 		},
 		State {
 			name: "showSchedule"
+			when: base.state == TimeBannerBase.ShowSchedule
 
 			PropertyChanges {target: scheduleViewer; visible: true}
 			PropertyChanges {target: timeLabel; font.pointSize: 16}
@@ -94,7 +96,7 @@ Rectangle {
 			opacity: 1
 			textFormat: Text.MarkdownText
 			color: root.textColor
-			text: "00:00:00"
+			text: base.timeText
 			font.pointSize: 24
 		}
 
@@ -114,38 +116,11 @@ Rectangle {
 			visible: false
 			x: 0; y:0
 			textColor: root.textColor
-			iconFileName: scheduleHost.currentItem.iconFileName
-			titleText: scheduleHost.currentItem.title
-			subtitleText: scheduleHost.currentItem.subtitle
+			iconFileName: base.scheduleHost.currentItem.iconFileName
+			titleText: base.scheduleHost.currentItem.title
+			subtitleText: base.scheduleHost.currentItem.subtitle
 		}
 	}
-
-	ScheduleHost {
-		id: scheduleHost
-		objectName: "scheduleHost"
-		onCurrentItemChanged: {
-			timerShowSlogan.stop()
-			timerShowTime.stop()
-			timerShowSlogan.interval = currentItem.durationSeconds * 1000
-			timerShowSlogan.start()
-			timerShowSchedule.start()
-		}
-	}
-
-	SloganProvider {
-		id: sloganProvider
-	}
-
-	Timer {
-		id: timerShowSlogan
-		interval: 60 * 1000
-		onTriggered: {
-			root.state = "showTime"
-			timerShowTime.interval = (Math.random() % 10 + 10) * 1000 * 60
-			timerShowTime.start()
-		}
-	}
-
 	Timer {
 		id: timerShowSchedule
 		interval: 1
@@ -153,30 +128,5 @@ Rectangle {
 			state = "showTime"
 			state = "showSchedule"
 		}
-	}
-
-	Timer {
-		id: timerShowTime
-		interval: (Math.random() % 10 + 10) * 1000 * 60
-		running: true
-		onTriggered: showSlogan()
-	}
-
-	Timer {
-		id: changeTimeTimer
-		triggeredOnStart: true
-		interval: 500
-		running: true
-		repeat: true
-		onTriggered: root.timeText = Qt.formatTime(new Date(), "HH:mm:ss")
-	}
-
-	function showSlogan() {
-		let str = sloganProvider.getSlogan()
-		if (str !== "")
-			sloganText = str
-		root.state = "showSlogan"
-		timerShowSlogan.interval = 60 * 1000
-		timerShowSlogan.start()
 	}
 }

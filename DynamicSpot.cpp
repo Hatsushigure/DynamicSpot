@@ -1,5 +1,4 @@
 #include "DynamicSpot.h"
-#include <QIcon>
 
 namespace DynamicSpot
 {
@@ -8,6 +7,7 @@ MainWindowManager *mainWindowManager;
 QMenu* trayMenu;
 QSystemTrayIcon* trayIcon;
 QSplashScreen* splashScreen;
-ScheduleHost* scheduleHost;
 SettingsWindow* settingsWindow;
+QSettings* settings;
+CountDown* countDown;
 }

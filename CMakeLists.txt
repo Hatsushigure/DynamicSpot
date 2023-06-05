@@ -11,24 +11,17 @@ find_package(Qt6 COMPONENTS REQUIRED Widgets)
 
 qt_add_executable(DynamicSpot
     main.cpp
-    DynamicSpot.h
-    DynamicSpot.cpp
-    DynamicSpotApp.h
-    DynamicSpotApp.cpp
-    MainWindowManager.h
-    MainWindowManager.cpp
-    HeLogger.h
-    HeLogger.cpp
-    ScheduleHost.h
-    ScheduleHost.cpp
-    ScheduleItem.h
-    ScheduleItem.cpp
-    SettingsWindow.h
-    SettingsWindow.cpp
-    ScheduleTestWidget.h
-    ScheduleTestWidget.cpp
-    SloganProvider.h
-    SloganProvider.cpp
+    DynamicSpot.h	    DynamicSpot.cpp
+    DynamicSpotApp.h	    DynamicSpotApp.cpp
+    MainWindowManager.h	    MainWindowManager.cpp
+    HeLogger.h		    HeLogger.cpp
+    ScheduleHost.h	    ScheduleHost.cpp
+    ScheduleItem.h	    ScheduleItem.cpp
+    SettingsWindow.h	    SettingsWindow.cpp
+    ScheduleTestWidget.h    ScheduleTestWidget.cpp
+    SloganProvider.h	    SloganProvider.cpp
+    TimeBanner.h	    TimeBanner.cpp
+    CountDown.h		    CountDown.cpp
     res.qrc
 )
 

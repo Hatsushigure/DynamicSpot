@@ -7,7 +7,7 @@ class QFile;
 class SloganProvider : public QObject
 {
 	Q_OBJECT
-	QML_ELEMENT
+	QML_ANONYMOUS
 private:
 	const QString sloganFileName {"./slogans.txt"};
 private:
