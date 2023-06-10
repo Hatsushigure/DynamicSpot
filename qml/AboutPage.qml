@@ -38,7 +38,7 @@ Rectangle {
 						aspectRatioMode: Qt.KeepAspectRatio
 						Layout.preferredWidth: 80; Layout.preferredHeight: 80
 						Layout.rowSpan: 6
-						source: ":/DynamicSpot/images/icons/dynamicspot-logo-256.svg"
+						source: ":/DynamicSpot/images/icons/dynamicspot-logo.svg"
 					}
 					Item {Layout.fillWidth: true; Layout.fillHeight: true}
 					Text {text: "DynamicSpot"; font.pointSize: 16}
@@ -118,7 +118,7 @@ Rectangle {
 						aspectRatioMode: Qt.KeepAspectRatio
 						Layout.preferredWidth: 80; Layout.preferredHeight: 80
 						Layout.rowSpan: 5
-						source: ":/DynamicSpot/images/icons/icons8-logo-256.svg"
+						source: ":/DynamicSpot/images/icons/icons8-logo.svg"
 					}
 					Item {Layout.fillWidth: true; Layout.fillHeight: true}
 					Text {text: "Icons8"; font.pointSize: 12}

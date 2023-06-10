@@ -8,7 +8,7 @@
         <file>images/icons/avatar/avatar - 144.png</file>
         <file>images/icons/avatar/avatar - 256.png</file>
         <file>images/icons/colored/bell-256.png</file>
-        <file>images/icons/colored/info-256.svg</file>
+        <file>images/icons/colored/info.svg</file>
         <file>images/icons/colored/meal-256.png</file>
         <file>images/icons/colored/run-256.png</file>
         <file>images/icons/colored/sleep-256.png</file>
@@ -16,12 +16,20 @@
         <file>images/icons/colored/teacher-256.png</file>
         <file>images/icons/colored/exam-256.png</file>
         <file>images/icons/colored/write-256.png</file>
-        <file>images/icons/dynamicspot-logo-256.svg</file>
-        <file>images/icons/dynamicspot-settings-256.svg</file>
-        <file>images/icons/icons8-logo-256.svg</file>
-        <file>images/icons/filled/settings-256.svg</file>
-        <file>images/icons/colored/settings-256.svg</file>
-        <file>images/icons/outline/settings-256.svg</file>
+        <file>images/icons/dynamicspot-logo.svg</file>
+        <file>images/icons/dynamicspot-settings.svg</file>
+        <file>images/icons/icons8-logo.svg</file>
+        <file>images/icons/filled/settings.svg</file>
+        <file>images/icons/colored/settings.svg</file>
+        <file>images/icons/outline/settings.svg</file>
         <file>images/icons/qt-logo.svg</file>
+        <file>images/icons/colored/bell.svg</file>
+        <file>images/icons/colored/exam.svg</file>
+        <file>images/icons/colored/meal.svg</file>
+        <file>images/icons/colored/reading.svg</file>
+        <file>images/icons/colored/run.svg</file>
+        <file>images/icons/colored/sleep.svg</file>
+        <file>images/icons/colored/teacher.svg</file>
+        <file>images/icons/colored/write.svg</file>
     </qresource>
 </RCC>

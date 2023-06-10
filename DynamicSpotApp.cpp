@@ -41,7 +41,8 @@ void DynamicSpotApp::initSplashScreeen()
 {
 	using DynamicSpot::splashScreen;
 	HeLogger::logger()->info("初始化启动窗口...", "DynamicSpotApp");
-	QPixmap pix(":/DynamicSpot/images/icons/dynamicspot-logo-256.svg");
+//	QPixmap pix(":/DynamicSpot/images/icons/colored/bell.svg");
+	QPixmap pix(":/DynamicSpot/images/icons/dynamicspot-logo.svg");
 	pix = pix.scaled(QSize(128, 128), Qt::KeepAspectRatio, Qt::SmoothTransformation);
 	splashScreen = new QSplashScreen(pix, Qt::WindowStaysOnTopHint);
 	connect(this, &DynamicSpotApp::allReady, this, &DynamicSpotApp::removeSplashScreen);
@@ -134,7 +135,7 @@ void DynamicSpotApp::initTrayIcon()
 {
 	using DynamicSpot::trayIcon;
 	HeLogger::logger()->info("初始化托盘图标...", "DynamicSpotApp");
-	trayIcon = new QSystemTrayIcon(QIcon(":/DynamicSpot/images/icons/dynamicspot-logo-256.svg"));
+	trayIcon = new QSystemTrayIcon(QIcon(":/DynamicSpot/images/icons/dynamicspot-logo.svg"));
 	trayIcon->setContextMenu(DynamicSpot::trayMenu);
 	trayIcon->show();
 	if (!trayIcon->isVisible())
