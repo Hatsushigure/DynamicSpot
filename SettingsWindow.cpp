@@ -23,7 +23,7 @@ void SettingsWindow::initWindow()
 	auto component = new QQmlComponent(m_engine, uiSource, QQmlComponent::PreferSynchronous, this);
 	HeLogger::logger()->info("文件已加载", staticMetaObject.className());
 	m_settingsWindow = static_cast<QQuickWindow*>(component->create());
-	m_settingsWindow->setIcon(QIcon(":/DynamicSpot/images/icons/dynamicspot-settings-256.svg"));
+	m_settingsWindow->setIcon(QIcon(":/DynamicSpot/images/icons/dynamicspot-settings.svg"));
 	connect(m_settingsWindow, &QQuickWindow::closing, this, [=]() {
 		HeLogger::logger()->info("设置窗口关闭", staticMetaObject.className());
 		delete m_settingsWindow;

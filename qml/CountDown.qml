@@ -1,22 +1,25 @@
 import QtQuick
+import DynamicSpot
 
 Rectangle {
 	property color textColor
-	property alias shortText: shortLabel.text
-	property alias fullText: fullLabel.text
+	property alias shortText: base.shortText
+	property alias fullText: base.fullText
+
+	CountDownBase {id: base}
 
 	id: root
 	width: implicitWidth; height: implicitHeight
 	implicitWidth: container.width + radius; implicitHeight: container.height + radius
 	border.width: 0
 	color: "#80000000"
-	radius: Math.max(container.height, container.width)
-	state: "showShort"
+	state: base.stateString
 	states: [
 		State {
 			name: "showShort"
 
-			PropertyChanges {target: container; width: shortLabel.implicitWidth; height: shortLabel.implicitHeight}
+			PropertyChanges {target: container; width: Math.max(shortLabel.implicitWidth, shortLabel.implicitHeight); height: width}
+			PropertyChanges {target: root; radius: Math.max(container.height, container.width)}
 		},
 		State {
 			name: "showFull"
@@ -59,7 +62,7 @@ Rectangle {
 			anchors.centerIn: container
 			color: root.textColor
 			textFormat: Text.MarkdownText
-			text: "<span style=\"color: red; font-weight: bold\">" + 99 + "</span>"
+			text: base.shortText
 			font.pointSize: 24
 		}
 		Text {
@@ -68,19 +71,8 @@ Rectangle {
 			anchors.centerIn: container
 			color: root.textColor
 			textFormat: Text.MarkdownText
-			text: "距离高考仅剩 <span style=\"color: red; font-weight: bold\">" + 99 + "</span> 天"
+			text: base.fullText
 			font.pointSize: 24
-		}
-	}
-
-	Timer {
-		id: stateChangeTimer
-		interval: (Math.random() % 5 + 5) * 1000 * 60
-		running: true
-		repeat: true
-		onTriggered: {
-			interval = (Math.random() % 5 + 5) * 1000 * 60
-			root.state = (root.state === "showShort" ? "showFull" : "showShort")
 		}
 	}
 }

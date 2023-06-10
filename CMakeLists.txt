@@ -8,27 +8,22 @@ set(CMAKE_CXX_STANDARD_REQUIRED 20)
 
 find_package(Qt6 COMPONENTS Quick REQUIRED)
 find_package(Qt6 COMPONENTS REQUIRED Widgets)
+find_package(Qt6 REQUIRED COMPONENTS Svg)
 
 qt_add_executable(DynamicSpot
     main.cpp
-    DynamicSpot.h
-    DynamicSpot.cpp
-    DynamicSpotApp.h
-    DynamicSpotApp.cpp
-    MainWindowManager.h
-    MainWindowManager.cpp
-    HeLogger.h
-    HeLogger.cpp
-    ScheduleHost.h
-    ScheduleHost.cpp
-    ScheduleItem.h
-    ScheduleItem.cpp
-    SettingsWindow.h
-    SettingsWindow.cpp
-    ScheduleTestWidget.h
-    ScheduleTestWidget.cpp
-    SloganProvider.h
-    SloganProvider.cpp
+    DynamicSpot.h	    DynamicSpot.cpp
+    DynamicSpotApp.h	    DynamicSpotApp.cpp
+    MainWindowManager.h	    MainWindowManager.cpp
+    HeLogger.h		    HeLogger.cpp
+    ScheduleHost.h	    ScheduleHost.cpp
+    ScheduleItem.h	    ScheduleItem.cpp
+    SettingsWindow.h	    SettingsWindow.cpp
+    ScheduleTestWidget.h    ScheduleTestWidget.cpp
+    SloganProvider.h	    SloganProvider.cpp
+    TimeBanner.h	    TimeBanner.cpp
+    CountDown.h		    CountDown.cpp
+    HeSvgItem.h		    HeSvgItem.cpp
     res.qrc
 )
 
@@ -43,6 +38,7 @@ qt_add_qml_module(DynamicSpot
 	qml/ScheduleViewer.qml
 	qml/AboutPage.qml
 	qml/SettingsWindow.qml
+	SOURCES HeSvgItem.h HeSvgItem.cpp
 )
 
 set_target_properties(DynamicSpot PROPERTIES
@@ -56,6 +52,7 @@ set_target_properties(DynamicSpot PROPERTIES
 target_link_libraries(DynamicSpot
     PRIVATE Qt::Quick
     PRIVATE Qt::Widgets
+    PRIVATE Qt::Svg
 )
 
 install(TARGETS DynamicSpot

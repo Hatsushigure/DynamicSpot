@@ -7,10 +7,7 @@
 
 using Qt::Literals::operator""_s;
 
-ScheduleHost::ScheduleHost(QObject *parent)
-	: QObject{parent}
-{
-}
+ScheduleHost* ScheduleHost::s_instance {nullptr};
 
 QString ScheduleHost::fileName() const
 {
@@ -81,7 +78,7 @@ void ScheduleHost::readFromFile()
 			auto item = new ScheduleItem(QTime::fromString(itemObj.value("time").toString("00:00:00"), "HH:mm:ss"),
 							  itemObj.value("title").toString("No Title"),
 							  itemObj.value("subtitle").toString(""),
-							  itemObj.value("iconFileName").toString("qrc:///DynamicSpot/images/icons/colored/info-256.svg"),
+							  itemObj.value("iconFileName").toString("qrc:///DynamicSpot/images/icons/colored/info.svg"),
 							  itemObj.value("durationSeconds").toInt(10),
 							  itemObj.value("commandLine").toString("")
 							  );
@@ -134,6 +131,13 @@ void ScheduleHost::updateCurrentIndex(QTimer* timer, const int index)
 	emit currentIndexChanged();
 	emit currentItemChanged();
 	HeLogger::logger()->info(u"时间表项 %1 已触发"_s.arg(currentItem()->title()), "ScheduleHost");
+}
+
+ScheduleHost* ScheduleHost::instance()
+{
+	if (s_instance == nullptr)
+		s_instance = new ScheduleHost;
+	return s_instance;
 }
 
 void ScheduleHost::clearItems()
