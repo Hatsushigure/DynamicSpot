@@ -25,7 +25,7 @@ void ScheduleTestWidget::initUi()
 	m_lblIconFileName = new QLabel("图标路径", this);
 	m_layout->addWidget(m_lblIconFileName, 0, 0);
 
-	m_lineEditIconFileName = new QLineEdit("qrc:///DynamicSpot/images/icons/dynamicspot-logo-256.svg", this);
+	m_lineEditIconFileName = new QLineEdit("qrc:///DynamicSpot/images/icons/dynamicspot-logo.svg", this);
 	m_layout->addWidget(m_lineEditIconFileName, 0, 1);
 
 	m_lblTitle = new QLabel("标题", this);

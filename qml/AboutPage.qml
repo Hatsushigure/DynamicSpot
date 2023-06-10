@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Controls.Material as Controls
 import QtQuick.Layouts
+import DynamicSpot
 
 Rectangle {
 	color: "lightgray"
@@ -33,12 +34,11 @@ Rectangle {
 					rowSpacing: 4; columnSpacing: 4
 					flow: GridLayout.TopToBottom
 
-					Image {
+					HeSvgItem {
+						aspectRatioMode: Qt.KeepAspectRatio
 						Layout.preferredWidth: 80; Layout.preferredHeight: 80
 						Layout.rowSpan: 6
-						source: "qrc:/DynamicSpot/images/icons/dynamicspot-logo-256.svg"
-						asynchronous: true
-						mipmap: true
+						source: ":/DynamicSpot/images/icons/dynamicspot-logo.svg"
 					}
 					Item {Layout.fillWidth: true; Layout.fillHeight: true}
 					Text {text: "DynamicSpot"; font.pointSize: 16}
@@ -95,16 +95,15 @@ Rectangle {
 					rowSpacing: 4; columnSpacing: 4
 					flow: GridLayout.TopToBottom
 
-					Image {
+					HeSvgItem {
+						aspectRatioMode: Qt.KeepAspectRatio
 						Layout.preferredWidth: 80; Layout.preferredHeight: 80
 						Layout.rowSpan: 5
-						source: "qrc:/DynamicSpot/images/icons/qt-logo-400.png"
-						asynchronous: true
-						mipmap: true
+						source: ":/DynamicSpot/images/icons/qt-logo.svg"
 					}
 					Item {Layout.fillWidth: true; Layout.fillHeight: true}
 					Text {text: "Qt"; font.pointSize: 12}
-					Text {text: "6.5.0"; color: "gray"}
+					Text {text: "6.5.1"; color: "gray"}
 					Text {text: "https://qt.io"; color: "gray"}
 					Item {Layout.fillWidth: true; Layout.fillHeight: true}
 				}
@@ -115,12 +114,11 @@ Rectangle {
 					rowSpacing: 4; columnSpacing: 4
 					flow: GridLayout.TopToBottom
 
-					Image {
+					HeSvgItem {
+						aspectRatioMode: Qt.KeepAspectRatio
 						Layout.preferredWidth: 80; Layout.preferredHeight: 80
 						Layout.rowSpan: 5
-						source: "qrc:/DynamicSpot/images/icons/icons8-logo-256.svg"
-						asynchronous: true
-						mipmap: true
+						source: ":/DynamicSpot/images/icons/icons8-logo.svg"
 					}
 					Item {Layout.fillWidth: true; Layout.fillHeight: true}
 					Text {text: "Icons8"; font.pointSize: 12}
@@ -191,6 +189,6 @@ Rectangle {
 			}
 		}
 		Item {Layout.fillWidth: true; Layout.fillHeight: true}
-		Text {text: "Build with Qt 6.5.0. Copyright(c) Hatsushigure, all rights reserved."; color: "gray"; Layout.alignment: Qt.AlignHCenter}
+		Text {text: "Build with Qt 6.5.1. Copyright(c) Hatsushigure, all rights reserved."; color: "gray"; Layout.alignment: Qt.AlignHCenter}
 	}
 }
