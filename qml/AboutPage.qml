@@ -96,15 +96,16 @@ Rectangle {
 					flow: GridLayout.TopToBottom
 
 					Image {
+						fillMode: Image.PreserveAspectFit
 						Layout.preferredWidth: 80; Layout.preferredHeight: 80
 						Layout.rowSpan: 5
-						source: "qrc:/DynamicSpot/images/icons/qt-logo-400.png"
+						source: "qrc:/DynamicSpot/images/icons/qt-logo.svg"
 						asynchronous: true
 						mipmap: true
 					}
 					Item {Layout.fillWidth: true; Layout.fillHeight: true}
 					Text {text: "Qt"; font.pointSize: 12}
-					Text {text: "6.5.0"; color: "gray"}
+					Text {text: "6.5.1"; color: "gray"}
 					Text {text: "https://qt.io"; color: "gray"}
 					Item {Layout.fillWidth: true; Layout.fillHeight: true}
 				}
@@ -191,6 +192,6 @@ Rectangle {
 			}
 		}
 		Item {Layout.fillWidth: true; Layout.fillHeight: true}
-		Text {text: "Build with Qt 6.5.0. Copyright(c) Hatsushigure, all rights reserved."; color: "gray"; Layout.alignment: Qt.AlignHCenter}
+		Text {text: "Build with Qt 6.5.1. Copyright(c) Hatsushigure, all rights reserved."; color: "gray"; Layout.alignment: Qt.AlignHCenter}
 	}
 }
