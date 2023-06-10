@@ -1,21 +1,7 @@
 <RCC>
     <qresource prefix="/DynamicSpot">
-        <file>images/icons/avatar/avatar - 32.png</file>
-        <file>images/icons/avatar/avatar - 48.png</file>
-        <file>images/icons/avatar/avatar - 64.png</file>
-        <file>images/icons/avatar/avatar - 96.png</file>
-        <file>images/icons/avatar/avatar - 128.png</file>
-        <file>images/icons/avatar/avatar - 144.png</file>
         <file>images/icons/avatar/avatar - 256.png</file>
-        <file>images/icons/colored/bell-256.png</file>
         <file>images/icons/colored/info.svg</file>
-        <file>images/icons/colored/meal-256.png</file>
-        <file>images/icons/colored/run-256.png</file>
-        <file>images/icons/colored/sleep-256.png</file>
-        <file>images/icons/colored/reading-256.png</file>
-        <file>images/icons/colored/teacher-256.png</file>
-        <file>images/icons/colored/exam-256.png</file>
-        <file>images/icons/colored/write-256.png</file>
         <file>images/icons/dynamicspot-logo.svg</file>
         <file>images/icons/dynamicspot-settings.svg</file>
         <file>images/icons/icons8-logo.svg</file>
