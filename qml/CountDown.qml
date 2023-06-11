@@ -9,20 +9,20 @@ Rectangle {
 	CountDownBase {id: base}
 
 	id: root
-	width: implicitWidth; height: implicitHeight
 	implicitWidth: container.width + radius; implicitHeight: container.height + radius
 	border.width: 0
 	color: "#80000000"
-	state: base.stateString
 	states: [
 		State {
 			name: "showShort"
+			when: base.state == CountDownBase.ShowShort
 
 			PropertyChanges {target: container; width: Math.max(shortLabel.implicitWidth, shortLabel.implicitHeight); height: width}
 			PropertyChanges {target: root; radius: Math.max(container.height, container.width)}
 		},
 		State {
 			name: "showFull"
+			when: base.state == CountDownBase.ShowFull
 
 			PropertyChanges {target: fullLabel; opacity: 1}
 			PropertyChanges {target: shortLabel; opacity: 0}

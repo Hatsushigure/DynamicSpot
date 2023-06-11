@@ -60,7 +60,7 @@ void CountDown::setFullText(const QString& newFullText)
 	emit fullTextChanged();
 }
 
-void CountDown::setStateString(const States newState)
+void CountDown::setState(const States newState)
 {
 	if (newState == m_state)
 		return;
@@ -74,7 +74,7 @@ void CountDown::setStateString(const States newState)
 		m_stateString = "showFull";
 		break;
 	}
-	emit stateStringChanged();
+	emit stateChanged();
 }
 
 void CountDown::updateAllTexts()
@@ -95,7 +95,7 @@ void CountDown::updateAllTexts()
 void CountDown::toggleState()
 {
 	if (m_state == States::ShowFull)
-		setStateString(States::ShowShort);
+		setState(States::ShowShort);
 	else
-		setStateString(States::ShowFull);
+		setState(States::ShowFull);
 }

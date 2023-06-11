@@ -13,12 +13,14 @@
 #include "ScheduleTestWidget.h"
 #include "CountDown.h"
 
+using Qt::Literals::operator ""_s;
+
 DynamicSpotApp::DynamicSpotApp(int argc, char *argv[]) :
 	QApplication(argc, argv)
 {
 	setOrganizationName("Hatsushigure");
 	setApplicationName("DynamicSpot");
-	HeLogger::logger()->info("成功初始化了 HeLogger. 程序版本: " + DynamicSpot::VersionInfo::versionString, "DynamicSpotApp");
+	HeLogger::logger()->info(u"成功初始化了 HeLogger. 程序版本: "_s + DynamicSpot::VersionInfo::versionString, "DynamicSpotApp");
 	initSplashScreeen();
 	initSettings();
 	HeLogger::logger()->info("初始化设置窗口...", staticMetaObject.className());
@@ -111,12 +113,12 @@ void DynamicSpotApp::initTrayMenu()
 	menu4->addAction("缩略", []() {
 		if (DynamicSpot::countDown == nullptr)
 			return;
-		DynamicSpot::countDown->setStateString(CountDown::States::ShowShort);
+                DynamicSpot::countDown->setState(CountDown::States::ShowShort);
 	});
 	menu4->addAction("完整", []() {
 		if (DynamicSpot::countDown == nullptr)
 			return;
-		DynamicSpot::countDown->setStateString(CountDown::States::ShowFull);
+                DynamicSpot::countDown->setState(CountDown::States::ShowFull);
 
 	});
 	menu1->addAction("时间表测试", []() {
