@@ -9,10 +9,11 @@ class CountDown : public QObject
 	QML_NAMED_ELEMENT(CountDownBase)
 	Q_PROPERTY(QString shortText READ shortText WRITE setShortText NOTIFY shortTextChanged)
 	Q_PROPERTY(QString fullText READ fullText WRITE setFullText NOTIFY fullTextChanged);
-	Q_PROPERTY(QString stateString READ stateString NOTIFY stateStringChanged CONSTANT)
+	Q_PROPERTY(States state READ state NOTIFY stateChanged CONSTANT)
 public:
 	enum class CountDownMode {SecondCountDown, DayCountDown};
 	enum class States {ShowShort, ShowFull};
+	Q_ENUM(States)
 private:
 	const int changeStateInterval {300000};
 	const int secondCountDownHeartBeat {500};
@@ -36,14 +37,14 @@ public:
 	void setShortText(const QString& newShortText);
 	auto fullText() const {return m_fullText;}
 	void setFullText(const QString& newFullText);
-	auto stateString() const {return m_stateString;}
-	void setStateString(const States newState);
+	void setState(const States newState);
+	auto state() const {return m_state;}
 private slots:
 	void updateAllTexts();
 	void toggleState();
 signals:
 	void shortTextChanged();
 	void fullTextChanged();
-	void stateStringChanged();
+	void stateChanged();
 };
 
