@@ -12,10 +12,22 @@ class CountDown;
 
 namespace DynamicSpot::VersionInfo
 {
-const int major = 0;
-const int minor = 3;
-const int patch = 1;
-const QString versionString = "v0.3.1";
+constexpr auto major = 0;
+constexpr auto minor = 3;
+constexpr auto patch = 1;
+constexpr auto versionString {"v0.3.1"};
+}
+
+namespace DynamicSpot::SettingsKey
+{
+constexpr auto enableSecondCountDown {"enableSecondCountDown"};
+constexpr auto deadline {"deadline"};
+}
+
+namespace DynamicSpot::DefaultSettings
+{
+constexpr auto enableSecondCountDown {false};
+const auto deadline {"2024-06-07_09-00-00"};
 }
 
 namespace DynamicSpot

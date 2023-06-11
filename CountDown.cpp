@@ -11,11 +11,15 @@ CountDown::CountDown(QObject *parent)
 	auto logger = HeLogger::logger();
 	logger->info("正在初始化倒计时窗体", staticMetaObject.className());
 
-	if (DynamicSpot::settings->value("enableSecondCountDown").toBool())
+	if (DynamicSpot::settings->value(DynamicSpot::SettingsKey::enableSecondCountDown).toBool())
 	{
 		logger->info("检测到启用了精确到秒的倒计时");
 		m_countDownMode = CountDownMode::SecondCountDown;
 	}
+
+	if (DynamicSpot::settings->value(DynamicSpot::SettingsKey::deadline).isNull())
+		DynamicSpot::settings->setValue(DynamicSpot::SettingsKey::deadline, DynamicSpot::DefaultSettings::deadline);
+	m_deadline = QDateTime::fromString(DynamicSpot::settings->value(DynamicSpot::SettingsKey::deadline).toString(), "yyyy-MM-dd_HH-mm-ss");
 
 	updateAllTexts();
 
@@ -76,14 +80,14 @@ void CountDown::setStateString(const States newState)
 void CountDown::updateAllTexts()
 {
 	auto curDateTime = QDateTime::currentDateTime();
-	setShortText(shortTextTemplate.arg(curDateTime.daysTo(deadLine)));
+	setShortText(shortTextTemplate.arg(curDateTime.daysTo(m_deadline)));
 	switch (m_countDownMode)
 	{
 	case CountDownMode::DayCountDown:
-		setFullText(dayCoundDownTemplate.arg(curDateTime.daysTo(deadLine)));
+		setFullText(dayCoundDownTemplate.arg(curDateTime.daysTo(m_deadline)));
 		break;
 	case CountDownMode::SecondCountDown:
-		setFullText(secondCoundDownTemplate.arg(curDateTime.secsTo(deadLine)));
+		setFullText(secondCoundDownTemplate.arg(curDateTime.secsTo(m_deadline)));
 		break;
 	}
 }

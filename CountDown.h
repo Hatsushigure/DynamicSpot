@@ -17,11 +17,11 @@ private:
 	const int changeStateInterval {300000};
 	const int secondCountDownHeartBeat {500};
 	const int dayCountDownHeartBeat {60000};
-	const QDateTime deadLine {QDate {2023, 6, 7}, QTime {9, 0 , 0}};
 	const QString shortTextTemplate {"<span style=\"color: red; font-weight: bold\">%1</span>"};
 	const QString secondCoundDownTemplate {"距离高考仅剩 <span style=\"color:red;font-weight:bold\">%1</span> 秒"};
 	const QString dayCoundDownTemplate {"距离高考仅剩 <span style=\"color:red;font-weight:bold\">%1</span> 天"};
 private:
+	QDateTime m_deadline {};
 	QString m_shortText {shortTextTemplate};
 	QString m_fullText {dayCoundDownTemplate};
 	QString m_stateString {"showShort"};

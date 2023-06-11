@@ -38,7 +38,11 @@ qt_add_qml_module(DynamicSpot
 	qml/ScheduleViewer.qml
 	qml/AboutPage.qml
 	qml/SettingsWindow.qml
-	SOURCES HeSvgItem.h HeSvgItem.cpp
+    SOURCES
+	TimeBanner.h	    TimeBanner.cpp
+	CountDown.h	    CountDown.cpp
+	SettingsWindow.h    SettingsWindow.cpp
+	HeSvgItem.h	    HeSvgItem.cpp
 )
 
 set_target_properties(DynamicSpot PROPERTIES
