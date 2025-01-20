@@ -1,4 +1,5 @@
-#include <QString>
+#include <string_view>
+#include <memory>
 
 class DynamicSpotApp;
 class MainWindowManager;
@@ -10,12 +11,17 @@ class SettingsWindow;
 class QSettings;
 class CountDown;
 
+namespace spdlog
+{
+class logger;
+}
+
 namespace DynamicSpot::VersionInfo
 {
 constexpr auto major = 0;
 constexpr auto minor = 3;
 constexpr auto patch = 1;
-constexpr auto versionString {"v0.3.1"};
+constexpr std::string_view versionString = "v0.3.1";
 }
 
 namespace DynamicSpot::SettingsKey
@@ -32,6 +38,7 @@ const auto deadline {"2024-06-07_09-00-00"};
 
 namespace DynamicSpot
 {
+extern std::shared_ptr<spdlog::logger> logger;
 extern DynamicSpotApp* theApp;
 extern MainWindowManager* mainWindowManager;
 extern QMenu* trayMenu;

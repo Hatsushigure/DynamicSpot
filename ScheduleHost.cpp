@@ -1,11 +1,10 @@
 #include "ScheduleHost.h"
-#include "HeLogger.h"
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QTimer>
-
-using Qt::Literals::operator""_s;
+#include "DynamicSpot.h"
+#include<spdlog/logger.h>
 
 ScheduleHost* ScheduleHost::s_instance {nullptr};
 
@@ -19,11 +18,6 @@ void ScheduleHost::setFileName(const QString& newFileName)
 	m_fileName = newFileName;
 }
 
-int ScheduleHost::currentIndex() const
-{
-	return m_currentIndex;
-}
-
 ScheduleItem* ScheduleHost::currentItem() const
 {
 	if (m_currentIndex < 0)
@@ -33,18 +27,19 @@ ScheduleItem* ScheduleHost::currentItem() const
 
 void ScheduleHost::readFromFile()
 {
+	auto logger = DynamicSpot::logger;
 	clearItems();
 
 	if (m_fileName.isEmpty())
 	{
-		HeLogger::logger()->warning("未指定文件名, 跳过读取", "ScheduleHost");
+		logger->warn("未指定文件名, 跳过读取");
 		return;
 	}
 	QFile tmpFile(m_fileName);
 	tmpFile.open(QFile::ReadOnly);
 	if (!tmpFile.isOpen())
 	{
-		HeLogger::logger()->error("无法打开文件, 请检查文件是否存在以及是否有相应权限", "ScheduleHost");
+		logger->error("无法打开文件, 请检查文件是否存在以及是否有相应权限");
 		return;
 	}
 
@@ -53,7 +48,7 @@ void ScheduleHost::readFromFile()
 	tmpFile.close();
 	if (err.error != QJsonParseError::NoError)
 	{
-		HeLogger::logger()->error(u"解读 Json 时出现错误: %1"_s.arg(err.errorString()), "ScheduleHost");
+		logger->error("解读 Json 时出现错误: {}", err.errorString().toStdString());
 		return;
 	}
 	while (true)
@@ -71,7 +66,7 @@ void ScheduleHost::readFromFile()
 		{
 			if (!var.isObject())
 			{
-				HeLogger::logger()->error("Json 格式不正确, 跳过解析", "ScheduleHost");
+				logger->error("Json 格式不正确, 跳过解析");
 				return;
 			}
 			auto itemObj = var.toObject();
@@ -82,11 +77,9 @@ void ScheduleHost::readFromFile()
 							  itemObj.value("durationSeconds").toInt(10),
 							  itemObj.value("commandLine").toString("")
 							  );
-			HeLogger::logger()->info(u"读取到时间表项: 时间: %1\n\t\t\t\t\t\t\t\t标题: %2"_s.arg(
-							   item->time().toString("HH:mm:ss"),
-							   item->title()
-							   ),
-						   "ScheduleHost"
+			logger->info("读取到时间表项: \n\t时间: {}\n\t标题: {}",
+							   item->time().toString("HH:mm:ss").toStdString(),
+							   item->title().toStdString()
 						   );
 			m_itemLst.push_back(item);
 		}
@@ -95,7 +88,7 @@ void ScheduleHost::readFromFile()
 			return a->time().msecsSinceStartOfDay() < b->time().msecsSinceStartOfDay();
 		});
 
-		HeLogger::logger()->info("正在启动时间表计时器...", "ScheduleHost");
+		logger->debug("正在启动时间表计时器...");
 		for (int i = 0; i < m_itemLst.count(); i++)
 		{
 			auto duration = m_itemLst.at(i)->time().msecsSinceStartOfDay() - QTime::currentTime().msecsSinceStartOfDay();
@@ -113,7 +106,7 @@ void ScheduleHost::readFromFile()
 		}
 		return;
 	}
-	HeLogger::logger()->error("Json 格式不正确, 跳过解析", "ScheduleHost");
+	logger->error("Json 格式不正确, 跳过解析");
 	return;
 }
 
@@ -130,7 +123,7 @@ void ScheduleHost::updateCurrentIndex(QTimer* timer, const int index)
 	m_currentIndex = index;
 	emit currentIndexChanged();
 	emit currentItemChanged();
-	HeLogger::logger()->info(u"时间表项 %1 已触发"_s.arg(currentItem()->title()), "ScheduleHost");
+	DynamicSpot::logger->info("时间表项 {} 已触发", currentItem()->title().toStdString());
 }
 
 ScheduleHost* ScheduleHost::instance()

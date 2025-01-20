@@ -1,15 +1,13 @@
 #include "CountDown.h"
-#include "HeLogger.h"
 #include <QSettings>
+#include <spdlog/logger.h>
 #include "DynamicSpot.h"
-
-using Qt::StringLiterals::operator""_s;
 
 CountDown::CountDown(QObject *parent)
 	: QObject{parent}
 {
-	auto logger = HeLogger::logger();
-	logger->info("正在初始化倒计时窗体", staticMetaObject.className());
+	auto logger = DynamicSpot::logger;
+	logger->debug("正在初始化倒计时窗体");
 
 	if (DynamicSpot::settings->value(DynamicSpot::SettingsKey::enableSecondCountDown).toBool())
 	{
@@ -23,25 +21,25 @@ CountDown::CountDown(QObject *parent)
 
 	updateAllTexts();
 
-	logger->info(u"正在初始化状态切换计时器, 周期 %1ms"_s.arg(QString::number(changeStateInterval)), staticMetaObject.className());
+	logger->info("正在初始化状态切换计时器, 周期 {}ms", changeStateInterval);
 	m_timerChangeState = new QTimer(this);
 	m_timerChangeState->setInterval(changeStateInterval);
 	connect(m_timerChangeState, &QTimer::timeout, this, &CountDown::toggleState);
-	logger->info("状态切换计时器初始化完成", staticMetaObject.className());
+	logger->debug("状态切换计时器初始化完成", staticMetaObject.className());
 
 	auto heartBeatInterval = m_countDownMode == CountDownMode::DayCountDown ? dayCountDownHeartBeat : secondCountDownHeartBeat;
-	logger->info(u"正在初始化 timerHeartBeat, 周期 %1ms"_s.arg(heartBeatInterval), staticMetaObject.className());
+	logger->info("正在初始化 timerHeartBeat, 周期 {}ms", heartBeatInterval);
 	m_timerHeartBeat = new QTimer(this);
 	m_timerHeartBeat->setInterval(heartBeatInterval);
 	connect(m_timerHeartBeat, &QTimer::timeout, this, &CountDown::updateAllTexts);
-	logger->info("timerHeartBeat 初始化完成", staticMetaObject.className());
+	logger->debug("timerHeartBeat 初始化完成", staticMetaObject.className());
 
-	logger->info("正在启动计时器...", staticMetaObject.className());
+	logger->debug("正在启动计时器...", staticMetaObject.className());
 	m_timerHeartBeat->start();
 	m_timerChangeState->start();
 
 	DynamicSpot::countDown = this;
-	logger->info("倒计时窗体初始化完成", staticMetaObject.className());
+	logger->debug("倒计时窗体初始化完成", staticMetaObject.className());
 }
 
 void CountDown::setShortText(const QString& newShortText)

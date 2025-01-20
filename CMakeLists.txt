@@ -4,18 +4,20 @@ project(DynamicSpot VERSION 0.2 LANGUAGES CXX)
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
-set(CMAKE_CXX_STANDARD_REQUIRED 20)
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(spdlog_DIR "E:/lib/spdlog/build")
 
 find_package(Qt6 COMPONENTS Quick REQUIRED)
 find_package(Qt6 COMPONENTS REQUIRED Widgets)
 find_package(Qt6 REQUIRED COMPONENTS Svg)
+find_package(spdlog REQUIRED)
 
 qt_add_executable(DynamicSpot
     main.cpp
     DynamicSpot.h	    DynamicSpot.cpp
     DynamicSpotApp.h	    DynamicSpotApp.cpp
     MainWindowManager.h	    MainWindowManager.cpp
-    HeLogger.h		    HeLogger.cpp
     ScheduleHost.h	    ScheduleHost.cpp
     ScheduleItem.h	    ScheduleItem.cpp
     SettingsWindow.h	    SettingsWindow.cpp
@@ -57,6 +59,7 @@ target_link_libraries(DynamicSpot
     PRIVATE Qt::Quick
     PRIVATE Qt::Widgets
     PRIVATE Qt::Svg
+    PRIVATE spdlog::spdlog $<$<BOOL:${MINGW}>:ws2_32>
 )
 
 install(TARGETS DynamicSpot

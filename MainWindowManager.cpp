@@ -1,11 +1,11 @@
 #include "MainWindowManager.h"
 #include "DynamicSpot.h"
 #include "DynamicSpotApp.h"
-#include "HeLogger.h"
 #include "TimeBanner.h"
 #include <QQuickItem>
 #include <QTimer>
 #include <QQuickView>
+#include <spdlog/logger.h>
 
 MainWindowManager::MainWindowManager(QObject *parent) :
 	QObject(parent)
@@ -22,13 +22,13 @@ QQuickView* MainWindowManager::window()
 void MainWindowManager::initView()
 {
 	QQuickView::setDefaultAlphaBuffer(true);
-	HeLogger::logger()->info("为全局 QQuickView 开启了 Alpha 通道", "MainWindowManager");
+	DynamicSpot::logger->debug("为全局 QQuickView 开启了 Alpha 通道");
 	m_view = new QQuickView;
 	m_view->setFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint | Qt::WindowTransparentForInput | Qt::Tool);
 	m_view->setColor(Qt::transparent);
 	m_view->setResizeMode(QQuickView::SizeRootObjectToView);
-	m_view->setSource(uiSource);
-	HeLogger::logger()->info("加载了 ui 文件 " + uiSource, "MainWindowManager");
+	m_view->setSource(QUrl(uiSource.data()));
+	DynamicSpot::logger->debug("加载了 ui 文件 \"{}\"", uiSource);
 }
 
 void MainWindowManager::initItem()

@@ -1,6 +1,5 @@
 #include "DynamicSpotApp.h"
 #include "DynamicSpot.h"
-#include "HeLogger.h"
 #include "MainWindowManager.h"
 #include "ScheduleHost.h"
 #include <QSystemTrayIcon>
@@ -12,20 +11,26 @@
 #include <QFileDialog>
 #include "ScheduleTestWidget.h"
 #include "CountDown.h"
+#include <spdlog/spdlog.h>
+#include <spdlog/sinks/basic_file_sink.h>
+#include<spdlog/sinks/stdout_color_sinks.h>
+#include <format>
+#include <chrono>
+#include <memory>
 
-using Qt::Literals::operator ""_s;
 
 DynamicSpotApp::DynamicSpotApp(int argc, char *argv[]) :
 	QApplication(argc, argv)
 {
 	setOrganizationName("Hatsushigure");
 	setApplicationName("DynamicSpot");
-	HeLogger::logger()->info(u"成功初始化了 HeLogger. 程序版本: "_s + DynamicSpot::VersionInfo::versionString, "DynamicSpotApp");
+	initLogger();
+	DynamicSpot::logger->info("启动 DynamicSpot... 程序版本: {}", DynamicSpot::VersionInfo::versionString);
 	initSplashScreeen();
 	initSettings();
-	HeLogger::logger()->info("初始化设置窗口...", staticMetaObject.className());
+	DynamicSpot::logger->debug("初始化设置窗口...");
 	DynamicSpot::settingsWindow = new SettingsWindow;
-	HeLogger::logger()->info("设置窗口初始化成功", staticMetaObject.className());
+	DynamicSpot::logger->debug("设置窗口初始化成功");
 	initMainWindow();
 	initScheduleHost();
 	initTrayMenu();
@@ -39,20 +44,35 @@ DynamicSpotApp::~DynamicSpotApp()
 	delete DynamicSpot::trayMenu;
 }
 
+void DynamicSpotApp::initLogger()
+{
+	auto currentDateTime = QDateTime::currentDateTime();
+	auto logFilename = std::format("logs/{}.log", currentDateTime.toString("yyyy-MM-dd_HH-mm-ss").toStdString());
+	auto fileSink = std::make_shared<spdlog::sinks::basic_file_sink_mt>(logFilename);
+	fileSink->set_level(spdlog::level::info);
+	auto consoleSink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
+	consoleSink->set_level(spdlog::level::debug);
+	auto logger = std::shared_ptr<spdlog::logger>(new spdlog::logger("DynamicSpotLogger", {consoleSink, fileSink}));
+	logger->set_level(spdlog::level::debug);
+	spdlog::register_logger(logger);
+	spdlog::flush_every(std::chrono::seconds(5));
+	DynamicSpot::logger = logger;
+}
+
 void DynamicSpotApp::initSplashScreeen()
 {
 	using DynamicSpot::splashScreen;
-	HeLogger::logger()->info("初始化启动窗口...", "DynamicSpotApp");
-//	QPixmap pix(":/DynamicSpot/images/icons/colored/bell.svg");
+	DynamicSpot::logger->debug("初始化启动窗口...", "DynamicSpotApp");
+	//	QPixmap pix(":/DynamicSpot/images/icons/colored/bell.svg");
 	QPixmap pix(":/DynamicSpot/images/icons/dynamicspot-logo.svg");
 	pix = pix.scaled(QSize(128, 128), Qt::KeepAspectRatio, Qt::SmoothTransformation);
 	splashScreen = new QSplashScreen(pix, Qt::WindowStaysOnTopHint);
 	connect(this, &DynamicSpotApp::allReady, this, &DynamicSpotApp::removeSplashScreen);
 	splashScreen->show();
 	if (!splashScreen->isVisible())
-		HeLogger::logger()->warning("未成功显示启动窗口", "DynamicSpotApp");
+		DynamicSpot::logger->error("未成功显示启动窗口");
 	else
-		HeLogger::logger()->info("成功显示了启动窗口", "DynamicSpotApp");
+		DynamicSpot::logger->debug("成功显示了启动窗口", "DynamicSpotApp");
 
 	m_timersplashScreen = new QTimer;
 	m_timersplashScreen->setInterval(1000);
@@ -74,21 +94,24 @@ void DynamicSpotApp::initSettings()
 void DynamicSpotApp::initMainWindow()
 {
 	using DynamicSpot::mainWindowManager;
-	HeLogger::logger()->info("初始化主窗口...", "DynamicSpotApp");
+	DynamicSpot::logger->debug("初始化主窗口...");
 	mainWindowManager = new MainWindowManager;
 	mainWindowManager->showWindow();
 	mainWindowManager->window()->resize(1, 1);
 	mainWindowManager->adjustGeometry();
 	if (!mainWindowManager->window()->isVisible())
-		HeLogger::logger()->error("无法显示主窗口", "DynamicSpotApp");
+	{
+		DynamicSpot::logger->critical("无法显示主窗口");
+		exit(-1);
+	}
 	else
-		HeLogger::logger()->info("成功显示主窗口", "DynamicSpotApp");
+		DynamicSpot::logger->debug("成功显示主窗口", "DynamicSpotApp");
 }
 
 void DynamicSpotApp::initScheduleHost()
 {
 	auto scheduleHost = ScheduleHost::instance();
-	HeLogger::logger()->info("初始化时间表管理器...", "DynamicSpotApp");
+	DynamicSpot::logger->debug("初始化时间表管理器...");
 	scheduleHost->readFromFile("./schedule.json");
 	connect (scheduleHost, &ScheduleHost::currentIndexChanged, [scheduleHost]() {
 		if (scheduleHost->currentItem()->commandLine().isEmpty())
@@ -122,7 +145,7 @@ void DynamicSpotApp::initTrayMenu()
 
 	});
 	menu1->addAction("时间表测试", []() {
-		HeLogger::logger()->warning("准备测试时间表, 即将清空当前时间表队列", staticMetaObject.className());
+		DynamicSpot::logger->warn("准备测试时间表, 即将清空当前时间表队列");
 		ScheduleHost::instance()->clearItems();
 		auto w = new ScheduleTestWidget;
 		w->setAttribute(Qt::WA_DeleteOnClose);
@@ -136,17 +159,17 @@ void DynamicSpotApp::initTrayMenu()
 void DynamicSpotApp::initTrayIcon()
 {
 	using DynamicSpot::trayIcon;
-	HeLogger::logger()->info("初始化托盘图标...", "DynamicSpotApp");
+	DynamicSpot::logger->debug("初始化托盘图标...");
 	trayIcon = new QSystemTrayIcon(QIcon(":/DynamicSpot/images/icons/dynamicspot-logo.svg"));
 	trayIcon->setContextMenu(DynamicSpot::trayMenu);
 	trayIcon->show();
 	if (!trayIcon->isVisible())
 	{
-		HeLogger::logger()->fatal("无法显示托盘图标, 程序即将退出", "DynamicSpotApp");
+		DynamicSpot::logger->critical("无法显示托盘图标, 程序即将退出", "DynamicSpotApp");
 		exit(-1);
 	}
 	else
-		HeLogger::logger()->info("成功显示托盘图标", "DynamicSpotApp");
+		DynamicSpot::logger->debug("成功显示托盘图标", "DynamicSpotApp");
 }
 
 void DynamicSpotApp::removeSplashScreen()

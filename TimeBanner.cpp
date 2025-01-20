@@ -1,18 +1,17 @@
 #include "TimeBanner.h"
 #include "SloganProvider.h"
-#include "HeLogger.h"
 #include <QTimer>
 #include <QRandomGenerator>
-
-using Qt::StringLiterals::operator""_s;
+#include "DynamicSpot.h"
+#include <spdlog/logger.h>
 
 TimeBanner::TimeBanner(QObject *parent)
 	: QObject{parent}
 {
-	auto logger = HeLogger::logger();
-	logger->info("正在初始化时间横幅", staticMetaObject.className());
+	auto logger = DynamicSpot::logger;
+	logger->debug("正在初始化时间横幅");
 
-	logger->info("正在初始化计时器...", staticMetaObject.className());
+	logger->debug("正在初始化计时器...");
 	m_timerHeartBeat = new QTimer(this);
 	m_timerHeartBeat->setInterval(heartBeeatInterval);
 	connect(m_timerHeartBeat, &QTimer::timeout, this, &TimeBanner::updateTime);
@@ -28,21 +27,21 @@ TimeBanner::TimeBanner(QObject *parent)
 	m_timerScheduleDuration = new QTimer(this);
 	m_timerScheduleDuration->setSingleShot(true);
 	connect(m_timerScheduleDuration, &QTimer::timeout, this, &TimeBanner::showTime);
-	logger->info("计时器初始化完成", staticMetaObject.className());
+	logger->debug("计时器初始化完成");
 
-	logger->info("正在初始化标语选择器...", staticMetaObject.className());
+	logger->debug("正在初始化标语选择器...");
 	m_sloganProvider = new SloganProvider(this);
-	logger->info("标语选择器初始化完成", staticMetaObject.className());
+	logger->debug("标语选择器初始化完成");
 
-	logger->info("正在初始化 Schedule Host...", staticMetaObject.className());
+	logger->debug("正在初始化 Schedule Host...");
 	connect(scheduleHost(), &ScheduleHost::currentIndexChanged, this, &TimeBanner::showSchedule);
-	logger->info("Schedule Host 初始化完成", staticMetaObject.className());
+	logger->debug("Schedule Host 初始化完成");
 
-	logger->info("正在启动计时器...", staticMetaObject.className());
+	logger->debug("正在启动计时器...");
 	m_timerHeartBeat->start();
 	m_timerTimeDuration->start();
 
-	logger->info("时间横幅初始化完成", staticMetaObject.className());
+	logger->debug("时间横幅初始化完成");
 }
 
 void TimeBanner::setTimeText(const QString& newTimeText)

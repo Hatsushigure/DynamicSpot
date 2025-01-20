@@ -2,6 +2,7 @@
 
 namespace DynamicSpot
 {
+std::shared_ptr<spdlog::logger> logger;
 DynamicSpotApp* theApp;
 MainWindowManager *mainWindowManager;
 QMenu* trayMenu;

@@ -1,5 +1,6 @@
 #include <QDate>
 #include <QObject>
+#include <string_view>
 
 class QQuickView;
 class QQuickItem;
@@ -9,7 +10,7 @@ class MainWindowManager : public QObject
 {
 	Q_OBJECT
 private:
-	const QString uiSource = "qrc:/DynamicSpot/qml/MyMainWindow.qml";
+	const std::string_view uiSource = "qrc:/DynamicSpot/qml/MyMainWindow.qml";
 private:
 	QQuickItem* m_rootItem;
 	QQuickItem* m_container;

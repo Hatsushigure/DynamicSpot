@@ -24,7 +24,7 @@ private:
 public:
 	QString fileName() const;
 	void setFileName(const QString& newFileName);
-	int currentIndex() const;
+	int currentIndex() const {return m_currentIndex;}
 	ScheduleItem* currentItem() const;
 public:
 	void readFromFile();
