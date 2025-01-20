@@ -39,7 +39,7 @@ Rectangle {
 			SequentialAnimation {
 				ParallelAnimation {
 					NumberAnimation { target: timeLabel; property: "font.pointSize"; duration: 750; easing.type: Easing.OutExpo}
-					PropertyAnimation {target: container; easing.overshoot: 1.5; easing.type: Easing.OutBack; duration: 750; properties: "width, height"}
+					NumberAnimation {target: container; easing.overshoot: 1.5; easing.type: Easing.OutBack; duration: 750; properties: "width, height"}
 				}
 				PropertyAnimation {target: sloganLabel; duration: 250; property: "opacity"}
 			}
@@ -50,7 +50,7 @@ Rectangle {
 			SequentialAnimation {
 				PropertyAnimation {target: sloganLabel; duration: 250; property: "opacity"}
 				ParallelAnimation {
-					PropertyAnimation {target: container; easing.overshoot: 1.5; easing.type: Easing.OutBack; duration: 750; properties: "width, height"}
+					NumberAnimation {target: container; easing.type: Easing.OutExpo; duration: 750; properties: "width, height"}
 					NumberAnimation { target: timeLabel; property: "font.pointSize"; duration: 750; easing.type: Easing.OutExpo}
 				}
 			}
