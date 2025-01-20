@@ -18,14 +18,16 @@ class logger;
 
 namespace DynamicSpot::VersionInfo
 {
-constexpr auto major = 0;
-constexpr auto minor = 3;
-constexpr auto patch = 1;
-constexpr std::string_view versionString = "v0.3.1";
+constexpr auto major {0};
+constexpr auto minor {3};
+constexpr auto patch {1};
+constexpr std::string_view versionString {"v0.3.1"};
+constexpr auto configVer {0};
 }
 
 namespace DynamicSpot::SettingsKey
 {
+constexpr std::string_view version {"version"};
 constexpr std::string_view enableSecondCountDown {"enableSecondCountDown"};
 constexpr std::string_view deadline {"deadline"};
 }
@@ -33,7 +35,7 @@ constexpr std::string_view deadline {"deadline"};
 namespace DynamicSpot::DefaultSettings
 {
 constexpr auto enableSecondCountDown {false};
-const std::string_view deadline {"2024-06-07_09-00-00"};
+const std::string_view deadline {"2025-06-07_09-00-00"};
 }
 
 namespace DynamicSpot

@@ -83,12 +83,41 @@ void DynamicSpotApp::initSplashScreeen()
 void DynamicSpotApp::initSettings()
 {
 	using DynamicSpot::settings;
+	namespace keys =  DynamicSpot::SettingsKey;
+	namespace vals = DynamicSpot::DefaultSettings;
+	auto logger = DynamicSpot::logger;
 	settings = new QSettings(
 				   "./settings.ini",
 				   QSettings::IniFormat,
 				   this
 				   );
-	settings->setValue("version", 0);
+
+	auto convertSuccess = false;
+
+	if (!settings->contains(keys::version))
+	{
+		logger->warn("Config version not specified or newly installed");
+		logger->debug("Maybe will add some action when first use");
+		settings->setValue(keys::version, DynamicSpot::VersionInfo::configVer);
+	}
+	auto fileVer = settings->value(keys::version).toInt(&convertSuccess);
+	if (!convertSuccess)
+	{
+		logger->error("Config version is NaN! Suppose using the right version.");
+	}
+	logger->info("Config version: {}", fileVer);
+
+	if (!settings->contains(keys::deadline))
+	{
+		logger->warn("Deadline not specified, using default");
+		settings->setValue(keys::deadline, vals::deadline.data());
+	}
+
+	if (!settings->contains(keys::enableSecondCountDown))
+	{
+		logger->warn("EnableSecondCountDown is not specified, using default");
+		settings->setValue(keys::enableSecondCountDown, vals::enableSecondCountDown);
+	}
 }
 
 void DynamicSpotApp::initMainWindow()

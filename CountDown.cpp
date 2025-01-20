@@ -15,10 +15,8 @@ CountDown::CountDown(QObject *parent)
 		logger->info("检测到启用了精确到秒的倒计时");
 		m_countDownMode = CountDownMode::SecondCountDown;
 	}
-
-	if (DynamicSpot::settings->value(DynamicSpot::SettingsKey::deadline).isNull())
-		DynamicSpot::settings->setValue(DynamicSpot::SettingsKey::deadline, DynamicSpot::DefaultSettings::deadline.data());
-	m_deadline = QDateTime::fromString(DynamicSpot::settings->value(DynamicSpot::SettingsKey::deadline).toString(), "yyyy-MM-dd_HH-mm-ss");
+	auto deadlineString = DynamicSpot::settings->value(DynamicSpot::SettingsKey::deadline).toString();
+	m_deadline = QDateTime::fromString(deadlineString, "yyyy-MM-dd_HH-mm-ss");
 
 	updateAllTexts();
 
