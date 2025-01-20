@@ -1,5 +1,6 @@
 #include "CountDown.h"
 #include <QSettings>
+#include <format>
 #include <spdlog/logger.h>
 #include "DynamicSpot.h"
 
@@ -78,14 +79,14 @@ void CountDown::setState(const States newState)
 void CountDown::updateAllTexts()
 {
 	auto curDateTime = QDateTime::currentDateTime();
-	setShortText(shortTextTemplate.arg(curDateTime.daysTo(m_deadline)));
+	setShortText(std::format(shortTextTemplate, curDateTime.daysTo(m_deadline)).c_str());
 	switch (m_countDownMode)
 	{
 	case CountDownMode::DayCountDown:
-		setFullText(dayCoundDownTemplate.arg(curDateTime.daysTo(m_deadline)));
+		setFullText(std::format(dayCoundDownTemplate, curDateTime.daysTo(m_deadline)).c_str());
 		break;
 	case CountDownMode::SecondCountDown:
-		setFullText(secondCoundDownTemplate.arg(curDateTime.secsTo(m_deadline)));
+		setFullText(std::format(secondCoundDownTemplate, curDateTime.daysTo(m_deadline)).c_str());
 		break;
 	}
 }
