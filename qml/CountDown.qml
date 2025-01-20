@@ -5,11 +5,12 @@ Rectangle {
 	property color textColor
 	property alias shortText: base.shortText
 	property alias fullText: base.fullText
+	property alias uiPadding: base.uiPadding
 
 	CountDownBase {id: base}
 
 	id: root
-	implicitWidth: container.width + radius; implicitHeight: container.height + radius
+	implicitWidth: container.width + 2 * uiPadding; implicitHeight: container.height + 2 * uiPadding
 	border.width: 0
 	color: "#80000000"
 	states: [
@@ -18,7 +19,7 @@ Rectangle {
 			when: base.state == CountDownBase.ShowShort
 
 			PropertyChanges {target: container; width: Math.max(shortLabel.implicitWidth, shortLabel.implicitHeight); height: width}
-			PropertyChanges {target: root; radius: Math.max(container.height, container.width)}
+			PropertyChanges {target: root; radius: container.width / 2 + uiPadding}
 		},
 		State {
 			name: "showFull"
@@ -46,7 +47,7 @@ Rectangle {
 
 			SequentialAnimation {
 				NumberAnimation {target: fullLabel; duration: 250; property: "opacity"}
-				NumberAnimation {target: container; easing.overshoot: 1.5; easing.type: Easing.InExpo; duration: 750; properties: "width, height"}
+				NumberAnimation {target: container; easing.type: Easing.OutExpo; duration: 750; properties: "width, height"}
 				NumberAnimation {target: root; duration: 500; property: "radius"; easing.type: Easing.OutExpo}
 				NumberAnimation {target: shortLabel; duration: 250; property: "opacity"}
 			}
@@ -63,7 +64,9 @@ Rectangle {
 			color: root.textColor
 			textFormat: Text.MarkdownText
 			text: base.shortText
-			font.pointSize: 24
+			verticalAlignment: Text.AlignVCenter
+			horizontalAlignment: Text.AlignHCenter
+			font.pointSize: 20
 		}
 		Text {
 			id: fullLabel
@@ -72,6 +75,8 @@ Rectangle {
 			color: root.textColor
 			textFormat: Text.MarkdownText
 			text: base.fullText
+			verticalAlignment: Text.AlignVCenter
+			horizontalAlignment: Text.AlignHCenter
 			font.pointSize: 24
 		}
 	}
