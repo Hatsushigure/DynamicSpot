@@ -17,7 +17,7 @@ CountDown::CountDown(QObject *parent)
 	}
 
 	if (DynamicSpot::settings->value(DynamicSpot::SettingsKey::deadline).isNull())
-		DynamicSpot::settings->setValue(DynamicSpot::SettingsKey::deadline, DynamicSpot::DefaultSettings::deadline);
+		DynamicSpot::settings->setValue(DynamicSpot::SettingsKey::deadline, DynamicSpot::DefaultSettings::deadline.data());
 	m_deadline = QDateTime::fromString(DynamicSpot::settings->value(DynamicSpot::SettingsKey::deadline).toString(), "yyyy-MM-dd_HH-mm-ss");
 
 	updateAllTexts();
@@ -86,7 +86,7 @@ void CountDown::updateAllTexts()
 		setFullText(std::format(dayCoundDownTemplate, curDateTime.daysTo(m_deadline)).c_str());
 		break;
 	case CountDownMode::SecondCountDown:
-		setFullText(std::format(secondCoundDownTemplate, curDateTime.daysTo(m_deadline)).c_str());
+		setFullText(std::format(secondCoundDownTemplate, curDateTime.secsTo(m_deadline)).c_str());
 		break;
 	}
 }

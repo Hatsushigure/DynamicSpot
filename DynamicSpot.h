@@ -26,14 +26,14 @@ constexpr std::string_view versionString = "v0.3.1";
 
 namespace DynamicSpot::SettingsKey
 {
-constexpr auto enableSecondCountDown {"enableSecondCountDown"};
-constexpr auto deadline {"deadline"};
+constexpr std::string_view enableSecondCountDown {"enableSecondCountDown"};
+constexpr std::string_view deadline {"deadline"};
 }
 
 namespace DynamicSpot::DefaultSettings
 {
 constexpr auto enableSecondCountDown {false};
-const auto deadline {"2024-06-07_09-00-00"};
+const std::string_view deadline {"2024-06-07_09-00-00"};
 }
 
 namespace DynamicSpot
