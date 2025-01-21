@@ -26,6 +26,7 @@ qt_add_executable(DynamicSpot
     TimeBanner.h	    TimeBanner.cpp
     CountDown.h		    CountDown.cpp
     HeSvgItem.h		    HeSvgItem.cpp
+    ConfigManager.h	    ConfigManager.cpp
     res.qrc
 )
 

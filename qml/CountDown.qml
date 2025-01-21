@@ -37,8 +37,10 @@ Rectangle {
 
 			SequentialAnimation {
 				NumberAnimation {target: shortLabel; duration: 250; property: "opacity"}
-				NumberAnimation {target: root; duration: 500; property: "radius"; easing.type: Easing.InExpo}
-				NumberAnimation {target: container; easing.overshoot: 1.5; easing.type: Easing.OutBack; duration: 750; properties: "width, height"}
+				ParallelAnimation {
+					NumberAnimation {target: root; duration: 500; property: "radius"; easing.type: Easing.OutCubic}
+					NumberAnimation {target: container; easing.overshoot: 1.5; easing.type: Easing.OutBack; duration: 750; properties: "width, height"}
+				}
 				NumberAnimation {target: fullLabel; duration: 250; property: "opacity"}
 			}
 		},
@@ -47,8 +49,10 @@ Rectangle {
 
 			SequentialAnimation {
 				NumberAnimation {target: fullLabel; duration: 250; property: "opacity"}
-				NumberAnimation {target: container; easing.type: Easing.OutExpo; duration: 750; properties: "width, height"}
-				NumberAnimation {target: root; duration: 500; property: "radius"; easing.type: Easing.OutExpo}
+				ParallelAnimation {
+					NumberAnimation {target: container; easing.type: Easing.OutExpo; duration: 750; properties: "width, height"}
+					NumberAnimation {target: root; duration: 500; property: "radius"; easing.type: Easing.OutCubic}
+				}
 				NumberAnimation {target: shortLabel; duration: 250; property: "opacity"}
 			}
 		}

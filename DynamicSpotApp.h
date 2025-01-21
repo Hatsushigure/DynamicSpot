@@ -12,7 +12,7 @@ public:
 private:
 	void initLogger();
 	void initSplashScreeen();
-	void initSettings();
+	void initConfig();
 	void initMainWindow();
 	void initScheduleHost();
 	void initTrayMenu();

@@ -2,21 +2,23 @@
 #include "DynamicSpot.h"
 #include "MainWindowManager.h"
 #include "ScheduleHost.h"
+#include "SettingsWindow.h"
+#include "ScheduleTestWidget.h"
+#include "CountDown.h"
+#include "ConfigManager.h"
 #include <QSystemTrayIcon>
 #include <QMenu>
 #include <QSplashScreen>
 #include <QTimer>
 #include <QQuickView>
-#include "SettingsWindow.h"
 #include <QFileDialog>
-#include "ScheduleTestWidget.h"
-#include "CountDown.h"
-#include <spdlog/spdlog.h>
-#include <spdlog/sinks/basic_file_sink.h>
-#include<spdlog/sinks/stdout_color_sinks.h>
 #include <format>
 #include <chrono>
 #include <memory>
+#include <spdlog/spdlog.h>
+#include <spdlog/sinks/basic_file_sink.h>
+#include <spdlog/sinks/stdout_color_sinks.h>
+#include <spdlog/stopwatch.h>
 
 
 DynamicSpotApp::DynamicSpotApp(int argc, char *argv[]) :
@@ -27,7 +29,7 @@ DynamicSpotApp::DynamicSpotApp(int argc, char *argv[]) :
 	initLogger();
 	DynamicSpot::logger->info("启动 DynamicSpot... 程序版本: {}", DynamicSpot::VersionInfo::versionString);
 	initSplashScreeen();
-	initSettings();
+	initConfig();
 	DynamicSpot::logger->debug("初始化设置窗口...");
 	DynamicSpot::settingsWindow = new SettingsWindow;
 	DynamicSpot::logger->debug("设置窗口初始化成功");
@@ -80,44 +82,14 @@ void DynamicSpotApp::initSplashScreeen()
 	connect(m_timersplashScreen, &QTimer::timeout, this, &DynamicSpotApp::removeSplashScreen);
 }
 
-void DynamicSpotApp::initSettings()
+void DynamicSpotApp::initConfig()
 {
-	using DynamicSpot::settings;
-	namespace keys =  DynamicSpot::SettingsKey;
-	namespace vals = DynamicSpot::DefaultSettings;
-	auto logger = DynamicSpot::logger;
-	settings = new QSettings(
-				   "./settings.ini",
-				   QSettings::IniFormat,
-				   this
-				   );
+	using DynamicSpot::configManager;
+	using DynamicSpot::ConfigManager;
 
-	auto convertSuccess = false;
-
-	if (!settings->contains(keys::version))
-	{
-		logger->warn("Config version not specified or newly installed");
-		logger->debug("Maybe will add some action when first use");
-		settings->setValue(keys::version, DynamicSpot::VersionInfo::configVer);
-	}
-	auto fileVer = settings->value(keys::version).toInt(&convertSuccess);
-	if (!convertSuccess)
-	{
-		logger->error("Config version is NaN! Suppose using the right version.");
-	}
-	logger->info("Config version: {}", fileVer);
-
-	if (!settings->contains(keys::deadline))
-	{
-		logger->warn("Deadline not specified, using default");
-		settings->setValue(keys::deadline, vals::deadline.data());
-	}
-
-	if (!settings->contains(keys::enableSecondCountDown))
-	{
-		logger->warn("EnableSecondCountDown is not specified, using default");
-		settings->setValue(keys::enableSecondCountDown, vals::enableSecondCountDown);
-	}
+	DynamicSpot::logger->debug("Initializing config...");
+	configManager = std::make_shared<ConfigManager>();
+	DynamicSpot::logger->debug("Config initialized");
 }
 
 void DynamicSpotApp::initMainWindow()

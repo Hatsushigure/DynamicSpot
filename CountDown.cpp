@@ -1,4 +1,5 @@
 #include "CountDown.h"
+#include "ConfigManager.h"
 #include <QSettings>
 #include <format>
 #include <spdlog/logger.h>
@@ -8,15 +9,15 @@ CountDown::CountDown(QObject *parent)
 	: QObject{parent}
 {
 	auto logger = DynamicSpot::logger;
+
 	logger->debug("正在初始化倒计时窗体");
 
-	if (DynamicSpot::settings->value(DynamicSpot::SettingsKey::enableSecondCountDown).toBool())
+	if (DynamicSpot::configManager->enableSecondCountDown())
 	{
 		logger->info("检测到启用了精确到秒的倒计时");
 		m_countDownMode = CountDownMode::SecondCountDown;
 	}
-	auto deadlineString = DynamicSpot::settings->value(DynamicSpot::SettingsKey::deadline).toString();
-	m_deadline = QDateTime::fromString(deadlineString, "yyyy-MM-dd_HH-mm-ss");
+	m_deadline = DynamicSpot::configManager->deadline();
 
 	updateAllTexts();
 
