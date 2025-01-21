@@ -63,7 +63,7 @@ Rectangle {
 					Image {
 						Layout.preferredWidth: 80; Layout.preferredHeight: 80
 						Layout.rowSpan: 4
-						source: "qrc:/DynamicSpot/images/icons/avatar/avatar - 256.png"
+						source: "qrc:/DynamicSpot/images/icons/avatar/avatar@256px.png"
 						asynchronous: true
 						mipmap: true
 					}
@@ -95,15 +95,16 @@ Rectangle {
 					rowSpacing: 4; columnSpacing: 4
 					flow: GridLayout.TopToBottom
 
-					HeSvgItem {
-						aspectRatioMode: Qt.KeepAspectRatio
+					Image {
+						fillMode: Image.PreserveAspectFit
 						Layout.preferredWidth: 80; Layout.preferredHeight: 80
 						Layout.rowSpan: 5
-						source: ":/DynamicSpot/images/icons/qt-logo.svg"
+						asynchronous: true
+						source: "qrc:/DynamicSpot/images/icons/qt-logo@200px.png"
 					}
 					Item {Layout.fillWidth: true; Layout.fillHeight: true}
 					Text {text: "Qt"; font.pointSize: 12}
-					Text {text: "6.5.1"; color: "gray"}
+					Text {text: "6.8.1"; color: "gray"}
 					Text {text: "https://qt.io"; color: "gray"}
 					Item {Layout.fillWidth: true; Layout.fillHeight: true}
 				}
@@ -114,11 +115,11 @@ Rectangle {
 					rowSpacing: 4; columnSpacing: 4
 					flow: GridLayout.TopToBottom
 
-					HeSvgItem {
-						aspectRatioMode: Qt.KeepAspectRatio
+					Image {
+						fillMode: Image.PreserveAspectFit
 						Layout.preferredWidth: 80; Layout.preferredHeight: 80
 						Layout.rowSpan: 5
-						source: ":/DynamicSpot/images/icons/icons8-logo.svg"
+						source: "qrc:/DynamicSpot/images/icons/icons8-logo@256px.png"
 					}
 					Item {Layout.fillWidth: true; Layout.fillHeight: true}
 					Text {text: "Icons8"; font.pointSize: 12}
@@ -170,7 +171,7 @@ Rectangle {
 						Layout.alignment: Qt.AlignHCenter
 						text: "联系作者"
 						radius: 4
-						onClicked: Qt.openUrlExternally("mailto:Hatsushigure_c@163.com")
+						onClicked: Qt.openUrlExternally("mailto:Hatsushigure.c@gmail.com")
 					}
 					Item {Layout.fillWidth: true; Layout.fillHeight: true; Layout.rowSpan: 2}
 					Controls.RoundButton {
@@ -189,6 +190,6 @@ Rectangle {
 			}
 		}
 		Item {Layout.fillWidth: true; Layout.fillHeight: true}
-		Text {text: "Build with Qt 6.5.1. Copyright(c) Hatsushigure, all rights reserved."; color: "gray"; Layout.alignment: Qt.AlignHCenter}
+		Text {text: "Build with Qt 6.8.1. Copyright(c) Hatsushigure 2023-2025."; color: "gray"; Layout.alignment: Qt.AlignHCenter}
 	}
 }
