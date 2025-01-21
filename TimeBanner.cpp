@@ -1,5 +1,6 @@
 #include "TimeBanner.h"
 #include "SloganProvider.h"
+#include "ConfigManager.h"
 #include <QTimer>
 #include <QRandomGenerator>
 #include "DynamicSpot.h"
@@ -76,6 +77,11 @@ void TimeBanner::updateTime()
 
 void TimeBanner::showSlogan()
 {
+	if (!DynamicSpot::configManager->enableSlogan())
+	{
+		DynamicSpot::logger->debug("Slogan is disabled, doing nothing");
+		return;
+	}
 	m_timerTimeDuration->stop();
 	auto str = m_sloganProvider->getSlogan();
 	if (str != "")

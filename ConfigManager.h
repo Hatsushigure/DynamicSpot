@@ -16,17 +16,21 @@ private:
 	int m_fileVersion {};
 	QDateTime m_deadline {};
 	bool m_enableSecondCountDown {};
+	bool m_enableSlogan {};
 public:
 	ConfigManager();
 public:
 	auto fileVersion() const {return m_fileVersion;}	// Always returns current version instead of file version :P
 	const auto& deadline() const {return m_deadline;}
 	auto enableSecondCountDown() const {return m_enableSecondCountDown;}
+	auto enableSlogan() const {return m_enableSlogan;}
 public:
 	void writeDefaultConfig();
 private:
+	void writeCurrentConfig();
 	void readConfigVersion();
 	void readConfigV0();
-	void readConfig() {readConfigV0();}
+	void readConfigV1();
+	void readConfig() {readConfigV1();}
 };
 }

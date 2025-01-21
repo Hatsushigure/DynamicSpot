@@ -26,20 +26,23 @@ constexpr auto major {0};
 constexpr auto minor {3};
 constexpr auto patch {1};
 constexpr std::string_view versionString {"v0.3.1"};
-constexpr auto configVer {0};
+constexpr auto configVer {1};
 }
 
 namespace DynamicSpot::SettingsKey
 {
 constexpr std::string_view version {"version"};
-constexpr std::string_view enableSecondCountDown {"enableSecondCountDown"};
+constexpr std::string_view enableSecondCountDownV0 {"enableSecondCountDown"};
+constexpr std::string_view enableSecondCountDown {"Function/enableSecondCountDown"};
 constexpr std::string_view deadline {"deadline"};
+constexpr std::string_view enableSlogan {"Function/enableSlogan"};
 }
 
 namespace DynamicSpot::DefaultSettings
 {
 constexpr auto enableSecondCountDown {false};
 const std::string_view deadline {"2025-06-07_09-00-00"};
+constexpr auto enableSlogan {true};
 }
 
 namespace DynamicSpot
