@@ -1,7 +1,6 @@
 <RCC>
     <qresource prefix="/DynamicSpot">
         <file>images/icons/colored/info.svg</file>
-        <file>images/icons/dynamicspot-logo.svg</file>
         <file>images/icons/dynamicspot-settings.svg</file>
         <file>images/icons/filled/settings.svg</file>
         <file>images/icons/colored/settings.svg</file>
@@ -17,5 +16,6 @@
         <file>images/icons/avatar/avatar@256px.png</file>
         <file>images/icons/qt-logo@200px.png</file>
         <file>images/icons/icons8-logo@256px.png</file>
+        <file>images/icons/dynamicspot-logo@256px.png</file>
     </qresource>
 </RCC>

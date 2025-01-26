@@ -34,11 +34,12 @@ Rectangle {
 					rowSpacing: 4; columnSpacing: 4
 					flow: GridLayout.TopToBottom
 
-					HeSvgItem {
-						aspectRatioMode: Qt.KeepAspectRatio
+					Image {
+						fillMode: Image.PreserveAspectFit
 						Layout.preferredWidth: 80; Layout.preferredHeight: 80
 						Layout.rowSpan: 6
-						source: ":/DynamicSpot/images/icons/dynamicspot-logo.svg"
+						asynchronous: true
+						source: "qrc:/DynamicSpot/images/icons/dynamicspot-logo@256px.png"
 					}
 					Item {Layout.fillWidth: true; Layout.fillHeight: true}
 					Text {text: "DynamicSpot"; font.pointSize: 16}
@@ -65,7 +66,6 @@ Rectangle {
 						Layout.rowSpan: 4
 						source: "qrc:/DynamicSpot/images/icons/avatar/avatar@256px.png"
 						asynchronous: true
-						mipmap: true
 					}
 					Item {Layout.fillWidth: true; Layout.fillHeight: true}
 					Text {text: "初時雨"; font.pointSize: 12}
@@ -190,6 +190,6 @@ Rectangle {
 			}
 		}
 		Item {Layout.fillWidth: true; Layout.fillHeight: true}
-		Text {text: "Build with Qt 6.8.1. Copyright(c) Hatsushigure 2023-2025."; color: "gray"; Layout.alignment: Qt.AlignHCenter}
+		Text {text: "Build with Qt 6.8.1. Copyright(c) 2023-2025 Hatsushigure."; color: "gray"; Layout.alignment: Qt.AlignHCenter}
 	}
 }
