@@ -25,7 +25,6 @@ qt_add_executable(DynamicSpot
     SloganProvider.h	    SloganProvider.cpp
     TimeBanner.h	    TimeBanner.cpp
     CountDown.h		    CountDown.cpp
-    HeSvgItem.h		    HeSvgItem.cpp
     ConfigManager.h	    ConfigManager.cpp
     res.qrc
 )
@@ -45,7 +44,6 @@ qt_add_qml_module(DynamicSpot
 	TimeBanner.h	    TimeBanner.cpp
 	CountDown.h	    CountDown.cpp
 	SettingsWindow.h    SettingsWindow.cpp
-	HeSvgItem.h	    HeSvgItem.cpp
 )
 
 set_target_properties(DynamicSpot PROPERTIES
