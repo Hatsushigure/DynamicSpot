@@ -13,9 +13,13 @@
         <file>images/icons/colored/sleep.svg</file>
         <file>images/icons/colored/teacher.svg</file>
         <file>images/icons/colored/write.svg</file>
-        <file>images/icons/avatar/avatar@256px.png</file>
         <file>images/icons/qt-logo@200px.png</file>
         <file>images/icons/icons8-logo@256px.png</file>
         <file>images/icons/dynamicspot-logo@256px.png</file>
+        <file>images/icons/dynamicspot-logo@16px.png</file>
+        <file>images/icons/dynamicspot-logo@32px.png</file>
+        <file>images/icons/dynamicspot-logo@128px.png</file>
+        <file>images/avatar@256px.png</file>
+        <file>images/narutomaki@256px.png</file>
     </qresource>
 </RCC>
