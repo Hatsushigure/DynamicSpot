@@ -35,13 +35,37 @@ Rectangle {
 					flow: GridLayout.TopToBottom
 
 					Image {
+						property int iconIndex: 0
+						property double rotationSpeed: 0
+						property list<string> iconList: [
+							"qrc:/DynamicSpot/images/icons/dynamicspot-logo@256px.png",
+							"qrc:/DynamicSpot/images/icons/dynamicspot-logo@128px.png",
+							"qrc:/DynamicSpot/images/icons/dynamicspot-logo@32px.png",
+							"qrc:/DynamicSpot/images/icons/dynamicspot-logo@16px.png",
+							"qrc:/DynamicSpot/images/narutomaki@256px.png"
+						]
 						fillMode: Image.PreserveAspectFit
 						Layout.preferredWidth: 80; Layout.preferredHeight: 80
 						Layout.rowSpan: 6
 						asynchronous: true
-						source: "qrc:/DynamicSpot/images/icons/dynamicspot-logo@256px.png"
+						source: iconList[iconIndex]
 						EasterEggMouseArea {
 							anchors.fill: parent;
+							onClicked: {
+								if (parent.iconIndex < 4)
+									parent.iconIndex++;
+								else
+									if (!rotationTimer.running)
+										rotationTimer.start();
+									parent.rotationSpeed += 1;
+							}
+						}
+						Timer {
+							id: rotationTimer
+
+							interval: 1000 / 60
+							repeat: true
+							onTriggered: parent.rotation += parent.rotationSpeed
 						}
 					}
 					Item {Layout.fillWidth: true; Layout.fillHeight: true}
@@ -67,7 +91,7 @@ Rectangle {
 					Image {
 						Layout.preferredWidth: 80; Layout.preferredHeight: 80
 						Layout.rowSpan: 4
-						source: "qrc:/DynamicSpot/images/icons/avatar/avatar@256px.png"
+						source: "qrc:/DynamicSpot/images/avatar@256px.png"
 						asynchronous: true
 					}
 					Item {Layout.fillWidth: true; Layout.fillHeight: true}
