@@ -1,7 +1,7 @@
 import QtQuick
 import QtQuick.Controls.Material as Controls
 import QtQuick.Layouts
-import DynamicSpot
+import DynamicSpot as App
 
 Rectangle {
 	color: "lightgray"
@@ -40,6 +40,9 @@ Rectangle {
 						Layout.rowSpan: 6
 						asynchronous: true
 						source: "qrc:/DynamicSpot/images/icons/dynamicspot-logo@256px.png"
+						EasterEggMouseArea {
+							anchors.fill: parent;
+						}
 					}
 					Item {Layout.fillWidth: true; Layout.fillHeight: true}
 					Text {text: "DynamicSpot"; font.pointSize: 16}
