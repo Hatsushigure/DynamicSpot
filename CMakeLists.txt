@@ -34,18 +34,18 @@ qt_add_qml_module(DynamicSpot
     VERSION 0.2
     RESOURCES
     QML_FILES
-	qml/MyMainWindow.qml
-	qml/TimeBanner.qml
-	qml/CountDown.qml
-	qml/ScheduleViewer.qml
-	qml/AboutPage.qml
-	qml/SettingsWindow.qml
-	qml/EasterEggMouseArea.qml
+        qml/MyMainWindow.qml
+        qml/TimeBanner.qml
+        qml/CountDown.qml
+        qml/ScheduleViewer.qml
+        qml/AboutPage.qml
+        qml/SettingsWindow.qml
+        qml/EasterEggMouseArea.qml
     SOURCES
-        TimeBanner.h		TimeBanner.cpp
-	CountDown.h		CountDown.cpp
-	SettingsWindow.h	SettingsWindow.cpp
-	EasterEggMouseArea.h	EasterEggMouseArea.cpp
+        TimeBanner.h            TimeBanner.cpp
+        CountDown.h             CountDown.cpp
+        SettingsWindow.h        SettingsWindow.cpp
+        EasterEggMouseArea.h    EasterEggMouseArea.cpp
 )
 
 set_target_properties(DynamicSpot PROPERTIES
