@@ -9,7 +9,7 @@ class SettingsWindow : public QObject
 {
 	Q_OBJECT
 private:
-	const std::string_view uiSource {"qrc:///DynamicSpot/qml/SettingsWindow.qml"};
+    const std::string_view uiSource {"qrc:/DynamicSpot/qml/SettingsWindow.qml"};
 private:
 	QQuickWindow* m_settingsWindow {nullptr};
 	QQmlEngine* m_engine {nullptr};

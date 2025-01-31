@@ -10,7 +10,7 @@ class MainWindowManager : public QObject
 {
 	Q_OBJECT
 private:
-	const std::string_view uiSource = "qrc:/DynamicSpot/qml/MyMainWindow.qml";
+    const std::string_view uiSource = "qrc:/DynamicSpot/qml/MyMainWindow.qml";
 private:
 	QQuickItem* m_rootItem;
 	QQuickItem* m_container;

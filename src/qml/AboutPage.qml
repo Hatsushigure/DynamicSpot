@@ -38,11 +38,11 @@ Rectangle {
 						property int iconIndex: 0
 						property double rotationSpeed: 0
 						property list<string> iconList: [
-							"qrc:/DynamicSpot/images/icons/dynamicspot-logo@256px.png",
-							"qrc:/DynamicSpot/images/icons/dynamicspot-logo@128px.png",
-							"qrc:/DynamicSpot/images/icons/dynamicspot-logo@32px.png",
-							"qrc:/DynamicSpot/images/icons/dynamicspot-logo@16px.png",
-							"qrc:/DynamicSpot/images/narutomaki@256px.png"
+							"qrc:/images/icons/dynamicspot-logo@256px.png",
+							"qrc:/images/icons/dynamicspot-logo@128px.png",
+							"qrc:/images/icons/dynamicspot-logo@32px.png",
+							"qrc:/images/icons/dynamicspot-logo@16px.png",
+							"qrc:/images/narutomaki@256px.png"
 						]
 						fillMode: Image.PreserveAspectFit
 						Layout.preferredWidth: 80; Layout.preferredHeight: 80
@@ -91,7 +91,7 @@ Rectangle {
 					Image {
 						Layout.preferredWidth: 80; Layout.preferredHeight: 80
 						Layout.rowSpan: 4
-						source: "qrc:/DynamicSpot/images/avatar@256px.png"
+						source: "qrc:/images/avatar@256px.png"
 						asynchronous: true
 					}
 					Item {Layout.fillWidth: true; Layout.fillHeight: true}
@@ -127,7 +127,7 @@ Rectangle {
 						Layout.preferredWidth: 80; Layout.preferredHeight: 80
 						Layout.rowSpan: 5
 						asynchronous: true
-						source: "qrc:/DynamicSpot/images/icons/qt-logo@200px.png"
+						source: "qrc:/images/icons/qt-logo@200px.png"
 					}
 					Item {Layout.fillWidth: true; Layout.fillHeight: true}
 					Text {text: "Qt"; font.pointSize: 12}
@@ -146,7 +146,7 @@ Rectangle {
 						fillMode: Image.PreserveAspectFit
 						Layout.preferredWidth: 80; Layout.preferredHeight: 80
 						Layout.rowSpan: 5
-						source: "qrc:/DynamicSpot/images/icons/icons8-logo@256px.png"
+						source: "qrc:/images/icons/icons8-logo@256px.png"
 					}
 					Item {Layout.fillWidth: true; Layout.fillHeight: true}
 					Text {text: "Icons8"; font.pointSize: 12}
