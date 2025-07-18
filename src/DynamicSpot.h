@@ -23,9 +23,9 @@ class logger;
 namespace DynamicSpot::VersionInfo
 {
 constexpr auto major {0};
-constexpr auto minor {3};
-constexpr auto patch {1};
-constexpr std::string_view versionString {"v0.3.1"};
+constexpr auto minor {4};
+constexpr auto patch {0};
+constexpr std::string_view versionString {"dev-v0.4.0"};
 constexpr auto configVer {1};
 }
 

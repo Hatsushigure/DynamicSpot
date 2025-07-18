@@ -70,7 +70,7 @@ Rectangle {
 					}
 					Item {Layout.fillWidth: true; Layout.fillHeight: true}
 					Text {text: "DynamicSpot"; font.pointSize: 16}
-					Text {text: "v0.3.1"}
+                    Text {text: "dev-v0.4.0"}
 					Text {text: "MIT Licence"; color: "gray"}
 					Text {text: "https://github.com/Hatsushigure/DynamicSpot"; color: "gray"}
 					Item {Layout.fillWidth: true; Layout.fillHeight: true}
